@@ -11,6 +11,8 @@
  * @package    Seo_Central_Wordpress
  * @subpackage Seo_Central_Wordpress/admin/partials
  */
+
+// <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 ?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+Content goes here for some page
