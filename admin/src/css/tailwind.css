@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    box-sizing: initial;
+  }
+
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
+    display: inline-block;
+  }
+  
+  img,
+  video {
+    max-width: auto;
+  }
+
+  #seo-central, .seo-central-admin-wrapper {
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+    }
+  }
+}

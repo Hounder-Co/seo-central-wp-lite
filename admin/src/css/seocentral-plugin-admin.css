@@ -1,0 +1,318 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+ /* ------------------
+ * CORE
+ * ------------------ */
+ /* ./src/css/PROJECT_NAME.css */
+ @import 'tailwind.css';
+
+ /* IBM Plex Sans */
+ @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+ /* ------------------
+ * Elements
+ * ------------------ */
+/* @import "./1.elements/_____.css"; */
+@import './1.elements/text.css';
+@import './1.elements/seocentral-fields.css';
+@import "./1.elements/seocentral-buttons.css";
+@import "./1.elements/termina-font.css";
+
+/* ------------------
+ * Components
+ * ------------------ */
+/* @import "./2.components/_____.css"; */
+@import "./2.components/seocentral-driver-tips.css";
+
+/* ------------------
+ * Patterns
+ * ------------------ */
+/* @import "./3.patterns/_____.css"; */
+
+/* ------------------
+ * Regions
+ * ------------------ */
+/* @import "./4.regions/_____.css"; */
+@import "./4.regions/seocentral-metabox.css";
+@import './4.regions/seocentral-partials-nav.css'; 
+@import './4.regions/seocentral-settings.css';
+@import './4.regions/seocentral-file-editor.css';
+@import './4.regions/seocentral-redirects.css';
+
+ /* Set up the colors for seo central */
+ :root {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --black: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+
+  /* Solid Colors */
+
+  --central-green-1: #F4FCF4;
+  --central-green-2: #D7F2E8;
+  --central-green-3: #23AF7C;
+  --central-green-4: #28604C;
+  --central-green-5: #1C3129;
+  --central-green-6: #11211B;
+  --central-ui-red: #D5423C;
+  --central-ui-blue: #236CAF;
+  --central-ui-gold: #DFB314;
+
+
+  /* Grayscale */
+  --gray-1: #F3F5F2;
+  --gray-2: #EDEFEC;
+  --gray-3: #DAE0DC;
+  --gray-4: #C4CEC8;
+  --gray-5: #B1BCB5;
+  --gray-6: #88918C;
+  --gray-7: #6C7570;
+  --gray-8: #4C514E;
+  --gray-9: #3A3F3C;
+  --gray-10: #262C29;
+ }
+
+
+a {
+  color: #2271b1;
+}
+
+.seo-central {
+
+  &-admin-wrapper {
+    @apply pt-48px max-w-[960px];
+
+    h1 {
+      @apply text-[2.5rem] font-normal ml-0 mr-0 mt-0 mb-[2rem];
+    }
+  }
+
+  &-column-wrapper {
+    @apply flex;
+
+    .panel-column {
+      @apply w-1/2;
+    }
+  }
+
+  &-dashboard {
+    @apply w-full h-auto;
+  }
+
+  &-metabox-media-triggers {
+    @apply flex flex-col gap-y-12px;
+  }
+
+  &-social-image-input {
+    @apply hidden;
+  }
+
+  &-social-image-instruction {
+    @apply text-gray-7 font-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px; 
+  }
+
+  &-upload-image {
+    @apply inline-block w-fit h-auto py-8px px-20px cursor-pointer bg-[#23AF7C] rounded-[4px] border-none !text-[#fff] font-bold;
+  }
+
+  &-remove-image {
+    @apply w-fit h-auto flex flex-row justify-start items-center bg-[#fff] border-none no-underline text-gray-8 font-serif;
+    font-size: 12px !important;
+    line-height: 18px !important; 
+
+    &.disabled {
+      @apply hidden;
+    }
+
+    &-close {
+      @apply w-[12px] h-[12px] mr-[6px] cursor-pointer relative top-[1px];
+      background-image: url('../../icons/seo-central-media-close.svg');
+      background-size: cover;
+      background-position: center;
+
+      &:after {
+        content: '';
+        display: block;
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        background-color: transparent;
+        border: 2px solid var(--green-3, #23AF7C);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: 100ms ease all;
+      }
+
+      &:hover, &:focus {
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-file {
+      @apply !cursor-auto;
+    }
+  }
+}
+
+/* Additional Columns within page listing */
+
+.column-seo-score {
+  @apply !text-center relative w-[10%];
+
+  .seo-central-page-score.svg-wrapper {
+    @apply block relative w-fit h-auto mx-auto relative z-10 cursor-pointer;
+
+    .seo-central-page-score-image {
+      @apply w-[50px] h-[44px] object-cover mx-auto;
+    }
+
+    .percentage {
+      @apply font-sans font-bold text-center text-green-5 absolute top-[50%] left-[50%];
+      fill: var(--green-5);
+      font-size: 14px;
+      line-height: 20px;
+      /* font-size: 0.5em; */
+      text-anchor: middle;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.column-outgoing-internal-links {
+  @apply w-[5%] !text-center;
+
+  a {
+    @apply !flex items-center justify-center relative;
+
+    .sorting-indicators {
+      @apply !ml-[40px] mb-[2px];
+
+    }
+  }
+}
+
+th.column-outgoing-internal-links {
+  font-size: 0px;
+
+  a {
+    @apply !overflow-visible;
+    background-image: url('../../icons/seo-central-outgoing-icon.svg');
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+
+
+    .seo-central-tooltip-text {
+      @apply absolute top-[50%] right-[60px] w-fit h-auto text-green-2 bg-green-5 min-w-[150px] rounded-[12px] z-20 opacity-0 pointer-events-none;
+      transform: translateY(-50%);
+      transition: opacity 250ms ease;
+
+      &:before {
+        content: '';
+        width: 16px;
+        height: 8px;
+        position: absolute;
+        right: -12px; 
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        mask-image: url('../../icons/seo-central-tooltip-caret.svg');
+        mask-size: cover;
+        mask-position: center;
+        background-color: var(--central-green-5);
+      }
+
+      p {
+        @apply text-green-2 font-medium z-30 p-12px;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: IBM Plex Sans;
+      }
+    }
+
+    &:hover, &:focus {
+      .seo-central-tooltip-text {
+        @apply opacity-100 pointer-events-auto;
+      }
+    }
+  }
+}
+
+.column-incoming-internal-links {
+  @apply w-[5%] !text-center;
+
+  a {
+    @apply !flex items-center justify-center relative;
+
+    .sorting-indicators {
+      @apply !ml-[40px] mb-[2px];
+
+    }
+  }
+}
+
+th.column-incoming-internal-links {
+  font-size: 0px;
+
+  a {
+    @apply !overflow-visible;
+    background-image: url('../../icons/seo-central-incoming-icon.svg');
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+
+    .seo-central-tooltip-text {
+      @apply absolute top-[50%] right-[60px] w-fit h-auto text-green-2 bg-green-5 min-w-[150px] rounded-[12px] z-20 opacity-0 pointer-events-none;
+      transform: translateY(-50%);
+      transition: opacity 250ms ease;
+
+      &:before {
+        content: '';
+        width: 16px;
+        height: 8px;
+        position: absolute;
+        right: -12px; 
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        mask-image: url('../../icons/seo-central-tooltip-caret.svg');
+        mask-size: cover;
+        mask-position: center;
+        background-color: var(--central-green-5);
+      }
+
+      p {
+        @apply text-green-2 font-medium z-30 p-12px;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: IBM Plex Sans;
+      }
+    }
+
+    &:hover, &:focus {
+      .seo-central-tooltip-text {
+        @apply opacity-100 pointer-events-auto;
+      }
+    }
+  }
+}
+
+/* Keyframes utilized in the scoring svg */
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 525;
+  }
+}

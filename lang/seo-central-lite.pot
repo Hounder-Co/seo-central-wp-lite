@@ -1,0 +1,744 @@
+# Copyright (C) 2023 Hounder
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: SEO Central 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/seo-central\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-08-22T23:04:04+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: seo-central-lite\n"
+
+#. Plugin Name of the plugin
+#: admin/class-seo-central-admin.php:155
+msgid "SEO Central"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://seocentral.ai"
+msgstr ""
+
+#. Description of the plugin
+msgid "Your AI-Powered SEO Expert. Harness the power of AI and outrank your competitors. You write it, we make it rank. SEO Central is your new in-house AI SEO expert, equipped with the power to take on the brunt of all those SEO-related tasks you hate. Spend more time focusing on writing content and run your site with fully automated page optimization."
+msgstr ""
+
+#. Author of the plugin
+msgid "Hounder"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://hounder.co"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:155
+msgid "SEO Central Dashboard"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:160
+#: admin/partials/seo-central-partial-nav.php:23
+#: admin/partials/seo-central-settings.php:153
+msgid "Dashboard"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:162
+#: admin/partials/seo-central-file-editor.php:86
+#: admin/partials/seo-central-partial-nav.php:24
+msgid "File Editor"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:164
+#: admin/partials/seo-central-partial-nav.php:25
+#: admin/partials/seo-central-redirects.php:213
+msgid "Redirects"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:266
+msgid "Seo Central Api Key"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:270
+msgid "VERY IMPORTANT: The that allows you access to the meta-data generation tool."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:276
+msgid "Google Verification"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:280
+msgid "Used for Google Search Console verification, follow the official steps here."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:286
+msgid "Bing Verification"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:290
+msgid "Used for Bing Webmaster Tools verification, sign up for an account here."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:296
+msgid "Site Image"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:300
+msgid "A default image used for all pages on your site that don't have one set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:306
+msgid "Site Breadcrumbs"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:310
+msgid "Navigation aids showing users their path from the home page."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:316
+msgid "Title Separator"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:320
+msgid "Symbol used to divide levels in breadcrumb navigation."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:326
+msgid "Site Username"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:330
+msgid "The username for your account login."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:336
+msgid "Site Password"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:340
+msgid "The password for your account login."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:447
+#: admin/class-seo-central-admin.php:833
+#: includes/class-seo-central-metabox.php:356
+msgid "Choose File"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:447
+#: admin/class-seo-central-admin.php:833
+#: includes/class-seo-central-metabox.php:360
+#: includes/class-seo-central-metabox.php:363
+msgid "5 MB limit. Allowed types: jpg, jpeg, png"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:516
+msgid "(unity of measure)"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:531
+msgid "True"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:536
+msgid "False"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:651
+msgid "The default title tag for [posts] that don't have one set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:664
+msgid "The default meta description for [posts] that don't have one set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:677
+msgid "The default title shown for all [posts], when shared on social, in case one isn't set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:690
+msgid "The default description shown for all [posts], when shared on social, in case one isn't set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:703
+msgid "The default image shown for all [posts], when shared on social, in case one isn't set."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:716
+msgid "Default structured data to aid search engines in understanding content within Pages."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:729
+msgid "Default structured data to aid search engines in understanding content within Posts."
+msgstr ""
+
+#: admin/class-seo-central-admin.php:781
+msgid "Site Title"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:782
+msgid "Page Title"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:783
+msgid "Separator"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:784
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:653
+#: admin/src/js/seocentral-page-analysis.js:724
+msgid "Primary Keyword"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:791
+msgid "Variable"
+msgstr ""
+
+#: admin/class-seo-central-admin.php:792
+msgid "Emoji"
+msgstr ""
+
+#: admin/partials/seo-central-file-editor.php:97
+msgid "Robots.txt"
+msgstr ""
+
+#: admin/partials/seo-central-file-editor.php:103
+msgid "Humans.txt"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:171
+msgid "Redirect Type:"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:175
+#: admin/partials/seo-central-redirects.php:238
+msgid "Old URL:"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:179
+#: admin/partials/seo-central-redirects.php:243
+msgid "New URL:"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:196
+msgid "All Redirects"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:227
+msgid "Choose Redirect Type:"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:229
+msgid "301 moved permanently"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:230
+msgid "302 Found"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:231
+msgid "307 Temporary Redirect"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:232
+msgid "410 Content Deleted"
+msgstr ""
+
+#: admin/partials/seo-central-redirects.php:233
+msgid "451 Unavailable for legal reasons"
+msgstr ""
+
+#: admin/partials/seo-central-settings.php:155
+#: admin/partials/seo-central-settings.php:174
+msgid "You have unsaved changes"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:251
+msgid "Generate Meta"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:257
+msgid "Generate Again"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:263
+msgid "Generate expert meta data with a single click"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:266
+msgid "Apply All"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:280
+msgid "Generated Meta Title"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:288
+msgid "Generated Meta Description"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:296
+msgid "Generated Primary Keyword"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:304
+msgid "Generated Secondary Keywords"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:315
+msgid "Apply"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:333
+msgid "Page Details"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:392
+msgid "Social & Search Preview"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:400
+msgid "Social Card"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:405
+msgid "Desktop"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:410
+msgid "Mobile"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:482
+msgid "Internal Linking Suggestions"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:485
+msgid "You need to do this because lorem ipusm and dolor geographica ignis orbis alum."
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:487
+#: includes/class-seo-central-metabox.php:489
+msgid "Home"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:491
+#: includes/class-seo-central-metabox.php:493
+msgid "Some Page"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:500
+msgid "Page Analysis"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:516
+msgid "Central Score"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:518
+msgid "Excellent!"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:539
+msgid "Show good results"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:569
+msgid "The Boring Stuff"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:570
+msgid "Page Hierarchy, Robots, Schema"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:580
+msgid "Page Hierarchy"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:593
+msgid "Robots"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:616
+msgid "Schema"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:800
+msgid "Yes"
+msgstr ""
+
+#: includes/class-seo-central-metabox.php:801
+msgid "No"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:645
+#: admin/src/js/seocentral-page-analysis.js:647
+msgid "Keep your meta title under 60-65 characters (it'll get cut off) and remember to use your primary keyword."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:645
+#: admin/src/js/seocentral-page-analysis.js:647
+msgid "Your page is missing its meta title. Click Generate Meta and we'll generate one for you."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:645
+#: admin/src/js/seocentral-page-analysis.js:647
+#: admin/src/js/seocentral-page-analysis.js:716
+#: admin/src/js/seocentral-page-analysis.js:718
+msgid "Meta Title"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:646
+msgid "Your meta description is too long, and it might get cut off when displayed. Be more concise!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:646
+msgid "Meta descriptions help give your page context. Click Generate Meta and we'll generate one for you."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:646
+#: admin/src/js/seocentral-page-analysis.js:717
+msgid "Meta Description"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:648
+#: admin/src/js/seocentral-page-analysis.js:650
+#: admin/src/js/seocentral-page-analysis.js:651
+#: admin/src/js/seocentral-page-analysis.js:652
+#: admin/src/js/seocentral-page-analysis.js:654
+#: admin/src/js/seocentral-page-analysis.js:655
+#: admin/src/js/seocentral-page-analysis.js:657
+#: admin/src/js/seocentral-page-analysis.js:660
+#: admin/src/js/seocentral-page-analysis.js:662
+msgid "None"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:648
+msgid "Your page is giving errors to users accessing it. Check with your team to address this ASAP!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:648
+#: admin/src/js/seocentral-page-analysis.js:719
+msgid "HTTP Status"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:649
+msgid "Not all of your images have alt text - not only is your user accessibility low, but don't you're missing out on a keyword opportunity!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:649
+msgid "None of the images on this page has alt text. Please fill for accessibility and SEO."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:649
+#: admin/src/js/seocentral-page-analysis.js:720
+msgid "Image Alts"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:650
+msgid "Having the correct URL for rel=canonical helps ensure the correct pages are ranked. Check if yours is filled!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:650
+#: admin/src/js/seocentral-page-analysis.js:721
+msgid "Meta Canonical Link"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:651
+msgid "Making your content easy to read is key for user experience. Check text sizes and adjust!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:651
+#: admin/src/js/seocentral-page-analysis.js:722
+msgid "Legible Fonts"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:652
+msgid "Appropriate tap target sizing helps users engaging with the right content. Edit yours to avoid a bad user experience."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:652
+#: admin/src/js/seocentral-page-analysis.js:723
+msgid "Tap Targets"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:653
+msgid "There's still some room to optimize your primary keyword placement: H1/title, meta description, headings, and first 300 characters."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:653
+msgid "Primary keywords should be added to your H1/title, meta description, headings, and first 300 characters."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:654
+msgid "Are you sure you're writing enough as an authority on the topic? Expand on your content a bit more."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:654
+#: admin/src/js/seocentral-page-analysis.js:725
+msgid "Word Count"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:655
+msgid "Using your primary keyword in the URL slug is important for ranking. Edit yours a bit to really make it count!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:655
+#: admin/src/js/seocentral-page-analysis.js:726
+msgid "Slug Keyword"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:656
+msgid "Make sure to write content around your secondary keywords - use them in your headings and body copy."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:656
+msgid "No secondary keywords are being used on this page. Check again?"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:656
+#: admin/src/js/seocentral-page-analysis.js:727
+msgid "Secondary Keywords"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:657
+msgid "Without setting a <meta name='viewport'> tag, your content won't be shown properly."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:657
+#: admin/src/js/seocentral-page-analysis.js:728
+msgid "Meta Viewport"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:658
+msgid "Avoid choosing dull text links. Check your content again for any!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:658
+msgid "Links without descriptive text are boring and not SEO-friendly. Make them descriptive!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:658
+#: admin/src/js/seocentral-page-analysis.js:729
+msgid "Descriptive Links"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:659
+msgid "Setting links to 'nofollow' blocks crawlers from finding pages. Remember to use them strategically! "
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:659
+msgid "All of your links are set as 'nofollow.' Was this on purpose? Check and make sure."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:659
+#: admin/src/js/seocentral-page-analysis.js:730
+msgid "Crawlable Links"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:660
+msgid "This page is currently blocked from being indexed - is this correct?"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:660
+#: admin/src/js/seocentral-page-analysis.js:731
+msgid "Robot Index"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:661
+msgid "Having a few more links would help. Any other references you can add?"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:661
+msgid "No internal/external links at all? Are you sure?"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:661
+#: admin/src/js/seocentral-page-analysis.js:732
+msgid "Internal & External Links"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:662
+msgid "Letting crawlers follow all links on a page is an SEO best practice. You sure you want keep this disabled?"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:662
+#: admin/src/js/seocentral-page-analysis.js:733
+msgid "Robots Enabled"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:716
+#: admin/src/js/seocentral-page-analysis.js:718
+msgid "Having a meta title is essential to ranking. Glad to see yours is set!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:717
+msgid "Well done! Setting a meta description helps search engines provide a preview of your page."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:719
+msgid "A 200 HTTP status code means your page is accessible. This is ideal - keep it up!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:720
+msgid "Thank you for helping user accessibility by writing alt text for every image on this page!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:721
+msgid "Good work! Having the right URL for rel=canonical helps search engines rank the correct page."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:722
+msgid "Legibility is important, and we're happy you see it this way too. Nice work!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:723
+msgid "Tap target are all sized appropriate - Good work!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:724
+msgid "This is what we like to see! Good job maximizing placement for your primary keywords."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:725
+msgid "You're an expert! Always try to cover your primary keyword/topic better than your next competitor."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:726
+msgid "URL slugs are prime SEO real estate. Glad to see you take advantage of yours!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:727
+msgid "Your secondary keywords look great - we see them in your headings and main content. "
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:728
+msgid "<meta name='viewport'> is set! Your content will be visible within the settings you placed."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:729
+msgid "Great job! Descriptive link text gives users + search engines context to the linked page."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:730
+msgid "Nice work! Creating crawlable links help search engines find new content on your site."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:731
+msgid "This is great! Crawlers will be able to crawl your page, and people can peep it through search."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:732
+msgid "Links help build relationships between content, and you're making them count!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:64
+#: admin/src/js/seocentral-page-analysis.js:733
+msgid "Well done! Enabling 'follow' lets crawlers know they should follow all the links on the page. You're following a best practice!"
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:180
+msgid "This is where the magic happens. Start here by generating meta with 1 click."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:181
+msgid "A preview of the generated meta will appear on the left."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:182
+msgid "Apply All of the generated meta, or apply individually by using the middle lane."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:183
+msgid "This is your page meta. You can manually edit or generate anytime."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:184
+msgid "Customize your page details to further boost your ranking."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:185
+msgid "Preview how your page shows up in search engines on social sites, desktop screens, and mobile devices."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:186
+msgid "Central Score is the thermometer for your page SEO health."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:187
+msgid "Prescriptions to fix or improve your page SEO appear here."
+msgstr ""
+
+#: admin/dist/dist.seocentral-plugin-admin.js:108
+#: admin/src/js/seocentral-tips.js:188
+msgid "Advanced settings and details can be found under The Boring Stuff."
+msgstr ""

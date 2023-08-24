@@ -1,1 +1,1 @@
-# seo-central-wordpress
+SEO Central Pro Plugin

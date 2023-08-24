@@ -1,0 +1,43 @@
+/* Font Sizing - Custom Classes */
+.fs--2 {
+  @apply -text-3 md:-text-2;
+}
+.fs--1 {
+  @apply -text-2 md:-text-1;
+}
+.fs-0 {
+  @apply -text-1 md:text-0;
+}
+.fs-1 {
+  @apply text-0 md:text-1;
+}
+.fs-2 {
+  @apply text-1 md:text-2;
+}
+.fs-3 {
+  @apply text-2 md:text-4;
+}
+.fs-4 {
+  @apply text-3 sm:text-4 md:text-6;
+}
+.fs-5 {
+  @apply text-4 sm:text-5 md:text-8;
+}
+.fs-6 {
+  @apply text-5 sm:text-7 md:text-11;
+}
+.fs-7 {
+  @apply text-6 sm:text-9 md:text-13;
+}
+.fs-8 {
+  @apply text-8 sm:text-11 md:text-14;
+}
+.fs-9 {
+  @apply text-10 sm:text-13 md:text-15;
+}
+.fs-10 {
+  @apply text-11 sm:text-14 md:text-16;
+}
+.fs-11 {
+  @apply text-12 sm:text-15 md:text-17;
+}
