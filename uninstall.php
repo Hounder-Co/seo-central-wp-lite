@@ -22,7 +22,7 @@
  * @link       https://hounder.co
  * @since      1.0.0
  *
- * @package    Seo_Central_Wordpress
+ * @package    Seo_Central
  */
 
 // If uninstall not called from WordPress, then exit.

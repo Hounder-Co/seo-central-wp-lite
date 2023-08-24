@@ -2,40 +2,22 @@
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://hounder.co
 Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Requires at least: 1.0.1
+Tested up to: 1.0.1
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+SEO Central plugin used is for page optimiziation. Utilizing the content of a page SEO Central plugin can 
+automatically generate optimized meta titles, meta descriptions, and multiple keywords that rank based on 
+your content. Features include scoring and analysis of your seo with directions for improvement. 
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Best practices with the SEO Central plugin:
 
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+    * Upgrade files and api key must be applied to the plugin for full use of generating SEO.  
+    * Ensure page content has been saved prior to generating content. This will allow for all content on the page to be properly analyzed. 
 
 == Installation ==
 
@@ -43,19 +25,23 @@ This section describes how to install the plugin and get it working.
 
 e.g.
 
-1. Upload `seo-central-wordpress.php` to the `/wp-content/plugins/` directory
+1. Upload `seo-central.php` to the `/wp-content/plugins/` directory
+
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+2. Download pro version at https://app.seocentral.ai/
+3. Upload the pro files to the plugin folder `/wp-content/plugins/seo-central`
+4. On the SEO Central Dashboard enter your API Key for access to optimized SEO generation. 
+5. Place `<?php do_shortcode('seo_central_breadcrumbs'); ?>` or alternatively `{{ function('do_shortcode', '[seo_central_breadcrumbs]') }}` in your templates for Breadrumbs.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Do I need to install the pro version to automatically generate optimized SEO? =
 
-An answer to that question.
+Yes. In order to have full access to the plugin then the pro version must be purchased and installed with the API key setup on Dashboard. 
 
-= What about foo bar? =
+= How do I get breadcrumbs to work? =
 
-Answer to foo bar dilemma.
+Within installation instructions the shortcode for shortcodes needs to be provided to your theme template files. 
 
 == Screenshots ==
 
@@ -63,13 +49,16 @@ Answer to foo bar dilemma.
 the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
 directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
 (or jpg, jpeg, gif).
-2. This is the second screen shot
+
+1.  [http://example.com/images/screenshot.png  Plugin installation]
+2.  [http://example.com/images/screenshot.png  Pro version installation]
+3.  [http://example.com/images/screenshot.png  API key setup]
 
 == Changelog ==
 
 = 1.0 =
-* A change since the previous version.
-* Another change.
+* Original Version 1.0.
+* Starting version of SEO Central Plugin.
 
 = 0.5 =
 * List versions from most recent at top to oldest at bottom.
@@ -92,15 +81,10 @@ plugins where more information needs to be conveyed that doesn't fit into the ca
 
 Ordered list:
 
-1. Some feature
-1. Another feature
-1. Something else about the plugin
+1. Generate optimized SEO 
+2. Live SEO scoring
+3. Page analysis and suggestions to improve page SEO.
 
-Unordered list:
-
-* something
-* something else
-* third thing
 
 Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
 Titles are optional, naturally.

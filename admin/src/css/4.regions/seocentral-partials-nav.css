@@ -1,0 +1,80 @@
+/* All the css for the top navigation on all the partials of seocentral */
+
+.seo-central-partials-nav {
+
+  &-wrapper {
+    @apply h-auto px-[22px] flex flex-row justify-start items-center gap-x-[88px];
+    /* width: calc(100% - 44px) !important; */
+    width: 100%;
+    background-color: #28604C;
+
+    @media(max-width: 767px) {
+      @apply !hidden;
+    }
+  }
+
+  &-logo {
+    width: 200px;
+    height: 20px;
+    background-image: url('../../icons/seo-central-text-logo.svg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  &-links {
+
+    &-wrapper {
+      @apply w-fit h-auto list-none flex flex-row justify-start items-center;
+
+      .seo-central-partials-nav-link {
+        @apply block w-fit h-auto no-underline relative py-[22px] px-[22px];
+        color: #F4FCF4;
+        font-size: 14px;
+        font-family: IBM Plex Sans;
+        line-height: 20px;
+
+        &-item {
+          @apply m-0;
+        }
+
+        &:after {
+          content: "";
+          width: 0px;
+          height: 2px;
+          background-color: #F4FCF4; 
+          border-radius: 4px;
+          position: absolute;
+          bottom: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: all 250ms ease;
+        }
+      
+        &:hover {
+          &:after {
+            width: 62%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.seo-central-partials {
+
+  &-headline {
+
+    &-wrapper {
+      @apply w-full h-auto flex justify-between items-center py-16px;
+      background-color: #D7F2E8;
+    }
+
+    &-title {
+      @apply w-fit h-auto !m-0 pl-[22px];
+      font-size: 40px;
+      font-family: Termina;
+      line-height: 48px;
+      color: #28604C;
+    }
+  }
+}

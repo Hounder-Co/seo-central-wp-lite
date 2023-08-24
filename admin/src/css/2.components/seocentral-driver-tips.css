@@ -1,0 +1,165 @@
+.seocentral-js-theme {
+
+  &.driver-popover {
+    @apply !flex flex-col-reverse justify-start items-center gap-y-[10px] bg-green-5 text-white p-32px rounded-[12px];
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
+
+    .driver-popover-title {
+      
+    }
+    
+    .driver-popover-title,
+    .driver-popover-description,
+    .driver-popover-progress-text {
+      @apply text-green-2 text-center font-serif font-medium;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .driver-popover-footer {
+      @apply !flex-col gap-y-[10px] w-full h-auto !mt-0;
+    }
+
+    .driver-popover-description {
+      @apply !flex flex-col justify-start items-center gap-y-[10px];
+
+      .popover-flexed-buttons {
+        @apply flex flex-row justify-center items-center gap-x-[12px];
+
+        &-close {
+          @apply !text-green-1 w-fit h-auto max-h-[32px] py-[6px] px-[20px] text-center font-serif font-medium fs--1;
+          background-color: transparent;
+          border-top: none !important;
+          border-left: none !important;
+          border-right: none !important;
+          border-bottom: 2px solid var(--central-green-3);
+          border-radius: 0px !important;
+          transition: all 250ms ease;
+          line-height: 1;
+
+          &:hover {
+            border-color: var(--central-green-1);
+          }
+        }
+
+        &-next {
+          @apply rounded-[100px] !text-green-1 w-fit h-auto max-h-[32px] py-[6px] px-[20px] text-center font-serif font-medium fs--1;
+          background-color: transparent;
+          border: 2px solid var(--central-green-3);
+          transition: all 250ms ease;
+          line-height: 1 !important;
+      
+          &:hover {
+            border-color: var(--central-green-1);
+          }
+        }
+      }
+    }
+
+    .driver-popover-progress-text {
+      @apply !text-green-1 font-serif font-bold;
+      font-size: 16px;
+      line-height: 22px;
+
+      span {
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      &::before {
+        content: '';
+        @apply block w-[16px] h-[16px] mx-auto mb-12px;
+        background-image: url('../../icons/seo-central-tips-symbol.svg');
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    .driver-popover-navigation-btns {
+      justify-content: space-between;
+      flex-grow: 0 !important;
+      gap: 3px;
+    }
+    
+    .driver-popover-close-btn {
+      @apply !hidden;
+      color: #9b9b9b;
+
+      &:hover {
+        color: #000;
+      }
+    }
+        
+    .driver-popover-arrow-side-left.driver-popover-arrow {
+      border-left-color: var(--central-green-5);
+    }
+    
+    .driver-popover-arrow-side-right.driver-popover-arrow {
+      border-right-color: var(--central-green-5);
+    }
+    
+    .driver-popover-arrow-side-top.driver-popover-arrow {
+      border-top-color: var(--central-green-5);
+    }
+    
+    .driver-popover-arrow-side-bottom.driver-popover-arrow {
+      border-bottom-color: var(--central-green-5);
+    }
+
+    button {
+      /* flex: 1; */
+      text-align: center;
+      background-color: #000;
+      color: #ffffff;
+      border: 2px solid #000;
+      text-shadow: none;
+      font-size: 14px;
+      padding: 5px 8px;
+      border-radius: 6px;
+
+      &:hover, &:focus {
+
+      }
+    }
+  }
+}
+
+/* Disable the pointer-events: none that driver js sets up on the body */
+.driver-active .driver-overlay, .driver-active * {
+  pointer-events: auto !important;
+}
+
+.driver-overlay.driver-overlay-animated {
+  z-index: 25 !important;
+}
+
+.seo-central-custom-driver {
+  @apply !absolute hidden;
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  stroke-linejoin: round;
+  stroke-miterlimit: 2;
+  z-index: 10000;
+  /* position: fixed; */
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+
+  &.driver-overlay.active {
+    display: block !important;
+  }
+
+  path {
+    transition: all 250ms ease !important;
+  }
+}
+
+.driver-overlay {
+  display: none !important;
+}
+
+.driver-active-element {
+  @apply !pointer-events-none !cursor-default;
+}
