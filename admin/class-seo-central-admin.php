@@ -108,29 +108,59 @@ class Seo_Central_Admin {
 		 * class.
 		 */
 
-		//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
-		
-		wp_localize_script($this->plugin_name, 'my_script_vars', array(
-			'ajaxurl' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('quickedit_nonce'),
-		));
+		//Enable Pro Admin JS if flag detected
+    if (defined('SEO_CENTRAL_PRO') && constant('SEO_CENTRAL_PRO') === true) {
 
+			//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
+			
+			wp_localize_script($this->plugin_name, 'my_script_vars', array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('quickedit_nonce'),
+			));
+	
+	
+			wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
+	
+			
+			//Pass data over to Admin script files so we can properly load functions with settings 
+			$myThemeParams = array(
+				'apiKey' => get_option( 'seo_central_setting_api_key'),  //api key is crucial and must be filled 
+				'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
+				'siteUrl' => get_site_url(),														 //siteUrl used for checks
+				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
+				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
+				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST)
+			);
+	
+			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );
 
-		wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
+    }
+    else if (!defined('SEO_CENTRAL_PRO')) {
 
-		
-		//Pass data over to Admin script files so we can properly load functions with settings 
-		$myThemeParams = array(
-			'apiKey' => get_option( 'seo_central_setting_api_key'),  //api key is crucial and must be filled 
-			'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
-			'siteUrl' => get_site_url(),														 //siteUrl used for checks
-			'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
-			'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
-			'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST)
-		);
-
-		wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );	
+			//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
+			
+			wp_localize_script($this->plugin_name, 'my_script_vars', array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('quickedit_nonce'),
+			));
+	
+	
+			wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
+	
+			
+			//Pass data over to Admin script files so we can properly load functions with settings 
+			$myThemeParams = array(
+				'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
+				'siteUrl' => get_site_url(),														 //siteUrl used for checks
+				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
+				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
+				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST)
+			);
+	
+			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );	
+    }
 
 	}
 
@@ -260,15 +290,19 @@ class Seo_Central_Admin {
 			$this->plugin_name
 		);
 
-		// Add a text field for api key
-		add_settings_field(
-			$this->option_name . '_api_key',
-			__( 'Seo Central Api Key', 'seo-central-lite' ),
-			array( $this, $this->option_name . '_api_key_cb' ),
-			$this->plugin_name,
-			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_api_key', 'description' => __( 'VERY IMPORTANT: The that allows you access to the meta-data generation tool.', 'seo-central-lite' ) )
-		);
+		// Api key field is only available when the pro plugin is enabled
+		if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) {
+
+			// Add a text field for api key
+			add_settings_field(
+				$this->option_name . '_api_key',
+				__( 'Seo Central Api Key', 'seo-central-lite' ),
+				array( $this, $this->option_name . '_api_key_cb' ),
+				$this->plugin_name,
+				$this->option_name . '_general',
+				array( 'label_for' => $this->option_name . '_api_key', 'description' => __( 'VERY IMPORTANT: The that allows you access to the meta-data generation tool.', 'seo-central-lite' ) )
+			);
+		}
 
 		// Add a text field for google verification
 		add_settings_field(
@@ -340,8 +374,12 @@ class Seo_Central_Admin {
 			array( 'label_for' => $this->option_name . '_password', 'description' => __( 'The password for your account login.', 'seo-central-lite' ) )
 		);
 
-		// Register the api key field
-		register_setting( $this->plugin_name, $this->option_name . '_api_key', 'text' );
+		// Api key field is only available when the pro plugin is enabled
+		if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) { 
+			// Register the api key field
+			register_setting( $this->plugin_name, $this->option_name . '_api_key', 'text' );
+		}
+
 		// Register the google verifcation code field
 		register_setting( $this->plugin_name, $this->option_name . '_google_key', 'text' );
 		// Register the bing verifcation code field

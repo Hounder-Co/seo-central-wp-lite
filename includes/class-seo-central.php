@@ -185,10 +185,16 @@ class Seo_Central {
 		add_action('init', [$this, 'define_post_type_hooks']);
 
 		// Additional hooks that apply to all post types (These triggers should be set outside of the loop of posts)
-		add_action('init', [$this,'wp_register_cornerstone']);
-		add_action('parse_query', [$this,'wp_map_cornerstone']);
-		add_action('init', [$this,'wp_register_orphaned']);
-		add_action('parse_query', [$this,'wp_map_orphaned']);
+
+		//Cornerstone and Orphaned Content Filters are a pro features
+		if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) { 
+			add_action('init', [$this,'wp_register_cornerstone']);
+			add_action('parse_query', [$this,'wp_map_cornerstone']);
+			add_action('init', [$this,'wp_register_orphaned']);
+			add_action('parse_query', [$this,'wp_map_orphaned']);
+		}
+
+
 		add_action('save_post', [$this, 'update_internals_count'], 10, 3);
 		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_outgoing_internal']);
 		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_incoming_internal']);
@@ -239,9 +245,12 @@ class Seo_Central {
 		foreach ( $post_types as $post_type ) {
 			if ( 'attachment' == $post_type ) continue; // Skip 'attachment' post type
 			
-			// Register the Cornerstone Page filter Add, Register, and Map the filter
-			add_filter("views_edit-$post_type", [$this,'wp_add_cornerstone_filter']);
-			add_filter("views_edit-$post_type", [$this,'wp_add_orphaned_filter']); 
+			//Cornerstone and Orphaned Content Filters are a pro features
+			if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) {
+				// Register the Cornerstone Page filter Add, Register, and Map the filter
+				add_filter("views_edit-$post_type", [$this,'wp_add_cornerstone_filter']);
+				add_filter("views_edit-$post_type", [$this,'wp_add_orphaned_filter']); 
+			}
 
 			// Additional Columns for page listing (Seo Score, Internal, External links)
 			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_score_column']);

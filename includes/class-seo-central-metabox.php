@@ -232,99 +232,65 @@ class Seo_Central_Metabox {
 	}
 
 	public function add_meta_box_callback() {
-		$this->seo_central_fields_table();
+
+		if (!defined('SEO_CENTRAL_PRO') || !SEO_CENTRAL_PRO) {
+			$this->seo_central_fields_table_lite();
+		}
+		else if(defined('SEO_CENTRAL_PRO') || SEO_CENTRAL_PRO) {
+			// $this->seo_central_fields_table_pro();
+		}
 	}
 
-	// New Table Design
-	private function seo_central_fields_table() {
+	// SEO Central metabox Lite Version
+	private function seo_central_fields_table_lite() {
 		?>
 		<div id="seo-central-metabox" class="seo-central-metabox-wrapper">
 
 			<div id="seo-central-metabox-ai" class="seo-central-metabox-top-content">
 				
-				<div class="form-table seo-central-metabox-ai-fields">
+				<div class="form-table seo-central-metabox-ai-fields seo-central-metabox-lite-ai-fields">
 					<div class="seo-central-metabox-ai-fields-tip-wrapper"><span class="seo-central-metabox-ai-fields-tip-text">Tips</span><span class="seo-central-metabox-ai-fields-tip-symbol"></span></div>
-					<div class="seo-central-metabox-top-content-first">
-						<div class="seo-central-generate-wrapper">
-							<div class="seo-central-generate-wrapper-buttons">
-								<button id='seo-central-api' class='update-meta-fields seo-central-button-generate'>
-									<?php echo __('Generate Meta', 'seo-central-lite'); ?>
-									<svg id="exBt3J7Ycwb1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-										<g id="exBt3J7Ycwb5_to" transform="translate(9.5873,15.459)"><g id="exBt3J7Ycwb5_ts" transform="scale(1,1)"><path d="M7.9378,15.459h3.298999l-1.649-3.959L7.9378,15.459Z" transform="translate(-9.587246,-15.459)" fill="#11211b"/></g></g><g id="exBt3J7Ycwb6_to" transform="translate(10.762696,8.459)"><g id="exBt3J7Ycwb6_ts" transform="scale(1,1)"><path d="M7.46319,8.459h6.599011l-3.299-7.918L7.46319,8.459Z" transform="translate(-10.762641,-8.459)" fill="#11211b"/></g></g><g id="exBt3J7Ycwb7_to" transform="translate(3.5873,11.459)"><g id="exBt3J7Ycwb7_ts" transform="scale(1,1)"><path d="M1.9378,11.459h3.299L3.5878,7.49998L1.9378,11.459Z" transform="translate(-3.5873,-11.459)" fill="#11211b"/></g></g>
-									</svg>
-								</button>
-								<button id='seo-central-api-regenerate' class='seo-central-button-regenerate' data-current="0" data-last="">
-									<?php echo __('Generate Again', 'seo-central-lite'); ?>
-									<svg id="exBt3J7Ycwb1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-										<g id="exBt3J7Ycwb5_to" transform="translate(9.5873,15.459)"><g id="exBt3J7Ycwb5_ts" transform="scale(1,1)"><path d="M7.9378,15.459h3.298999l-1.649-3.959L7.9378,15.459Z" transform="translate(-9.587246,-15.459)" fill="#11211b"/></g></g><g id="exBt3J7Ycwb6_to" transform="translate(10.762696,8.459)"><g id="exBt3J7Ycwb6_ts" transform="scale(1,1)"><path d="M7.46319,8.459h6.599011l-3.299-7.918L7.46319,8.459Z" transform="translate(-10.762641,-8.459)" fill="#11211b"/></g></g><g id="exBt3J7Ycwb7_to" transform="translate(3.5873,11.459)"><g id="exBt3J7Ycwb7_ts" transform="scale(1,1)"><path d="M1.9378,11.459h3.299L3.5878,7.49998L1.9378,11.459Z" transform="translate(-3.5873,-11.459)" fill="#11211b"/></g></g>
-									</svg>
-								</button>
-							</div>
-							<p class='seo-central-generate-description'><?php echo __('Generate expert meta data with a single click', 'seo-central-lite'); ?></p>
-						</div>
-						<div class='seo-central-button-apply-all-wrapper'>
-							<button id='seo-central-apply-all-meta' class='seo-central-button-apply-all'><span class='seo-central-button-apply-all-text'><?php echo __('Apply All', 'seo-central-lite'); ?></span><span class='seo-central-button-apply-all-symbol'></span></button>
-						</div>
+					<div class="seo-central-metabox-lite-preview">
+						<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('Generate expert meta data with a single click', 'seo-central-lite'); ?></h2>
+						<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, you can generate meta titles, descriptions, and keywords instantly. Save yourself from the busywork.', 'seo-central-lite'); ?></p>
+						<a href="" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+						<a id="seo-central-preview-video" class="seo-central-metabox-lite-preview-video-link" href="https://seocentral.ai/">
+							<img class="seo-central-metabox-lite-preview-video-poster"  src="/wp-content/plugins/seo-central/admin/icons/seo-central-preview-video.svg" alt="<?php echo __('SEO Central Pro Preview Image', 'seo-central-lite'); ?>">
+						</a>
 					</div>
 
-					<?php
-						foreach ( $this->config['fields'] as $field ) {
-							$button_id = str_replace('seo_central_', '', $field['id']);
-							?>
-							<?php if (($field['id'] !== 'seo_central_slug') && ($field['id'] !== 'seo_central_robots') && ($field['id'] !== 'seo_central_meta_cornerstone')) : ?>
-								<div class="form-table-row seo-central-metabox-ai-fields-row">
-									<div class="seo-central-metabox-ai-fields-row-item <?php echo ($field['id'] == 'seo_central_meta_description') ? 'js-tips-ai-description' : ''; ?>">
+					<div class="form-table-row seo-central-metabox-lite-ai-fields-column">
+						<?php
+							foreach ( $this->config['fields'] as $field ) {
+								$button_id = str_replace('seo_central_', '', $field['id']);
+								?>
+								<?php if (($field['id'] !== 'seo_central_slug') && ($field['id'] !== 'seo_central_robots') && ($field['id'] !== 'seo_central_meta_cornerstone')) : ?>
 
-										<?php if (($field['id'] == 'seo_central_meta_title') ) : ?>
-
-											<label class="seo-central-label text-animate generated-label" for="generated_meta_title"><?php echo __('Generated Meta Title', 'seo-central-lite'); ?></label>
-											<div class="seo-central-metabox-ai-results-wrapper">
-												<textArea class="seo-central-text-area generated-input" id="generated_meta_title" name="generated_meta_title" type="text" value="" data-previous="" readonly tabindex="-1"></textArea>
-												<div id="overlay_meta_title" class="seo-central-metabox-ai-results-overlay text-area-overlay"></div>
+									<?php if (($field['id'] == 'seo_central_add_keyphrases')) : ?>
+										<div class="form-table-row seo-central-metabox-ai-fields-row">
+											<div class="seo-central-metabox-ai-fields-row-item lite-feature-field">	
+												<?php $this->label( $field ); ?>
+												<?php //$this->description( $field ); ?>
+												<?php $this->field( $field ); ?>
 											</div>
+										</div>
 
-										<?php elseif (($field['id'] == 'seo_central_meta_description') ) : ?>
+									<?php else : ?>
+										<div class="form-table-row seo-central-metabox-ai-fields-row">
+											<div class="seo-central-metabox-ai-fields-row-item <?php echo ($field['id'] == 'seo_central_meta_description') ? 'js-tips-description' : ''; ?>">	
+												<?php $this->label( $field ); ?>
+												<?php //$this->description( $field ); ?>
+												<?php $this->field( $field ); ?>
 
-											<label class="seo-central-label text-animate generated-label" for="generated_meta_description"><?php echo __('Generated Meta Description', 'seo-central-lite'); ?></label>
-											<div class="seo-central-metabox-ai-results-wrapper">
-												<textarea class="seo-central-text-area seo-text-area generated-input %s" id="generated_meta_description" name="generated_meta_description" rows="4" cols="50" data-previous="" readonly tabindex="-1"></textarea>
-												<div id="overlay_meta_description" class="seo-central-metabox-ai-results-overlay text-area-overlay"></div>
+												<div id="overlay_keyphrases_lite" class="seo-central-metabox-ai-disabled-field"></div>
 											</div>
-
-										<?php elseif (($field['id'] == 'seo_central_prime_keyphrase') ) : ?>
-
-											<label class="seo-central-label text-animate generated-label" for="generated_meta_prime"><?php echo __('Generated Primary Keyword', 'seo-central-lite'); ?></label>
-											<div class="seo-central-metabox-ai-results-wrapper">
-												<textArea class="seo-central-text-area generated-input" id="generated_meta_prime" name="generated_meta_prime" type="text" value="" data-previous="" readonly tabindex="-1"></textArea>
-												<div id="overlay_meta_prime" class="seo-central-metabox-ai-results-overlay text-area-overlay"></div>
-											</div>
-
-										<?php elseif (($field['id'] == 'seo_central_add_keyphrases') ) : ?>
-
-											<label class="seo-central-label text-animate generated-label" for="generated_meta_second"><?php echo __('Generated Secondary Keywords', 'seo-central-lite'); ?></label>
-											<div class="seo-central-metabox-ai-results-wrapper">
-												<div class="seo-central-secondary-keyphrases seo-keyphrases-wrapper seo-central-keyphrases-wrapper generated-secondary-wrapper generated-input"><input class="regular-text regular-keyphrases generated-input %s" id="generated_meta_second" name="generated_meta_second" %s type="text" value="" data-previous="" tabindex="-1"></div>
-												<div id="overlay_meta_second" class="seo-central-metabox-ai-results-overlay"></div>
-											</div>
-
-										<?php endif ; ?>
-
-									</div>
-
-									<div class="seo-central-metabox-apply-flow">
-										<button id="apply_<?php echo $button_id; ?>" class='seo-central-button-apply-single'><span class='seo-central-button-apply-single-text'><?php echo __('Apply', 'seo-central-lite'); ?></span><span class='seo-central-button-apply-single-symbol'></span></button>
-									</div>
-
-									<div class="seo-central-metabox-ai-fields-row-item <?php echo ($field['id'] == 'seo_central_meta_description') ? 'js-tips-description' : ''; ?>">
-										<?php $this->label( $field ); ?>
-										<?php //$this->description( $field ); ?>
-										<?php $this->field( $field ); ?>
-									</div>
-								</div>
-							<?php endif; ?>
-							<?php
-						}
-					?>
+										</div>
+									<?php endif; ?>
+								<?php endif; ?>
+								<?php
+							}
+						?>
+					</div>
 				</div>
 
 				<div class="seo-central-metabox-columns-wrapper">
@@ -480,24 +446,6 @@ class Seo_Central_Metabox {
 						</div>
 					</div>
 
-					<div class="form-table meta-table seo-central-metabox-column column-3" id="seo-central-social-display" role="presentation">
-						<div class='seo-central-metabox-column-header'>
-							<p class='seo-central-metabox-column-header-row-title'><?php echo __('Internal Linking Suggestions', 'seo-central-lite'); ?></p>
-						</div>
-						<div class='seo-central-metabox-column-body'>
-							<p><?php echo __('You need to do this because lorem ipusm and dolor geographica ignis orbis alum.', 'seo-central-lite'); ?></p>
-							<div class="form-table-row">
-								<label class="seo-central-label" for="seo_central_home_suggestion"><?php echo __('Home', 'seo-central-lite'); ?></label>	
-
-								<p id="seo_central_home_suggestion" class="seo-central-copy-input" data-link="/home"><?php echo __('Home', 'seo-central-lite'); ?> <span class="seo-central-copy-button"></span></p>
-
-								<label class="seo-central-label" for="seo_central_rand_suggestion"><?php echo __('Some Page', 'seo-central-lite'); ?></label>			
-
-								<p id="seo_central_rand_suggestion" class="seo-central-copy-input" data-link="/some-page"><?php echo __('Some Page', 'seo-central-lite'); ?> <span class="seo-central-copy-button"></span></p>
-							</div>
-						</div>
-					</div>
-
 					<div class="form-table meta-table seo-central-metabox-column column-4" id="seo-central-metabox-ai-table" role="presentation">
 						<div class='seo-central-metabox-column-header'>
 							<p class='seo-central-metabox-column-header-row-title'><?php echo __('Page Analysis', 'seo-central-lite'); ?></p>
@@ -533,17 +481,22 @@ class Seo_Central_Metabox {
 								</svg>
 							</div>
 
-							<div class='seo-central-analysis-wrapper warnings-errors hidden'>
+							<div class="seo-central-metabox-lite-preview mx-auto">
+								<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('We show you how to get your score higher here.', 'seo-central-lite'); ?></h2>
+								<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, we tell you what is wrong, and show you how to fix SEO problems to boost your ranking.', 'seo-central-lite'); ?></p>
+								<a href="" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+							</div>
+							<!-- <div class='seo-central-analysis-wrapper warnings-errors hidden'>
 
 							</div>	
 
 							<div class="seo-central-analysis-scores-dropdown success hidden">
 								<div class="seo-central-analysis-scores-dropdown-header">
-									<p class='seo-central-analysis-scores-dropdown-header-description'><?php echo __('Show good results', 'seo-central-lite'); ?></p>
+									<p class='seo-central-analysis-scores-dropdown-header-description'><?php //echo __('Show good results', 'seo-central-lite'); ?></p>
 									<div class='seo-central-analysis-scores-dropdown-header-collapse-arrow'></div>
 								</div>
 								<div class="seo-central-analysis-scores-dropdown-body close"></div>
-							</div>
+							</div> -->
 
 							<?php
 								foreach ( $this->config4['fields'] as $field ) {
@@ -928,17 +881,29 @@ class Seo_Central_Metabox {
 				$items = $items . '<span class="seo-central-keyphrase-item seo-keyphrase-item" contenteditable="true" value="'. $phrase. '">'. $phrase . '</span>';
 			}
 		}
-		//$items = $items . '<span id="seo-new-keyphrase" class="seo-keyphrase-item empty-keyphrase" contenteditable="true">' . '</span>';
 
-		printf(
-			// '<div contenteditable="true" class="seo-add-keyphrases %s" id="%s" name="%s" %s type="%s" value="%s">'. $items . '</div>',
-			'<div contenteditable="true" class="seo-central-secondary-keyphrases seo-keyphrases-wrapper seo-central-keyphrases-wrapper main-secondary-phrases"><input class="regular-text regular-keyphrases %s" id="%s" name="%s" %s type="%s" value="%s">'. $items .'</div>',
-			isset( $field['class'] ) ? $field['class'] : '',
-			$field['id'], $field['id'],
-			isset( $field['pattern'] ) ? "pattern='{$field['pattern']}'" : '',
-			$field['type'],
-			$this->value( $field )
-		);
+		//Free version secondary keyword field is disabled and un-editable
+		if (!defined('SEO_CENTRAL_PRO') || !SEO_CENTRAL_PRO) {
+			printf(
+				'<div contenteditable="false" tabindex="-1" class="seo-central-secondary-keyphrases seo-keyphrases-wrapper seo-central-keyphrases-wrapper main-secondary-phrases"><input class="regular-text regular-keyphrases %s" id="%s" name="%s" %s type="%s" value="%s">'. $items .'</div>',
+				isset( $field['class'] ) ? $field['class'] : '',
+				$field['id'], $field['id'],
+				isset( $field['pattern'] ) ? "pattern='{$field['pattern']}'" : '',
+				$field['type'],
+				$this->value( $field )
+			);
+		}
+		else if(defined('SEO_CENTRAL_PRO') || SEO_CENTRAL_PRO) {
+			printf(
+				'<div contenteditable="true" class="seo-central-secondary-keyphrases seo-keyphrases-wrapper seo-central-keyphrases-wrapper main-secondary-phrases"><input class="regular-text regular-keyphrases %s" id="%s" name="%s" %s type="%s" value="%s">'. $items .'</div>',
+				isset( $field['class'] ) ? $field['class'] : '',
+				$field['id'], $field['id'],
+				isset( $field['pattern'] ) ? "pattern='{$field['pattern']}'" : '',
+				$field['type'],
+				$this->value( $field )
+			);
+		}
+
 	}
 
 	private function slug( $field ) {

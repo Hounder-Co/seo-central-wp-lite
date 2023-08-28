@@ -1,12 +1,6 @@
 export function pageAnalysis( $ ) {
-  if($('.seo-central-analysis-wrapper')[0]) {
-    // console.log(myThemeParams.body['header']);
-    // console.log(myThemeParams.body['hierarchy']);
-    // console.log(myThemeParams.body['flesch']);
-    // console.log(myThemeParams.body['http_status']);
-    // console.log(myThemeParams.body['images']);
-    // console.log(myThemeParams.links['crawlables']);
-
+  //Page analysis updates the score
+  if($('.seo-central-page-score.svg-wrapper')[0]) {
     //Check to see if all the page fields requirements are met return true, else display what fields to need be fixed
     //Each meta field has a tracker on page analysis that must be updated on load and update of the fields.
     var allTrackers = $('.seo-central-analysis-item'),
@@ -59,10 +53,6 @@ export function pageAnalysis( $ ) {
       ["robots_enabled", 2, ""] //✓ Are robots enabled for the page? - 2 points
     ];
 
-    // Store all the success items in one array, and the Warnings and Errors together in another for the display
-    var successArray = [];
-    var warningsAndErrorsArray = [];
-
     //Defaulting score for fonts and tap targets until we reach a solution for these 2 values
     seoData.seoScore += setSeoScore("legible_fonts", seoPointsArray, "Success"); 
     seoData.seoScore += setSeoScore("tap_targets", seoPointsArray, "Success");
@@ -82,21 +72,19 @@ export function pageAnalysis( $ ) {
     // Set Points for Primary Keyword 
     primeKeywordAnalaysis(seoData, seoPointsArray, csToggle, metaPrime, slug);
 
-    // Set Points for Secondary Keywords
-    subKeywordAnalysis(seoData, seoPointsArray, metaSub);
-     
+    
     //If all checks are satisifed display the green light for page analysis
     if(seoData.seoFlag === true) {
       $('#seo-central-analysis-tracker').addClass('seo-central-flag-complete');
-
+      
       $('#seo_central_page_analysis').val('true');
     }
     else { //If checks are not satisfied display red light and show what fields need adjusments. 
       $('#seo-central-analysis-tracker').addClass('seo-central-flag-incomplete');
-
+      
       $('#seo_central_page_analysis').val('false');
     }
-
+    
     //Set the value of the final score to this field, used for reporting and displaying SEO score
     if(finalScore[0]) {
       //Save score to the hidden score field that is utilzed to display seo scoring of page
@@ -105,6 +93,15 @@ export function pageAnalysis( $ ) {
     
     // Update visual for score circle
     updateScoreDisplay( $ );
+    
+    
+    //Pro Functionality
+    // Set Points for Secondary Keywords
+    subKeywordAnalysis(seoData, seoPointsArray, metaSub);
+
+    // Store all the success items in one array, and the Warnings and Errors together in another for the display
+    var successArray = [];
+    var warningsAndErrorsArray = [];
 
     // Save the seoPointsArray into the 2 arrays to display messaging
     for (var i = 0; i < seoPointsArray.length; i++) {
@@ -114,12 +111,12 @@ export function pageAnalysis( $ ) {
         warningsAndErrorsArray.push(seoPointsArray[i]);
       }
     }
-    // Display Warning & Error messages
 
-    displayWarningErrors(warningsAndErrorsArray);
+    // Display Warning & Error messages
+    // displayWarningErrors(warningsAndErrorsArray);
 
     // Display Success messages
-    displaySuccess(successArray);
+    // displaySuccess(successArray);
 
   }
 }
@@ -595,7 +592,7 @@ function subKeywordAnalysis(seoData, seoPointsArray, metaSub) {
 
 // Input Page Analysis functionality 
 function updateScoreDisplay( $ ) {
-  if($('.seo-central-analysis-wrapper')[0]) {
+  if($('.seo-central-page-score.svg-wrapper')[0]) {
     var finalScore = $('#seo_central_page_score'),
         scoreWrapper = $('.seo-central-page-score.svg-wrapper')[0];
     var overlayCircle = scoreWrapper.querySelector('.overlay-circle'),
@@ -651,23 +648,20 @@ function updateScoreDisplay( $ ) {
   }
 }
 
+// Update the score on input changes
 export function updateScoreOnInput( $ ) {
 
-  if($('.seo-central-analysis-wrapper')[0]) {
-    var metaDescription  = $('.seo-central-tabs-content-wrapper .meta-table .seo-text-area'),
-        metaInputs = $('.seo-central-tabs-content-wrapper .meta-table input');
+  if($('.seo-central-page-score.svg-wrapper')[0]) {
+    var metaTextAreas  = $('#seo-central-metabox-ai .seo-text-area'),
+        metaInputs = $('#seo-central-metabox-ai .seo-central-text-input');
   
     metaInputs.each(function() {
       $(this).on('change', function() {
-          // Perform your action here
-          // console.log($(this).val());
           pageAnalysis( $ );
       });
     });
   
-    metaDescription.on('change', function() {
-      // Perform your action here
-      // console.log($(this).val());
+    metaTextAreas.on('change', function() {
       pageAnalysis( $ );
     });
   }
