@@ -7284,6 +7284,49 @@ img,
 .seo-central-button-regenerate:hover, .seo-central-button-regenerate:focus {
       border-color: var(--central-green-6);
     }
+.seo-central-button-upgrade{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+  border-radius: 100px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-family: termina, sans-serif;
+  font-weight: 500;
+  letter-spacing: 1;
+  color: var(--central-green-2);
+    font-size: 14px;
+    background: var(--central-green-5);
+    border: 2px solid var(--central-green-5);
+    transition: all 200ms ease;
+}
+.seo-central-button-upgrade:after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background-color: var(--central-green-2);
+      -webkit-mask-position: center;
+              mask-position: center;
+      -webkit-mask-size: cover;
+              mask-size: cover;
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-image: url(images/57ba6c2850a55d61a40a.svg);
+              mask-image: url(images/57ba6c2850a55d61a40a.svg);
+      transition: all 200ms ease;
+    }
+.seo-central-button-upgrade:hover, .seo-central-button-upgrade:focus{
+  color: var(--central-green-3) !important;
+}
+.seo-central-button-upgrade:hover:after, .seo-central-button-upgrade:focus:after{
+  background-color: var(--central-green-3) !important;
+}
 .seo-central-button-apply-all{
   display: flex;
   height: auto;
@@ -8349,6 +8392,106 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
 .seo-central-metabox-robot-row {
 
       }
+.seo-central-metabox-lite-ai-fields{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  -moz-column-gap: 60px;
+       column-gap: 60px;
+}
+@media(max-width: 1260px) {
+.seo-central-metabox-lite-ai-fields{
+    flex-direction: column-reverse;
+  }
+        }
+.seo-central-metabox-lite-ai-fields-column{
+  height: auto;
+  width: auto;
+}
+.seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item  {
+            max-width: 100% !important;
+          }
+.seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item.lite-feature-field .seo-central-label{
+  pointer-events: none !important; 
+                color: rgba(40, 96, 76, 0.30000001192092896) !important;
+}
+.seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item.lite-feature-field .seo-central-label .seo-central-tooltip{
+  display: none !important;
+}
+.seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item.lite-feature-field .seo-central-secondary-keyphrases{
+  pointer-events: none !important;
+  background-color: var(--central-green-1) !important; 
+                border-color: rgba(40, 96, 76, 0.30000001192092896);
+}
+.seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item.lite-feature-field .seo-central-secondary-keyphrases .seo-keyphrase-item, .seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row-item.lite-feature-field .seo-central-secondary-keyphrases .seo-central-keyphrase-item{
+  display: none !important;
+}
+@media(max-width: 1260px) {
+.seo-central-metabox-lite-ai-fields-column{
+    height: auto;
+    width: 100%;
+  }
+
+            .seo-central-metabox-lite-ai-fields-column .seo-central-metabox-ai-fields-row {
+              border-bottom: none !important;
+            }
+          }
+.seo-central-metabox-lite-preview{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  max-width: 530px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 4px;
+  background-color: var(--central-green-3);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 54px;
+  padding-right: 54px;
+  text-align: center;
+        align-self: stretch;
+        border: 1px solid var(--green-3, #23AF7C);
+}
+.seo-central-metabox-lite-preview-title{
+  text-align: center;
+  font-family: termina, sans-serif;
+  font-weight: 700 !important;
+  color: var(--central-green-5);
+          font-size: 24px !important;
+          line-height: 32px !important;
+}
+.seo-central-metabox-lite-preview-description{
+  margin-top: 12px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-family: IBM Plex Sans, sans-serif;
+  color: var(--central-green-1) !important;
+          font-size: 14px !important;
+          line-height: 20px !important;
+}
+.seo-central-metabox-lite-preview-video-link{
+  margin-top: 24px !important;
+  display: block !important;
+  height: auto !important;
+  width: auto !important;
+  cursor: pointer !important;
+}
+.seo-central-metabox-lite-preview-video-poster{
+  height: 100%;
+  max-height: 260px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media(max-width: 1260px) {
+.seo-central-metabox-lite-preview{
+    margin-left: auto;
+    margin-right: auto;
+  }
+        }
 .seo-central-google-wrapper .google-preview-type {
           /* @apply flex justify-start items-center !mt-[12px] !mb-[16px]; */
           margin-bottom: 16px !important;
@@ -10604,6 +10747,27 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
     }
 .seo-central-redirect-wrapper {
     }
+.seo-central-lite-redirect-wrapper{
+  position: relative !important;
+}
+.seo-central-lite-redirect-wrapper .seo-central-redirect-wrapper, .seo-central-lite-redirect-wrapper seo-central-redirection-wrapper{
+  pointer-events: none !important;
+  cursor: default !important;
+}
+.seo-central-lite-redirect-wrapper .seo-central-redirection-wrapper .seo-central-delete-redirect, .seo-central-lite-redirect-wrapper .seo-central-redirection-wrapper .delete, .seo-central-lite-redirect-wrapper .seo-central-redirection-wrapper .seo-central-quickedit-redirect, .seo-central-lite-redirect-wrapper .seo-central-redirection-wrapper .quickedit{
+  pointer-events: none !important;
+  cursor: default !important;
+}
+.seo-central-lite-redirect-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(240, 240, 241);
+        opacity: 0.5;
+        z-index: 20;
+      }
 /* Set up the colors for seo central */
 :root {
   text-rendering: optimizeLegibility;

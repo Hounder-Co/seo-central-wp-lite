@@ -481,6 +481,88 @@
 
       }
     }
+
+    &-lite {
+
+      &-ai-fields {
+        @apply flex flex-row justify-between items-center gap-x-[60px];
+
+        @media(max-width: 1260px) {
+          @apply flex-col-reverse;
+        }
+
+        &-column {
+          @apply w-auto h-auto;
+
+          .seo-central-metabox-ai-fields-row-item  {
+            max-width: 100% !important;
+
+            &.lite-feature-field {
+              .seo-central-label {
+                @apply !pointer-events-none; 
+                color: rgba(40, 96, 76, 0.30000001192092896) !important;
+
+                .seo-central-tooltip {
+                  @apply !hidden;
+                }
+              }
+
+              .seo-central-secondary-keyphrases {
+                @apply !bg-green-1 !pointer-events-none; 
+                border-color: rgba(40, 96, 76, 0.30000001192092896);
+
+                .seo-keyphrase-item, .seo-central-keyphrase-item {
+                  @apply !hidden;
+                }
+              }
+            }
+          }
+
+          @media(max-width: 1260px) {
+            @apply w-full h-auto;
+
+            .seo-central-metabox-ai-fields-row {
+              border-bottom: none !important;
+            }
+          }
+
+        }
+      }
+
+      &-preview {
+
+        @apply w-full h-full max-w-[530px] flex flex-col justify-start items-center bg-green-3 rounded-[4px] text-center py-24px px-[54px];
+        align-self: stretch;
+        border: 1px solid var(--green-3, #23AF7C);
+
+        &-title {
+          @apply text-green-5 text-center font-sans !font-bold;
+          font-size: 24px !important;
+          line-height: 32px !important;
+        }
+
+        &-description {
+          @apply mt-12px mb-24px !text-green-1 text-center font-serif;
+          font-size: 14px !important;
+          line-height: 20px !important;
+        }
+
+        &-video {
+          
+          &-link {
+            @apply block w-auto h-auto cursor-pointer mt-[24px] !important;
+          }
+
+          &-poster {
+            @apply w-full h-full object-cover max-h-[260px];
+          }
+        }
+
+        @media(max-width: 1260px) {
+          @apply mx-auto;
+        }
+      }
+    }
   }
 
 

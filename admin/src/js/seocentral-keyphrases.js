@@ -1,3 +1,5 @@
+import 'jquery-sortablejs';
+
 //Set the events for focusing and updating the keyphrases
 export function keyphraseEvents( $ ) {
 
@@ -140,5 +142,49 @@ export function keyphraseEvents( $ ) {
             return;
         }
     }
+	});
+}
+
+// Set up drag state of the secondary keyphrase wrapper
+export function secondaryDragStates( $ ) {
+
+  var secondaryWrapper = $('.main-secondary-phrases');
+  var currentInput = $('#seo_central_add_keyphrases');
+
+  if(secondaryWrapper[0]) {
+    //For each wrapper set the draggable for each element
+    secondaryWrapper.sortable({
+      group: 'list',
+      sort: true,  // sorting inside list
+      dataIdAttr: 'data-id', // HTML attribute that is used by the `toArray()` method
+      animation: 200,
+      ghostClass: 'sortable-ghost',
+      swapThreshold: 1, // Threshold of the swap zone
+      direction: 'horizontal', // Direction of Sortable 
+      update: function() {
+          updateSecondaryField($, secondaryWrapper, currentInput);
+      },
+    });
+  }
+}
+
+//On swap update the input to save the order
+function updateSecondaryField($, secondaryWrapper, currentInput) {
+	//Change the value of the sort
+	secondaryWrapper.each(function(){
+		var secondaryItems = $(this).find('.seo-keyphrase-item'),
+				newOrder = "";
+
+		secondaryItems.each(function(index, item){
+			// 'item' is the current item in the loop
+      newOrder += item.innerHTML + ", ";
+
+		});
+		
+		// Update the text input field with the new order
+		if(newOrder != "") {
+			currentInput.val(newOrder);
+		}
+
 	});
 }

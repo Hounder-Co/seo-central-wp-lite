@@ -2,21 +2,23 @@ import '../css/seocentral-plugin-admin.css';
 import 'jquery-sortablejs';
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import {googlePreviews} from '../js/seocentral-google-preview.js';
-import {keyphraseEvents} from '../js/seocentral-keyphrases.js';
-import {seocentralAPI} from '../js/seocentral-app-api.js';
-import {pageAnalysis} from '../js/seocentral-page-analysis.js';
+import {googlePreviews} from '../js/seocentral-google-preview.js'; 
 import {contentHierarchy} from '../js/seocentral-page-analysis.js';
 import {updateScoreOnInput} from '../js/seocentral-page-analysis.js';
 import {seocentralSettings} from '../js/seocentral-settings.js';
-import {settingApiKeyCopy} from '../js/seocentral-settings.js';
-import {internalLinkCopy} from '../js/seocentral-metabox.js';
 import {metaboxDropdown} from '../js/seocentral-metabox.js';
-import {redirectTableFormat} from '../js/seocentral-redirects.js';
 import {moveNotifications} from '../js/seocentral-redirects.js';
-import {metaboxTipSystem} from '../js/seocentral-tips.js';
-import {secondaryDragStates} from '../js/seocentral-metabox.js';
 import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
+import {pageAnalysis} from '../js/seocentral-page-analysis.js';
+import {metaboxTipSystem} from '../js/seocentral-tips.js';
+
+//Pro functions (API Setup, Redirection functionality, Copy functions, Secondary Keyphrase functions)
+import {seocentralAPI} from '../js/seocentral-app-api.js';
+import {redirectTableFormat} from '../js/seocentral-redirects.js';
+import {settingApiKeyCopy} from '../js/seocentral-settings.js';
+import {internalLinkCopy} from '../js/seocentral-copy-internal.js';
+import {secondaryDragStates} from '../js/seocentral-keyphrases';
+import {keyphraseEvents} from '../js/seocentral-keyphrases.js';
 
 (function( $ ) {
 	'use strict';
@@ -66,22 +68,6 @@ import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 			}, 500);
 		}
 
-		//Initial set up of the metabox tabs
-		$('#seo-central-tabs li:first-child').addClass('active');
-		$('.seo-central-tab-content').hide();
-		$('.seo-central-tab-content:first').show();
-
-		// Click function (Alternate between tabs)
-		$('#seo-central-tabs li').click(function(){
-			$('#seo-central-tabs li').removeClass('active');
-			$(this).addClass('active');
-			$('.seo-central-tab-content').hide();
-			
-			var activeTab = $(this).find('a').attr('href');
-			$(activeTab).fadeIn();
-			return false;
-		});
-
 		//On load update the meta title value if its empty
 		if($('#seo_central_meta_title').val() === "") {
 			$('#seo_central_meta_title').val($('#title').val());
@@ -122,6 +108,30 @@ import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 			}
 		}
 
+		//Google Preview and Social Card Setup
+		googlePreviews( $ );
+		
+		//Page Analysis functionality and hidden fields
+		pageAnalysis( $ );
+		
+		//Settings page functionality
+		seocentralSettings( $ );
+		
+		//Content Hierarchy 
+		contentHierarchy( $ );
+		
+		//Update the seo score on completion of input fields
+		updateScoreOnInput( $ );
+		
+		// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
+		metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);
+		metaboxDropdown( $, $('.seo-central-analysis-scores-dropdown-header')[0], $('.seo-central-analysis-scores-dropdown-header-collapse-arrow')[0], $('.seo-central-analysis-scores-dropdown-body')[0]);
+		
+		//On load move the notifications to the proper partial for out pages
+		moveNotifications( $ );
+		
+		
+		// Pro Features 
 
 		//Cornerstone Checkbox value save (Store the value into the checkbox input based on toggle)
 		if($('#seo_central_meta_cornerstone')) {
@@ -146,32 +156,10 @@ import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 				return false;
 			});
 		}
-
-		//Google Preview and Social Card Setup
-		googlePreviews( $ );
 		
-		// When you click on item, record into data("initialText") content of this item.
-		keyphraseEvents( $ );
-
 		//Very Important Seo Central api call to app
 		//Update the meta description/keys using the seo central app api results
 		seocentralAPI( $ );
-
-		//Page Analysis functionality and hidden fields
-		pageAnalysis( $ );
-
-		//Settings page functionality
-		seocentralSettings( $ );
-
-		//Content Hierarchy 
-		contentHierarchy( $ );
-
-		//Update the seo score on completion of input fields
-		updateScoreOnInput( $ );
-
-		// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
-		metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);
-		metaboxDropdown( $, $('.seo-central-analysis-scores-dropdown-header')[0], $('.seo-central-analysis-scores-dropdown-header-collapse-arrow')[0], $('.seo-central-analysis-scores-dropdown-body')[0]);
 
 		// Internal Linking Suggestion copy functionality 
 		internalLinkCopy( $ );
@@ -180,16 +168,17 @@ import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 		settingApiKeyCopy( $ );
 
 		// Load this for the redirection table format
-		redirectTableFormat( $ );
+		// redirectTableFormat( $ );
 
-		//On load move the notifications to the proper partial for out pages
-		moveNotifications( $ );
 
 		// Metabox Tips system
 		metaboxTipSystem( $ );
 
+		// When you click on item, record into data("initialText") content of this item.
+		// keyphraseEvents( $ );
+
 		// Secondary Keyphrase
-		secondaryDragStates( $ );
+		// secondaryDragStates( $ );
 	});
 	
 })( jQuery );

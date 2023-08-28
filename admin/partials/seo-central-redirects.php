@@ -200,9 +200,62 @@
     echo '</div>'; 
   }
 
-  //Receive the post request from the top form and edit the database on click of Add Redirect Form
-  if(isset($_POST['addRedirect'])) {
-    add_redirect($_POST['oldUrl'],$_POST['newUrl'],$_POST['redirect_type']);
+  function seo_central_lite_display() {
+
+    //Display the the form and the table wrapped in an overlay
+    ?>
+
+    <div class="seo-central-lite-redirect-wrapper">
+      <div class="seo-central-lite-redirect-overlay"> </div>
+
+      <article class="seo-central-redirect-wrapper">
+
+        <div class='seo-central-notification-wrapper'>
+          <p class='seo-central-notification'><span class='seo-central-notification-icon icon-blue'></span> <span class='seo-central-notification-text'></span></p>
+        </div>
+        
+        <form method="post" class='seo-central-redirect-form-add'>
+          <div class="seo-central-redirect-top-select">
+            <label class='seo-central-redirect-form-label' for="redirect_type"><?php echo __('Choose Redirect Type:', 'seo-central-lite'); ?></label>
+            <select class="seo-central-redirect-form-select seo-central-select" name="redirect_type" id="redirect_type">
+              <option value="301"><?php echo __('301 moved permanently', 'seo-central-lite'); ?></option>
+              <option value="302"><?php echo __('302 Found', 'seo-central-lite'); ?></option>
+              <option value="307"><?php echo __('307 Temporary Redirect', 'seo-central-lite'); ?></option>
+              <option value="410"><?php echo __('410 Content Deleted', 'seo-central-lite'); ?></option>
+              <option value="451"><?php echo __('451 Unavailable for legal reasons', 'seo-central-lite'); ?></option>
+            </select>
+          </div>
+
+          <div>
+            <label class='seo-central-redirect-form-label' for="oldUrl"><?php echo __('Old URL:', 'seo-central-lite'); ?></label>
+            <input class='seo-central-redirect-form-input seo-central-text-input' type="text" name="oldUrl" class="seo-central-redirect-urls" value="" />
+          </div>
+
+          <div>
+            <label class='seo-central-redirect-form-label' for="newUrl"><?php echo __('New URL:', 'seo-central-lite'); ?></label>
+            <input class='seo-central-redirect-form-input seo-central-text-input' type="text" name="newUrl" class="seo-central-redirect-urls" value="" />
+          </div>
+
+          <input class='seo-central-redirect-form-submit seo-central-button-small seo-central-button-secondary' type="submit" name="addRedirect" class="seo-central-redirect-add" value="Add redirect" />
+        </form>
+
+      </article>
+
+      <?php seo_central_custom_table_page(); ?>
+    </div>
+
+    <?php
+  }
+  
+  //Utilizing a constant for checking the pro version
+  $seo_central_pro = defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO;
+  
+  //Unless the pro version is enabled do not allow the user to save and update the redirects
+  if($seo_central_pro) {
+    //Receive the post request from the top form and edit the database on click of Add Redirect Form
+    if(isset($_POST['addRedirect'])) {
+      add_redirect($_POST['oldUrl'],$_POST['newUrl'],$_POST['redirect_type']);
+    }
   }
 ?>
 
@@ -216,40 +269,12 @@
 <!-- Notifications bar -->
 <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
 
-<article class="seo-central-redirect-wrapper">
 
-  <div class='seo-central-notification-wrapper'>
-    <p class='seo-central-notification'><span class='seo-central-notification-icon icon-blue'></span> <span class='seo-central-notification-text'></span></p>
-  </div>
-  
-  <form method="post" class='seo-central-redirect-form-add'>
-    <div class="seo-central-redirect-top-select">
-      <label class='seo-central-redirect-form-label' for="redirect_type"><?php echo __('Choose Redirect Type:', 'seo-central-lite'); ?></label>
-      <select class="seo-central-redirect-form-select seo-central-select" name="redirect_type" id="redirect_type">
-        <option value="301"><?php echo __('301 moved permanently', 'seo-central-lite'); ?></option>
-        <option value="302"><?php echo __('302 Found', 'seo-central-lite'); ?></option>
-        <option value="307"><?php echo __('307 Temporary Redirect', 'seo-central-lite'); ?></option>
-        <option value="410"><?php echo __('410 Content Deleted', 'seo-central-lite'); ?></option>
-        <option value="451"><?php echo __('451 Unavailable for legal reasons', 'seo-central-lite'); ?></option>
-      </select>
-    </div>
-
-    <div>
-      <label class='seo-central-redirect-form-label' for="oldUrl"><?php echo __('Old URL:', 'seo-central-lite'); ?></label>
-      <input class='seo-central-redirect-form-input seo-central-text-input' type="text" name="oldUrl" class="seo-central-redirect-urls" value="" />
-    </div>
-
-    <div>
-      <label class='seo-central-redirect-form-label' for="newUrl"><?php echo __('New URL:', 'seo-central-lite'); ?></label>
-      <input class='seo-central-redirect-form-input seo-central-text-input' type="text" name="newUrl" class="seo-central-redirect-urls" value="" />
-    </div>
-
-    <input class='seo-central-redirect-form-submit seo-central-button-small seo-central-button-secondary' type="submit" name="addRedirect" class="seo-central-redirect-add" value="Add redirect" />
-  </form>
-
-</article>
-
-<?php seo_central_custom_table_page(); ?>
+<?php if ( $seo_central_pro ): ?>
+  <?php //seo_central_pro_display(); ?>
+<?php else: ?>
+  <?php seo_central_lite_display(); ?>
+<?php endif; ?>
 
 <style>
   #wpcontent {
