@@ -91,13 +91,14 @@ export function pageAnalysis( $ ) {
       finalScore.val(seoData.seoScore);
     }
     
+    //Pro Functionality
+    // Set Points for Secondary Keywords
+    subKeywordAnalysis(seoData, seoPointsArray, metaSub);
+    
     // Update visual for score circle
     updateScoreDisplay( $ );
     
     
-    //Pro Functionality
-    // Set Points for Secondary Keywords
-    subKeywordAnalysis(seoData, seoPointsArray, metaSub);
 
     // Store all the success items in one array, and the Warnings and Errors together in another for the display
     var successArray = [];

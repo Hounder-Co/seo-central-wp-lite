@@ -79,12 +79,8 @@ class Seo_Central {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		//Sitemaps are generated on the base SEO Central Plugin
 		$this->seo_central_sitemap();
-
-		//Register the redirects database table
-		// register_activation_hook(plugin_dir_path( dirname( __FILE__ ) ), [$this,'create_redirect_table']);
-
-		// register_activation_hook(plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-seo-central.php', [$this,'create_redirect_table']);
 	}
 
 	/**
@@ -174,27 +170,13 @@ class Seo_Central {
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_seo_central_plugin_settings' );
 
-		
-		//Set the action to actually redirect the old urls with the new
-		add_action('template_redirect', [$this,'seo_central_custom_redirect']);
-		
 		//Disable the default wordpress robots
 		add_filter( 'wp_robots', [$this,'remove_default_wp_robots'] );
-
+		
 		//Trigger all the filters and column setup for ALL post types
 		add_action('init', [$this, 'define_post_type_hooks']);
-
-		// Additional hooks that apply to all post types (These triggers should be set outside of the loop of posts)
-
-		//Cornerstone and Orphaned Content Filters are a pro features
-		if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) { 
-			add_action('init', [$this,'wp_register_cornerstone']);
-			add_action('parse_query', [$this,'wp_map_cornerstone']);
-			add_action('init', [$this,'wp_register_orphaned']);
-			add_action('parse_query', [$this,'wp_map_orphaned']);
-		}
-
-
+		
+		// Additional hooks that apply to all post types
 		add_action('save_post', [$this, 'update_internals_count'], 10, 3);
 		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_outgoing_internal']);
 		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_incoming_internal']);
@@ -245,13 +227,6 @@ class Seo_Central {
 		foreach ( $post_types as $post_type ) {
 			if ( 'attachment' == $post_type ) continue; // Skip 'attachment' post type
 			
-			//Cornerstone and Orphaned Content Filters are a pro features
-			if (defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO === true) {
-				// Register the Cornerstone Page filter Add, Register, and Map the filter
-				add_filter("views_edit-$post_type", [$this,'wp_add_cornerstone_filter']);
-				add_filter("views_edit-$post_type", [$this,'wp_add_orphaned_filter']); 
-			}
-
 			// Additional Columns for page listing (Seo Score, Internal, External links)
 			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_score_column']);
 			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_score_custom_column'], 10, 2);
@@ -344,82 +319,6 @@ class Seo_Central {
 	public function remove_default_wp_robots( $robots ) {
     return array();
 	}
-
-	//Add the cornerstone Filter for the pages list
-	public function wp_add_cornerstone_filter($views) {
-		
-		//If within the admin set the filter
-		if( ( is_admin() ) ) {
-			global $wpdb, $typenow;
-
-			//Set the post type using typenow. These are checks to make sure it comes back correctly
-			if ( empty( $typenow ) && !empty( $_GET['post_type'] ) ) {
-				$typenow = sanitize_text_field( $_GET['post_type'] );
-			}
-			elseif ( empty( $typenow ) && !empty( $wp_query->query_vars['post_type'] ) ) {
-					$typenow = sanitize_text_field( $wp_query->query_vars['post_type'] );
-			}
-			$post_type = $typenow;
-
-			// Handle the class applied to the link filter.
-			$link_class = '';
-			if ( isset( $_GET['seo_central_filter'] ) && 'cornerstone' === $_GET['seo_central_filter'] ) {
-					$link_class = 'current'; //if on the current filter
-			}
-
-			//Possible filter by user
-			// $current_user = wp_get_current_user();
-
-			$query = array(
-				'post_type'   => $post_type,
-				'orderby'     => 'date',
-				'order'       => 'DESC',
-				'meta_query' => array(
-						array(
-								'key' => 'seo_central_meta_cornerstone',
-								'value' => 'cornerstone',
-								'compare' => '=',
-						),
-				)
-		);
-
-			//Query the results for the cornerstone pages and count. 
-			$result = new WP_Query($query);
-			$class = ' class="seo-central-pillars' . ' ' . $link_class . '" ';
-
-			//Set the quick link with the proper page list filter for cornerstone content. 
-			$views['cornerstone'] = sprintf(__('<a href="%s"'. $class .'>'. 'cornerstone' .' <span class="count">(%d)</span></a>', 'cornerstone'), admin_url('edit.php?seo_central_filter=cornerstone&post_type=' . $post_type), $result->found_posts);
-
-			// Restore original Post Data.
-			wp_reset_postdata();
-			wp_reset_query();
-
-			return $views;
-    }
-	}
-
-	//Register the cornerstone filter
-	public function wp_register_cornerstone() {
-    global $wp;
-    $wp->add_query_var( 'seo_central_filter' );
-	}
-	
-	//After registering filter, map the list using the seo_central_filter if it is equal to cornerstone
-	public function wp_map_cornerstone( $wp_query ) {
-
-		//Do not re-query is another filter is set (this keeps the query and count correct)
-		if ( ! is_admin() || ! $wp_query->is_main_query() ) {
-			return;
-		}
-
-    $meta_value = $wp_query->get( 'seo_central_filter' );
-
-    if ( 'cornerstone' == $meta_value ) {
-			$wp_query->set( 'meta_key', 'seo_central_meta_cornerstone' );
-			$wp_query->set( 'meta_value', $meta_value );
-    }
-	}
-
 
 	//Add custom columns to track for pages 
 	public function wp_seo_score_column($columns) {
@@ -957,118 +856,5 @@ class Seo_Central {
 
     // Call your function to update the count
     $this->all_incoming_internals($post_ID);
-	}
-
-	//Add the cornerstone Filter for the pages list
-	public function wp_add_orphaned_filter($views) {
-    if (is_admin()) {
-        global $wpdb, $typenow;
-
-        // Set the post type using typenow. These are checks to make sure it comes back correctly
-        if (empty($typenow) && !empty($_GET['post_type'])) {
-					$typenow = sanitize_text_field($_GET['post_type']);
-				} elseif (empty($typenow) && !empty($wp_query->query_vars['post_type'])) {
-						$typenow = sanitize_text_field($wp_query->query_vars['post_type']);
-				}
-				$post_type = $typenow;
-
-        $link_class = '';
-        if (isset($_GET['seo_central_filter']) && 'orphaned' === $_GET['seo_central_filter']) {
-            $link_class = 'current'; //if on the current filter
-        }
-
-        // Query to get pages with 0 internals_count (orphaned pages)
-				$args = array(
-					'post_type'   => $post_type,
-					'fields'      => 'ids',
-					'meta_query'  => array(
-							'relation' => 'OR',
-							array(
-									'key'     => 'seo_central_incoming_internals',
-									'value'   => 0,
-									'compare' => '=',
-							),
-							array(
-									'key'     => 'seo_central_incoming_internals',
-									'compare' => 'NOT EXISTS', // Works with WP 3.9+
-							),
-					),
-				);
-				$orphan_query = new WP_Query($args);
-				$orphaned_ids = $orphan_query->posts; // Array of post IDs
-
-        $class = ' class="seo-central-pillars' . ' ' . $link_class . '" ';
-				$views['orphaned'] = sprintf(__('<a href="%s"'. $class .'>'. 'Orphaned' .' <span class="count">(%d)</span></a>', 'orphaned'), admin_url('edit.php?seo_central_filter=orphaned&post_type=' . $post_type), count($orphaned_ids));
-
-				// Restore original Post Data.
-				wp_reset_postdata();
-				wp_reset_query();
-
-        return $views;
-    }
-	}
-
-	public function wp_register_orphaned() {
-    global $wp;
-    $wp->add_query_var('seo_central_filter');
-	}
-
-	public function wp_map_orphaned($query) {
-
-		//Do not re-query is another filter is set (this keeps the query and count correct)
-    if ( ! is_admin() || ! $query->is_main_query() ) {
-			return;
-		}
-
-		$meta_value = $query->get( 'seo_central_filter' );
-
-			if (is_admin() && isset($_GET['seo_central_filter'])) {
-					if ($_GET['seo_central_filter'] === 'orphaned') {
-							$query->query_vars['meta_key'] = 'seo_central_incoming_internals';
-							$query->query_vars['meta_value'] = '0';
-							$query->query_vars['meta_compare'] = '=';
-					}
-			}
-	}
-
-	/*
-	* My Custom Redirect will load prior to template page loading and will apply the redirect from the table
-	*/
-	public function seo_central_custom_redirect() {
-    global $wp;
-    global $wpdb;
-    $table_name = $wpdb->prefix . "_custom_redirects"; 
-
-    // Here we get the current URL the user is visiting
-    // $current_url = home_url(add_query_arg(array(), $wp->request)) . '/';
-		$current_url = trailingslashit(home_url(add_query_arg(array(), $wp->request)));
-
-    // Extract the path which is usually the page slug
-    $current_path = parse_url($current_url, PHP_URL_PATH);
-		$current_path = trailingslashit($current_path);
-
-    // Get all redirects from the seoc__custom_redirects
-    $redirects = $wpdb->get_results("SELECT * FROM $table_name");
-
-    // Loop through each redirect
-    foreach($redirects as $redirect) {
-        // If the current URL matches the old URL of this redirect...
-				$old_url = trailingslashit($redirect->old_url);
-
-        // Extract the path from old_url
-        $old_path = parse_url($redirect->old_url, PHP_URL_PATH);
-				$old_path = trailingslashit($old_path);
-
-        if ($current_url == $old_url) {
-            // ...perform the redirect
-            wp_redirect($redirect->new_url, $redirect->redirect_type);
-            exit;
-        }
-				else if ($current_path == $old_path) {
-					// ...perform the redirect
-					wp_redirect($redirect->new_url, $redirect->redirect_type);
-					exit;
-				}
-    }
 	}
 }

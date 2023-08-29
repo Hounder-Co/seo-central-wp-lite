@@ -13,191 +13,47 @@
  */
 
 // <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-  //Get all the redirects from the custom database table to display the listing within the page
-  function get_all_redirects() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "_custom_redirects"; 
 
-    $result = $wpdb->get_results("SELECT * FROM $table_name");
+  //Seo Central Lite preview of the generated table for SEO Central Pro
+  function seo_central_table_preview_lite() {
 
-    // Check if the table exists
-    if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
-      echo "The table exists";
-    } else {
-      echo "The table does not exist";
-    }
-    return $result;
-  }
+    ?>
+      <h2 class="wrap seo-central-redirection-wrapper-title"> <?php echo __('All Redirects', 'seo-central-lite') ?> </h2>
+      <div class="wrap seo-central-redirection-wrapper">
+        <table class="wp-list-table widefat fixed striped table-view-list seo-central_page_seo-central-redirects">
+          <thead>
+            <tr>
+              <th scope="col" id="id" class="manage-column column-id hidden column-primary"><?php echo __('ID', 'seo-central-lite') ?></th>
+              <th scope="col" id="redirect_type" class="manage-column column-redirect_type"><?php echo __('Redirect Type', 'seo-central-lite') ?></th>
+              <th scope="col" id="old_url" class="manage-column column-old_url"><?php echo __('Old URL', 'seo-central-lite') ?></th><th scope="col" id="new_url" class="manage-column column-new_url"><?php echo __('New URL', 'seo-central-lite') ?></th>
+              <th scope="col" id="actions" class="manage-column column-actions"><?php echo __('Edit/Delete', 'seo-central-lite') ?></th>	
+            </tr>
+          </thead>
 
-  //Perform the redirections using the custom table, this needs to be loaded before page loads and re-updated on add and edit of submissions
+          <tbody id="the-list">
+            <tr class="seo-central-redirect-table-rows" id="redirect-row-1">
+              <td class="id column-id has-row-actions column-primary hidden" data-colname="ID">1<button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+              </td>
+              <td class="redirect_type column-redirect_type" data-colname="Redirect Type">307</td>
+              <td class="old_url column-old_url" data-colname="Old URL">https://example.com/old-url/</td>
+              <td class="new_url column-new_url" data-colname="New URL">https://example.com/new-url/</td>
+              <td class="actions column-actions" data-colname="Edit/Delete">
+                <div class="row-actions">
+                  <span class="quickedit"><a href="" class="seo-central-quickedit-redirect" data-id="1"></a> | </span><span class="delete"><a href="" class="seo-central-delete-redirect" data-id="1"></a></span>
+                </div>
+                <button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+              </td>
+            </tr>	
+          </tbody>
 
-  function add_redirect($old_url, $new_url, $redirect_type) {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "_custom_redirects"; 
-
-    $wpdb->insert( 
-        $table_name, 
-        array( 
-            'old_url' => $old_url, 
-            'new_url' => $new_url,
-            'redirect_type' => $redirect_type,
-        ) 
-    );
-  }
-
-  function update_redirect($id, $old_url, $new_url, $redirect_type) {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "_custom_redirects"; 
-
-    $wpdb->update( 
-        $table_name, 
-        array( 
-            'old_url' => $old_url, 
-            'new_url' => $new_url,
-            'redirect_type' => $redirect_type,
-        ),
-        array( 'id' => $id )
-    );
-  }
-
-  function delete_redirect($id) {
-    global $wpdb;
-    $table_name = $wpdb->prefix . '_custom_redirects';
-    
-    $result = $wpdb->delete(
-        $table_name, // table name
-        array('id' => $id), // where clause
-        array('%d')  // where format
-    );
-    
-    if($result===false) {
-        // The query failed
-        return false;
-    } else {
-        // The query succeeded, and $result is the number of rows affected
-        return true;
-    }
-  }
-
-  //Access the wp list table class and extend to create custom listing
-  if(!class_exists('WP_List_Table')){
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-  }
-
-  class Seo_Central_Custom_Table extends WP_List_Table {
-
-    function get_columns(){
-      $columns = array(
-          'id'              => 'ID',
-          'redirect_type'   => 'Redirect Type',
-          'old_url'         => 'Old URL',
-          'new_url'         => 'New URL',
-          'actions'         => 'Edit/Delete'
-      );
-      return $columns;
-    }
-
-
-    function prepare_items() {
-        global $wpdb;
-        $table_name = $wpdb->prefix . '_custom_redirects';
-
-        $query = "SELECT * FROM $table_name";
-
-        $data = $wpdb->get_results($query, ARRAY_A);
-
-        $columns = $this->get_columns();
-        $hidden = array('id');
-        $sortable = array();
-
-        $this->_column_headers = array($columns, $hidden, $sortable);
-        $this->items = $data;
-    }
-
-    function column_default($item, $column_name){
-        switch($column_name){
-            case 'id':
-            case 'old_url':
-            case 'new_url':
-            case 'redirect_type':
-                return $item[$column_name];
-            default:
-                return print_r($item, true) ;
-        }
-    }
-
-    function column_actions($item){
-      $actions = array(
-          'quickedit' => sprintf('<a href="javascript:void(0);" class="seo-central-quickedit-redirect" data-id="%s"></a>', $item['id']),
-          // 'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['id']),
-          'delete'    => sprintf('<a href="javascript:void(0);" class="seo-central-delete-redirect" data-id="%s"></a>', $item['id']),
-      );
-
-      return $this->row_actions($actions);
-    }
-
-    function column_redirect_type($item){
-      return $item['redirect_type'];
-    }
-
-    function single_row($item) {
-
-      //Prepare the dropdown selected value
-      $redirect_types = array('301','302','307','410','451');
-      $redirect_labels = array('301 moved permanently','302 Found','307 Temporary Redirect','410 Temporary Deleted','451 Unavailable for legal reasons');
-      $select = '<select class="seo-central-redirect-types" name="redirect_type_'.$item['id'].'" id="redirect_type_'.$item['id'].'">';
-      foreach($redirect_types as $key=>$value) {
-        // do stuff
-        if($value == $item['redirect_type']) {
-          $select .= '<option value="'.$value.'" selected>'.$redirect_labels[$key].'</option>';
-        }
-        else {
-          $select .= '<option value="'.$value.'">'.$redirect_labels[$key].'</option>';
-        }
-      }
-      $select .= '</select>';
-
-      //Echo out the hidden row to the single row columns function using the item
-      echo '<tr class="seo-central-redirect-table-rows" id="redirect-row-' . $item['id'] . '">';
-      $this->single_row_columns($item);
-      echo '</tr>';
-      // Hidden row displayed when Quick Edit is clicked
-      echo '<tr class="hidden quickedit-row seo-central-redirect-table-quickedit" id="quickedit-row-' . $item['id'] . '">';
-      echo '<td colspan="' . $this->get_column_count() . '">';
-      echo '<div class="seo-central-quickedit-form">';
-  
-      // Your Quick Edit form goes here
-      echo '<div class="seo-central-quickedit-form-input">';
-      echo '<label class="hidden">'. __('Redirect Type:', 'seo-central-lite') .'</label> '. $select .'';
-      echo '</div>';
-
-      echo '<div class="seo-central-quickedit-form-input">';
-      echo '<label class="hidden">'. __('Old URL:', 'seo-central-lite') .'</label> <input type="text" name="old_url" value="' . $item['old_url'] . '" />';
-      echo '</div>';
-
-      echo '<div class="seo-central-quickedit-form-input">';
-      echo '<label class="hidden">'. __('New URL:', 'seo-central-lite') .'</label> <input type="text" name="new_url" value="' . $item['new_url'] . '" />';
-      echo '</div>';
-      // echo '<label>Redirect Type:</label> <input type="text" name="redirect_type" value="' . $item['redirect_type'] . '" />';
-      echo '<div class="seo-central-quickedit-form-input save-wrapper">';
-      echo '<div class="seo-central-redirect-table-quickedit-save-wrapper"><button class="quickedit-save seo-central-redirect-table-quickedit-save" data-id="' . $item['id'] . '"></button></div>';
-      echo '<div class="seo-central-redirect-table-quickedit-close-wrapper"><button class="quickedit-close seo-central-redirect-table-quickedit-close" data-id="' . $item['id'] . '"></button></div>';
-      echo '</div>';
-
-      echo '</div>';
-      echo '</td>';
-      echo '</tr>';
-  
-    }
-  }
-
-  function seo_central_custom_table_page(){
-    $myListTable = new Seo_Central_Custom_Table();
-    echo '<h2 class="wrap seo-central-redirection-wrapper-title">'. __('All Redirects', 'seo-central-lite') .'</h2>';
-    echo '<div class="wrap seo-central-redirection-wrapper">'; 
-    $myListTable->prepare_items(); 
-    $myListTable->display();
-    echo '</div>'; 
+          <tfoot>
+            <tr>
+              <th scope="col" class="manage-column column-id hidden column-primary"><?php echo __('ID', 'seo-central-lite') ?></th><th scope="col" class="manage-column column-redirect_type"><?php echo __('Redirect Type', 'seo-central-lite') ?></th><th scope="col" class="manage-column column-old_url"><?php echo __('Old URL', 'seo-central-lite') ?></th><th scope="col" class="manage-column column-new_url"><?php echo __('New URL', 'seo-central-lite') ?></th><th scope="col" class="manage-column column-actions"><?php echo __('Edit/Delete', 'seo-central-lite') ?></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    <?php
   }
 
   function seo_central_lite_display() {
@@ -241,22 +97,21 @@
 
       </article>
 
-      <?php seo_central_custom_table_page(); ?>
+      <?php //seo_central_custom_table_page(); ?>
+      <?php seo_central_table_preview_lite(); ?>
     </div>
 
     <?php
   }
+
+  // Make sure to include the WordPress plugin utility functions if they are not already included.
+  if ( ! function_exists( 'is_plugin_active' ) ) {
+    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+  }
   
   //Utilizing a constant for checking the pro version
   $seo_central_pro = defined('SEO_CENTRAL_PRO') && SEO_CENTRAL_PRO;
-  
-  //Unless the pro version is enabled do not allow the user to save and update the redirects
-  if($seo_central_pro) {
-    //Receive the post request from the top form and edit the database on click of Add Redirect Form
-    if(isset($_POST['addRedirect'])) {
-      add_redirect($_POST['oldUrl'],$_POST['newUrl'],$_POST['redirect_type']);
-    }
-  }
+
 ?>
 
 <!-- Include the partials nav -->
@@ -270,8 +125,11 @@
 <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
 
 
+<!-- Display Redirection Page Preview If the SEO Central Pro plugin is not installed and activated -->
 <?php if ( $seo_central_pro ): ?>
-  <?php //seo_central_pro_display(); ?>
+  <?php if (is_plugin_active('seo-central-wp-pro/seo-central-pro.php')) : ?>
+    <?php include(WP_PLUGIN_DIR . '/seo-central-wp-pro/admin/partials/seo-central-pro-redirects.php'); ?>
+  <?php endif; ?>
 <?php else: ?>
   <?php seo_central_lite_display(); ?>
 <?php endif; ?>
@@ -285,7 +143,7 @@
     overflow: hidden;
 
     .update-nag.notice {
-      //display: none;
+      /*display: none;*/
     }
   }
 </style>

@@ -59,32 +59,6 @@ register_activation_hook( __FILE__, 'activate_seo_central' );
 register_deactivation_hook( __FILE__, 'deactivate_seo_central' );
 
 /**
- * Initialze the redirect database table to the wordpress site on plugin activation
- * Must be set up to utilize the redirection tools and page for seo central.
- */
-function create_redirect_table() {
-	global $wpdb;
-	$table_name = $wpdb->prefix . "_custom_redirects"; 
-	$charset_collate = $wpdb->get_charset_collate();
-
-	$sql = "CREATE TABLE $table_name (
-			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			old_url varchar(255) NOT NULL,
-			new_url varchar(255) NOT NULL,
-			redirect_type int(3) NOT NULL,
-			PRIMARY KEY  (id)
-	) $charset_collate;";
-
-	// var_dump($sql);
-
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta($sql);
-}
-
-//Register the redirect table ot the database
-register_activation_hook( __FILE__, 'create_redirect_table' );
-
-/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
