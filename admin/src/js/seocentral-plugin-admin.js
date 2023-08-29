@@ -1,24 +1,14 @@
 import '../css/seocentral-plugin-admin.css';
 import 'jquery-sortablejs';
-import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import {googlePreviews} from '../js/seocentral-google-preview.js'; 
 import {contentHierarchy} from '../js/seocentral-page-analysis.js';
 import {updateScoreOnInput} from '../js/seocentral-page-analysis.js';
 import {seocentralSettings} from '../js/seocentral-settings.js';
+import {moveNotifications} from '../js/seocentral-settings.js';
 import {metaboxDropdown} from '../js/seocentral-metabox.js';
-import {moveNotifications} from '../js/seocentral-redirects.js';
 import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 import {pageAnalysis} from '../js/seocentral-page-analysis.js';
-import {metaboxTipSystem} from '../js/seocentral-tips.js';
-
-//Pro functions (API Setup, Redirection functionality, Copy functions, Secondary Keyphrase functions)
-import {seocentralAPI} from '../js/seocentral-app-api.js';
-import {redirectTableFormat} from '../js/seocentral-redirects.js';
-import {settingApiKeyCopy} from '../js/seocentral-settings.js';
-import {internalLinkCopy} from '../js/seocentral-copy-internal.js';
-import {secondaryDragStates} from '../js/seocentral-keyphrases';
-import {keyphraseEvents} from '../js/seocentral-keyphrases.js';
 
 (function( $ ) {
 	'use strict';
@@ -130,9 +120,6 @@ import {keyphraseEvents} from '../js/seocentral-keyphrases.js';
 		//On load move the notifications to the proper partial for out pages
 		moveNotifications( $ );
 		
-		
-		// Pro Features 
-
 		//Cornerstone Checkbox value save (Store the value into the checkbox input based on toggle)
 		if($('#seo_central_meta_cornerstone')) {
 
@@ -141,44 +128,21 @@ import {keyphraseEvents} from '../js/seocentral-keyphrases.js';
 				if($('#seo_central_meta_cornerstone').val() === 'cornerstone'){
 					$('#seo_central_meta_cornerstone').val('none');
 
-					if($('.regular-checkbox').hasClass('cornerstone')) {
-						$('.regular-checkbox').removeClass('cornerstone');
+					if($('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
+						$('.seo-central-checkbox-toggle.regular-checkbox').removeClass('cornerstone');
 					} 
 				}
 				else if($('#seo_central_meta_cornerstone').val() === 'none') {
 					$('#seo_central_meta_cornerstone').val('cornerstone');
 
-					if(!$('.regular-checkbox').hasClass('cornerstone')) {
-						$('.regular-checkbox').addClass('cornerstone');
+					if(!$('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
+						$('.seo-central-checkbox-toggle.regular-checkbox').addClass('cornerstone');
 					} 
 				}
 
 				return false;
 			});
 		}
-		
-		//Very Important Seo Central api call to app
-		//Update the meta description/keys using the seo central app api results
-		seocentralAPI( $ );
-
-		// Internal Linking Suggestion copy functionality 
-		internalLinkCopy( $ );
-
-		// Copy set up for api key on settings
-		settingApiKeyCopy( $ );
-
-		// Load this for the redirection table format
-		// redirectTableFormat( $ );
-
-
-		// Metabox Tips system
-		metaboxTipSystem( $ );
-
-		// When you click on item, record into data("initialText") content of this item.
-		// keyphraseEvents( $ );
-
-		// Secondary Keyphrase
-		// secondaryDragStates( $ );
 	});
 	
 })( jQuery );

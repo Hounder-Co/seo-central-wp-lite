@@ -61,9 +61,6 @@ class Seo_Central_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;	
 
-		add_action('wp_ajax_quickedit_save', [$this,'quickedit_save_callback']);
-		add_action('wp_ajax_delete_row', [$this,'delete_row_callback']);
-
 	}
 
 	/**
@@ -1738,51 +1735,5 @@ class Seo_Central_Admin {
 		$obj["readingTime"] = readingTime($text);
 
 		return $obj;
-	}
-
-	//Redirection quickedit ajax callback function. 
-  public function quickedit_save_callback() {
-		global $wpdb;
-
-		// Check the nonce if necessary
-		check_ajax_referer('quickedit_nonce', 'nonce');
-
-		$id = isset($_POST['id']) ? $_POST['id'] : '';
-		$old_url = isset($_POST['old_url']) ? $_POST['old_url'] : '';
-		$new_url = isset($_POST['new_url']) ? $_POST['new_url'] : '';
-		$redirect_type = isset($_POST['redirect_type']) ? $_POST['redirect_type'] : '';
-
-		// Validate and sanitize the data
-		// ...
-
-		$table_name = $wpdb->prefix . "_custom_redirects";
-
-		// Update the row in the database
-		$wpdb->update($table_name, 
-				array(
-						'old_url' => $old_url,
-						'new_url' => $new_url,
-						'redirect_type' => $redirect_type,
-				),
-				array('id' => $id)
-		);
-
-		wp_die(); // This is required to terminate immediately and return a proper response
-	}
-
-	public function delete_row_callback() {
-    global $wpdb;
-
-    // Check the nonce if necessary
-    check_ajax_referer('quickedit_nonce', 'nonce');
-
-    $id = isset($_POST['id']) ? $_POST['id'] : '';
-
-    $table_name = $wpdb->prefix . "_custom_redirects";
-
-    // Delete the row in the database
-    $wpdb->delete($table_name, array('id' => $id));
-
-    wp_die(); // This is required to terminate immediately and return a proper response
 	}
 }
