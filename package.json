@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hounder-Co/seo-central-plugin.git"
+    "url": "git+https://github.com/Hounder-Co/seo-central-wp-lite.git"
   },
   "author": "info@hounder.co <Hounder>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Hounder-Co/seo-central-plugin/issues"
+    "url": "https://github.com/Hounder-Co/seo-central-wp-lite/issues"
   },
-  "homepage": "https://github.com/Hounder-Co/seo-central-plugin#readme",
+  "homepage": "https://github.com/Hounder-Co/seo-central-wp-lite#readme",
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
