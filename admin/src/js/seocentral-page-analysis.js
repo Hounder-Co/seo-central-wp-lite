@@ -93,7 +93,7 @@ export function pageAnalysis( $ ) {
     
     //Pro Functionality
     // Set Points for Secondary Keywords
-    subKeywordAnalysis(seoData, seoPointsArray, metaSub);
+    // subKeywordAnalysis(seoData, seoPointsArray, metaSub); 
     
     // Update visual for score circle
     updateScoreDisplay( $ );
@@ -559,37 +559,37 @@ function primeKeywordAnalaysis(seoData, seoPointsArray, csToggle, metaPrime, slu
 }
 
 //Sub keywor
-function subKeywordAnalysis(seoData, seoPointsArray, metaSub) {
-  if(metaSub.val()) {
+// function subKeywordAnalysis(seoData, seoPointsArray, metaSub) {
+//   if(metaSub.val()) {
 
-    //Split all the secondary phrases from the field and compare each phrase against the body content. 
-    var clean_phrases = metaSub.val().split(",");
-    var subFlag = true;
-    clean_phrases = clean_phrases.filter(item => item);
+//     //Split all the secondary phrases from the field and compare each phrase against the body content. 
+//     var clean_phrases = metaSub.val().split(",");
+//     var subFlag = true;
+//     clean_phrases = clean_phrases.filter(item => item);
 
-    for(let i=0; i < clean_phrases.length; i++) {
-      if(myThemeParams.body['stringbody'].toLowerCase().indexOf(clean_phrases[i].toLowerCase()) != -1) {
+//     for(let i=0; i < clean_phrases.length; i++) {
+//       if(myThemeParams.body['stringbody'].toLowerCase().indexOf(clean_phrases[i].toLowerCase()) != -1) {
 
-      }
-      else {
-        seoData.seoFlag = false;
-        subFlag = false;
-      }								
-    }
+//       }
+//       else {
+//         seoData.seoFlag = false;
+//         subFlag = false;
+//       }								
+//     }
 
-    //If all secondary keyphrases are accurate add to the score
-    if(subFlag == true) {
-      seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Success");
-    }
-    else {
-      seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Error");
-    }
-  }
-  else {
-    seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Error");
-    seoData.seoFlag = false;
-  }
-}
+//     //If all secondary keyphrases are accurate add to the score
+//     if(subFlag == true) {
+//       seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Success");
+//     }
+//     else {
+//       seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Error");
+//     }
+//   }
+//   else {
+//     seoData.seoScore += setSeoScore("second_key_use_accuracy", seoPointsArray, "Error");
+//     seoData.seoFlag = false;
+//   }
+// }
 
 // Input Page Analysis functionality 
 function updateScoreDisplay( $ ) {
