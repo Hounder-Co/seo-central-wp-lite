@@ -101,8 +101,10 @@ import {pageAnalysis} from '../js/seocentral-page-analysis.js';
 		//Google Preview and Social Card Setup
 		googlePreviews( $ );
 		
-		//Page Analysis functionality and hidden fields
-		pageAnalysis( $ );
+		//Page Analysis functionality and hidden fields (lite version does not check for secondary keywords a disabled field)
+		if(!myThemeParams['pro_analysis']) {
+			pageAnalysis( $ );
+		}
 		
 		//Settings page functionality
 		seocentralSettings( $ );
@@ -111,7 +113,10 @@ import {pageAnalysis} from '../js/seocentral-page-analysis.js';
 		contentHierarchy( $ );
 		
 		//Update the seo score on completion of input fields
-		updateScoreOnInput( $ );
+		//Pro install will have its onw updating function
+		if(!myThemeParams['pro_analysis']) {
+			updateScoreOnInput( $ );
+		}
 		
 		// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
 		metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);

@@ -127,7 +127,8 @@ class Seo_Central_Admin {
 				'siteUrl' => get_site_url(),														 //siteUrl used for checks
 				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
 				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
-				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST)
+				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST),
+				'pro_analysis' => true
 			);
 	
 			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );
@@ -153,7 +154,8 @@ class Seo_Central_Admin {
 				'siteUrl' => get_site_url(),														 //siteUrl used for checks
 				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
 				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
-				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST)
+				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST),
+				'pro_analysis' => false
 			);
 	
 			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );	

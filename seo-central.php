@@ -47,12 +47,29 @@ function activate_seo_central() {
 }
 
 /**
- * The code that runs during plugin deactivation.
+ * The code that runs during plugin deactivation. (Also deactivates the pro plugin if installed and active)
  * This action is documented in includes/class-seo-central-deactivator.php
  */
 function deactivate_seo_central() {
+
+	// Check if the Pro version is active and deactivate when lite is deactivated
+	if (is_plugin_active('seo-central-wp-pro/seo-central-pro.php')) {
+		add_action('update_option_active_plugins', 'deactivate_seo_central_dependents');
+	}
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-seo-central-deactivator.php';
 	Seo_Central_Deactivator::deactivate();
+}
+
+
+/**
+ * Run the deactivation of the pro plugin when enabled
+ */
+function deactivate_seo_central_dependents() {
+	// Include WordPress plugin administration functions
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+	deactivate_plugins('seo-central-wp-pro/seo-central-pro.php');
 }
 
 register_activation_hook( __FILE__, 'activate_seo_central' );
