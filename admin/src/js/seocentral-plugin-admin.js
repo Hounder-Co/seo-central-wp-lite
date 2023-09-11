@@ -9,6 +9,7 @@ import {moveNotifications} from '../js/seocentral-settings.js';
 import {metaboxDropdown} from '../js/seocentral-metabox.js';
 import {isMetaboxInViewport} from '../js/seocentral-metabox.js';
 import {pageAnalysis} from '../js/seocentral-page-analysis.js';
+import {metaboxLiteTips} from '../js/seocentral-lite-tips.js';
 
 (function( $ ) {
 	'use strict';
@@ -121,6 +122,9 @@ import {pageAnalysis} from '../js/seocentral-page-analysis.js';
 		// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
 		metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);
 		metaboxDropdown( $, $('.seo-central-analysis-scores-dropdown-header')[0], $('.seo-central-analysis-scores-dropdown-header-collapse-arrow')[0], $('.seo-central-analysis-scores-dropdown-body')[0]);
+
+		// Set up the tips system for the lite metabox
+		metaboxLiteTips( $ );
 		
 		//On load move the notifications to the proper partial for out pages
 		moveNotifications( $ );

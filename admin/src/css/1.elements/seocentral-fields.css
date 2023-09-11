@@ -237,6 +237,35 @@
         top: 50%;
         transform: translateY(-50%);
         background-color: var(--central-ui-blue);
+        border-radius: 4px 0px 0px 4px;
+      }
+
+      &.metabox-notification {
+        @apply flex flex-row justify-between items-center !max-w-[100%] !overflow-visible !my-12px;
+        border: 1px solid var(--gray-4, #C4CEC8);
+        border-left: none !important;
+
+        &.disabled {
+          @apply !hidden; 
+        }
+
+        &:before {
+          min-height: 70px;
+          background-color: var(--central-ui-gold);
+        }
+
+        .seo-central-notification-icon {
+          @apply w-[24px] h-[24px];
+          background-color: var(--central-ui-gold);
+          mask-image: url('../../icons/seo-central-warning-icon.svg');
+          mask-size: contain;
+          mask-position: center; 
+          background-image: none !important;
+        }
+
+        .seo-central-notification-text {
+          @apply max-w-[80%];
+        }
       }
     }
 

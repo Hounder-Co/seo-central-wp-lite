@@ -151,6 +151,25 @@
         @apply !bg-green-3;
       }
     }
+
+
+    &.alternate-colors {
+      @apply bg-green-3 text-green-6;
+      border: 2px solid var(--central-green-3);
+
+      &:after {
+        background-color: var(--central-green-6);
+      }
+
+      &:hover, &:focus {
+        @apply bg-green-6 text-green-3;
+        border: 2px solid var(--central-green-6);
+
+        &:after {
+          background-color: var(--central-green-3);
+        }
+      }
+    }
   }
 
   &-apply {

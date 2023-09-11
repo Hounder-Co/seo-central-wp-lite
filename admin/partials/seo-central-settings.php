@@ -171,9 +171,8 @@ function seo_central_do_settings_fields( $page, $section ) {
         
       </div>
 
-      <div class='seo-central-notification-wrapper'>
-        <p class='seo-central-notification'><span class='seo-central-notification-icon icon-blue'></span> <span class='seo-central-notification-text'></span></p>
-      </div>
+      <!-- Notifications bar -->
+      <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
 
       <?php
           //submit_button(); 

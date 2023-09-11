@@ -593,11 +593,15 @@ function primeKeywordAnalaysis(seoData, seoPointsArray, csToggle, metaPrime, slu
 
 // Input Page Analysis functionality 
 function updateScoreDisplay( $ ) {
+  const { __ } = wp.i18n;
+  
   if($('.seo-central-page-score.svg-wrapper')[0]) {
     var finalScore = $('#seo_central_page_score'),
         scoreWrapper = $('.seo-central-page-score.svg-wrapper')[0];
     var overlayCircle = scoreWrapper.querySelector('.overlay-circle'),
         overlayText = scoreWrapper.querySelector('.percentage'),
+        resultText = scoreWrapper.querySelector('.percent-result'),
+        tempText = '',
         circleColor = '#23af7c'; //default green color
 
     var strokeArray = 525;
@@ -614,6 +618,17 @@ function updateScoreDisplay( $ ) {
     //Update the visuals of the score
     circleColor = finalScore.val() <= 49 ? '#D5423C' : finalScore.val() <= 79 ? '#DFB314' : '#23af7c';
 
+    //Update the visuals of the score bottom text
+    if (finalScore.val() <= 49) {
+        tempText = __("Yikes, needs work", "your-text-domain");
+    } else if (finalScore.val() <= 59) {
+        tempText = __("You can do better", "your-text-domain");
+    } else if (finalScore.val() <= 79) {
+        tempText = __("Not bad!", "your-text-domain");
+    } else {
+        tempText = __("Excellent!", "your-text-domain");
+    }
+
     // If it's the initial load, create a keyframe animation
     if(initialLoad) {
       var animationName = 'progress';
@@ -625,6 +640,7 @@ function updateScoreDisplay( $ ) {
     //Update the score within the stroke-dasharray and the text field
     overlayCircle.style.stroke = circleColor;
     overlayText.innerHTML = finalScore.val();
+    resultText.innerHTML = tempText;
 
     //If it's the initial load, apply the animation
     if(initialLoad) {

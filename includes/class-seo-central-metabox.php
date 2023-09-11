@@ -238,19 +238,31 @@ class Seo_Central_Metabox {
 			$this->seo_central_fields_table_lite();
 		}
 		else if(defined('SEO_CENTRAL_PRO') || SEO_CENTRAL_PRO) {
-			$this->seo_central_fields_table_pro();
+
+			//Check to see if the pro user flag has been set
+			if (get_option('seo_central_pro_user') === 'pro') {
+					$this->seo_central_fields_table_pro();
+			} else {
+					$this->seo_central_fields_table_lite();
+			}
+
 		}
 	}
 
 	// SEO Central metabox Lite Version
 	private function seo_central_fields_table_lite() {
 		?>
+		<div class="seo-central-notification-wrapper metabox-notification">
+			<span class="seo-central-notification-icon"></span>
+			<span class="seo-central-notification-text">Your trial has used all 3 free optimizations. Upgrade to Pro to get unlimited page optimizations and automatically generated Secondary Keywords for only $140 a year.</span>
+			<a href="" class='seo-central-button-upgrade alternate-colors'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+		</div>
 		<div id="seo-central-metabox" class="seo-central-metabox-wrapper">
 
 			<div id="seo-central-metabox-ai" class="seo-central-metabox-top-content">
 				
 				<div class="form-table seo-central-metabox-ai-fields seo-central-metabox-lite-ai-fields">
-					<div class="seo-central-metabox-ai-fields-tip-wrapper"><span class="seo-central-metabox-ai-fields-tip-text">Tips</span><span class="seo-central-metabox-ai-fields-tip-symbol"></span></div>
+					<div id='seo-central-lite-tips' class="seo-central-metabox-ai-fields-tip-wrapper"><span class="seo-central-metabox-ai-fields-tip-text">Tips</span><span class="seo-central-metabox-ai-fields-tip-symbol"></span></div>
 					<div class="seo-central-metabox-lite-preview">
 						<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('Generate expert meta data with a single click', 'seo-central-lite'); ?></h2>
 						<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, you can generate meta titles, descriptions, and keywords instantly. Save yourself from the busywork.', 'seo-central-lite'); ?></p>
@@ -482,22 +494,22 @@ class Seo_Central_Metabox {
 								</svg>
 							</div>
 
-							<div class="seo-central-metabox-lite-preview mx-auto">
+							<div class="seo-central-metabox-lite-preview mx-auto seo-central-preview-toggle">
 								<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('We show you how to get your score higher here.', 'seo-central-lite'); ?></h2>
 								<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, we tell you what is wrong, and show you how to fix SEO problems to boost your ranking.', 'seo-central-lite'); ?></p>
 								<a href="" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
 							</div>
-							<!-- <div class='seo-central-analysis-wrapper warnings-errors hidden'>
+							<div class='seo-central-analysis-wrapper warnings-errors hidden'>
 
 							</div>	
 
 							<div class="seo-central-analysis-scores-dropdown success hidden">
 								<div class="seo-central-analysis-scores-dropdown-header">
-									<p class='seo-central-analysis-scores-dropdown-header-description'><?php //echo __('Show good results', 'seo-central-lite'); ?></p>
+									<p class='seo-central-analysis-scores-dropdown-header-description'><?php echo __('Show good results', 'seo-central-lite'); ?></p>
 									<div class='seo-central-analysis-scores-dropdown-header-collapse-arrow'></div>
 								</div>
 								<div class="seo-central-analysis-scores-dropdown-body close"></div>
-							</div> -->
+							</div>
 
 							<?php
 								foreach ( $this->config4['fields'] as $field ) {
@@ -605,12 +617,17 @@ class Seo_Central_Metabox {
 	// SEO Central metabox Pro Version (All functionality enabled for meta generation and page analysis)
 	private function seo_central_fields_table_pro() {
 		?>
+		<div class="seo-central-notification-wrapper metabox-notification">
+			<span class="seo-central-notification-icon"></span>
+			<span class="seo-central-notification-text">Your trial has used all 3 free optimizations. Upgrade to Pro to get unlimited page optimizations and automatically generated Secondary Keywords for only $140 a year.</span>
+			<a href="" class='seo-central-button-upgrade alternate-colors'><?php //echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+		</div>
 		<div id="seo-central-metabox" class="seo-central-metabox-wrapper">
 
 			<div id="seo-central-metabox-ai" class="seo-central-metabox-top-content">
 				
 				<div class="form-table seo-central-metabox-ai-fields">
-					<div class="seo-central-metabox-ai-fields-tip-wrapper"><span class="seo-central-metabox-ai-fields-tip-text">Tips</span><span class="seo-central-metabox-ai-fields-tip-symbol"></span></div>
+					<div id='seo-central-pro-tips' class="seo-central-metabox-ai-fields-tip-wrapper"><span class="seo-central-metabox-ai-fields-tip-text">Tips</span><span class="seo-central-metabox-ai-fields-tip-symbol"></span></div>
 					<div class="seo-central-metabox-top-content-first">
 						<div class="seo-central-generate-wrapper">
 							<div class="seo-central-generate-wrapper-buttons">
@@ -668,6 +685,12 @@ class Seo_Central_Metabox {
 
 										<?php elseif (($field['id'] == 'seo_central_add_keyphrases') ) : ?>
 
+
+											<div class="seo-central-metabox-lite-preview secondary-overlay hidden">
+												<p class="seo-central-metabox-lite-preview-description"><?php echo __('Upgrade to get the edge with Secondary Keywords', 'seo-central-lite'); ?></p>
+												<a href="" class='seo-central-button-upgrade alternate-colors'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+											</div>
+
 											<label class="seo-central-label text-animate generated-label" for="generated_meta_second"><?php echo __('Generated Secondary Keywords', 'seo-central-lite'); ?></label>
 											<div class="seo-central-metabox-ai-results-wrapper">
 												<div class="seo-central-secondary-keyphrases seo-keyphrases-wrapper seo-central-keyphrases-wrapper generated-secondary-wrapper generated-input"><input class="regular-text regular-keyphrases generated-input %s" id="generated_meta_second" name="generated_meta_second" %s type="text" value="" data-previous="" tabindex="-1"></div>
@@ -682,7 +705,7 @@ class Seo_Central_Metabox {
 										<button id="apply_<?php echo $button_id; ?>" class='seo-central-button-apply-single'><span class='seo-central-button-apply-single-text'><?php echo __('Apply', 'seo-central-lite'); ?></span><span class='seo-central-button-apply-single-symbol'></span></button>
 									</div>
 
-									<div class="seo-central-metabox-ai-fields-row-item <?php echo ($field['id'] == 'seo_central_meta_description') ? 'js-tips-description' : ''; ?>">
+									<div class="seo-central-metabox-ai-fields-row-item <?php echo ($field['id'] == 'seo_central_meta_description') ? 'js-tips-description' : ''; ?><?php echo ($field['id'] == 'seo_central_add_keyphrases') ? 'item-secondary' : ''; ?>">
 										<?php $this->label( $field ); ?>
 										<?php //$this->description( $field ); ?>
 										<?php $this->field( $field ); ?>
