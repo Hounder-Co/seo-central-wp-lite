@@ -61,6 +61,9 @@ class Seo_Central_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;	
 
+		//Initialize seo central notifications
+		add_action('admin_init', [$this, 'initialize_notifications']);
+
 	}
 
 	/**
@@ -977,6 +980,21 @@ class Seo_Central_Admin {
 
 		} 
 
+	}
+
+	//Set the notification option to trigger notification bars on pages and on metabox
+	public function initialize_notifications() {
+		//Enable notification flags for seo central plugin
+    if (get_option('seo_central_notification') === false) {
+			add_option('seo_central_notification', 'free');
+		}
+		else {
+			if (!defined('SEO_CENTRAL_PRO') || !SEO_CENTRAL_PRO) {
+					if (get_option('seo_central_notification') !== false) {
+							update_option('seo_central_notification', 'free');
+					}
+			}
+		}
 	}
 
 	//Function to curl request body content of the page using the permalink

@@ -87,11 +87,13 @@ if ( isset( $_POST['updateHumans'] ) ) {
 
 </div>
 
+<!-- Notifications bar -->
+<div class="seo-central-file-notifications">
+  <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
+</div>
+
 <article class="seo-central-file-editors-wrapper">
 
-  <div class='seo-central-notification-wrapper'>
-    <p class='seo-central-notification'><span class='seo-central-notification-icon icon-blue'></span> <span class='seo-central-notification-text'></span></p>
-  </div>
 
   <form method="post" action="<?php echo $file_editor; ?>" id='seo-central-robot-form' class='seo-central-file-editors'>
     <label class='seo-central-file-label' for='seo-central-robots-editor' value='Robots.txt'><?php echo __('Robots.txt', 'seo-central-lite'); ?></label>
@@ -116,6 +118,15 @@ if ( isset( $_POST['updateHumans'] ) ) {
 
     .update-nag.notice {
       //display: none;
+    }
+  }
+
+  .seo-central-file-notifications {
+    padding-left: 22px;
+    .seo-central-partials-notification-wrapper {
+      max-width: 96%;
+      margin-left: 0px;
+      margin-right: 0px;
     }
   }
 </style>

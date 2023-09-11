@@ -122,13 +122,17 @@
 </div>
 
 <!-- Notifications bar -->
-<?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
+<div class="seo-central-redirect-notifications">
+  <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-notification.php' ); ?>
+</div>
 
 
 <!-- Display Redirection Page Preview If the SEO Central Pro plugin is not installed and activated -->
 <?php if ( $seo_central_pro ): ?>
   <?php if (is_plugin_active('seo-central-wp-pro/seo-central-pro.php')) : ?>
+
     <?php include(WP_PLUGIN_DIR . '/seo-central-wp-pro/admin/partials/seo-central-pro-redirects.php'); ?>
+    
   <?php endif; ?>
 <?php else: ?>
   <?php seo_central_lite_display(); ?>
@@ -144,6 +148,15 @@
 
     .update-nag.notice {
       /*display: none;*/
+    }
+  }
+
+  .seo-central-redirect-notifications {
+    padding-left: 22px;
+    .seo-central-partials-notification-wrapper {
+      max-width: 95%;
+      margin-left: 0px;
+      margin-right: 0px;
     }
   }
 </style>

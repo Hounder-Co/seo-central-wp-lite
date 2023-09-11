@@ -419,22 +419,6 @@ export function seocentralSettings( $ ) {
 					
 				});
 			});
-
-			// Take contents from wordpress default notification and place it into our custom element for proper display 
-			if(wpAlert) {
-				var notificationSpan = document.querySelector(".seo-central-notification-text");
-				
-				// Make sure both elements are found in the DOM
-				if(wpAlert && notificationSpan) {
-					// Extract the HTML content of the updateDiv
-					var updateContent = wpAlert.innerHTML;
-
-					// Place the update content inside the notification span
-					notificationSpan.innerHTML = updateContent;
-
-					centralAlert.classList.add('enabled');
-				}
-			}
 		}
 
 		// Set up functionality for the variable selections for the title fields
@@ -795,14 +779,35 @@ function setVariableDoubleClick($, element) {
 
 // In the event there are default notifications move them to the proper spot
 export function moveNotifications( $ ) {
-  if($('.notice').length) {
-    var defaultNotices = $('.notice');
-    var seoNotifications = $('.seo-central-partials-notification-wrapper');
 
-    defaultNotices.each(function() {
-        var cloneNotice = $(this).clone();
-        seoNotifications.append(cloneNotice);
-        $(this).hide();
-    });
-  }
+	var wpAlert = document.querySelector('#wpbody-content .update-nag.notice'),
+			centralAlert = document.querySelector('#seo-central-auto-notifier');
+
+	// Take contents from wordpress default notification and place it into our custom element for proper display 
+	if(wpAlert) {
+		var notificationSpan = centralAlert.querySelector(".seo-central-notification-text");
+		
+		// Make sure both elements are found in the DOM
+		if(wpAlert && notificationSpan) {
+			// Extract the HTML content of the updateDiv
+			var updateContent = wpAlert.innerHTML;
+
+			// Place the update content inside the notification span
+			notificationSpan.innerHTML = updateContent;
+
+			centralAlert.classList.add('enabled');
+			wpAlert.classList.add('hidden');
+		}
+	}
+
+  // if(wpAlert.length) {
+  //   var defaultNotices = wpAlert;
+  //   var seoNotifications = $('.seo-central-partials-notification-wrapper');
+
+  //   defaultNotices.each(function() {
+  //       var cloneNotice = $(this).clone();
+  //       seoNotifications.append(cloneNotice);
+  //       $(this).hide();
+  //   });
+  // }
 }
