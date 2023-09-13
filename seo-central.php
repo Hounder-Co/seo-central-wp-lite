@@ -47,6 +47,40 @@ function activate_seo_central() {
 }
 
 /**
+ * The code that runs during plugin activation.
+ * Detect other SEO related plugins to notify the user 
+ */
+function detect_conflicting_seo_plugins() {
+	$plugins_to_check = array(
+			'wordpress-seo/wp-seo.php', // Yoast SEO
+			'seo-by-rank-math/rank-math.php', // Rank Math SEO
+			'all-in-one-seo-pack/all_in_one_seo_pack.php', //All in one seo
+			'wp-seopress-public/seopress.php' //SEOPress
+	);
+
+	$active_plugins = get_option( 'active_plugins' );
+
+	$conflicting_plugins = array();
+
+	foreach ( $plugins_to_check as $plugin ) {
+			if ( in_array( $plugin, $active_plugins ) ) {
+					$conflicting_plugins[] = $plugin;
+			}
+	}
+
+	// Check if the option 'seo_central_conflicting_plugins' already exists.
+	if ( get_option( 'seo_central_conflicting_plugins' ) === false ) {
+		// If it doesn't exist, add the option with a default value, which could be an empty array.
+		add_option( 'seo_central_conflicting_plugins', array() );
+	}
+
+	if ( ! empty( $conflicting_plugins ) ) {
+		// Update the option if there are any conflicting plugins.
+		update_option( 'seo_central_conflicting_plugins', $conflicting_plugins );
+	}
+}
+
+/**
  * The code that runs during plugin deactivation. (Also deactivates the pro plugin if installed and active)
  * This action is documented in includes/class-seo-central-deactivator.php
  */
@@ -74,6 +108,11 @@ function deactivate_seo_central_dependents() {
 
 register_activation_hook( __FILE__, 'activate_seo_central' );
 register_deactivation_hook( __FILE__, 'deactivate_seo_central' );
+
+/**
+ * Detect for conflicting plugins
+ */
+register_activation_hook( __FILE__, 'detect_conflicting_seo_plugins' );
 
 /**
  * The core plugin class that is used to define internationalization,

@@ -781,33 +781,19 @@ function setVariableDoubleClick($, element) {
 export function moveNotifications( $ ) {
 
 	var wpAlert = document.querySelector('#wpbody-content .update-nag.notice'),
-			centralAlert = document.querySelector('#seo-central-auto-notifier');
+			centralAlert = document.querySelector('#seo-central-auto-notifier'),
+			notificationSpan = document.querySelector("#seo-central-auto-notifier .seo-central-partials-notification-text");
 
 	// Take contents from wordpress default notification and place it into our custom element for proper display 
-	if(wpAlert) {
-		var notificationSpan = centralAlert.querySelector(".seo-central-notification-text");
-		
-		// Make sure both elements are found in the DOM
-		if(wpAlert && notificationSpan) {
-			// Extract the HTML content of the updateDiv
-			var updateContent = wpAlert.innerHTML;
+	// Make sure both elements are found in the DOM
+	if(wpAlert && notificationSpan) {
+		// Extract the HTML content of the updateDiv
+		var updateContent = wpAlert.innerHTML;
 
-			// Place the update content inside the notification span
-			notificationSpan.innerHTML = updateContent;
+		// Place the update content inside the notification span
+		notificationSpan.innerHTML = updateContent;
 
-			centralAlert.classList.add('enabled');
-			wpAlert.classList.add('hidden');
-		}
+		centralAlert.classList.add('enabled');
+		wpAlert.classList.add('hidden');
 	}
-
-  // if(wpAlert.length) {
-  //   var defaultNotices = wpAlert;
-  //   var seoNotifications = $('.seo-central-partials-notification-wrapper');
-
-  //   defaultNotices.each(function() {
-  //       var cloneNotice = $(this).clone();
-  //       seoNotifications.append(cloneNotice);
-  //       $(this).hide();
-  //   });
-  // }
 }

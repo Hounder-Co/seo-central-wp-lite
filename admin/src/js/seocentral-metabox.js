@@ -14,13 +14,13 @@ export function metaboxDropdown($, header, arrow, body) {
         body.classList.add('close');
         arrow.classList.add('rotate-arrow');
 
-        headerText.innerHTML = 'Hide all results';
+        headerText ? headerText.innerHTML = "Hide all results" : null;
       }
       else if(body.classList.contains('open')) {
         body.classList.remove('open');
         body.classList.add('close');
 
-        headerText.innerHTML = 'Show good results';
+        headerText ? headerText.innerHTML = "Show good results" : null;
         
         if(!arrow.classList.contains('rotate-arrow')) {
           arrow.classList.add('rotate-arrow');
@@ -33,7 +33,7 @@ export function metaboxDropdown($, header, arrow, body) {
         body.classList.remove('close');
         body.classList.add('open');
 
-        headerText.innerHTML = 'Hide all results';
+        headerText ? headerText.innerHTML = "Hide all results" : null;
 
         if(arrow.classList.contains('rotate-arrow')) {
           arrow.classList.remove('rotate-arrow');

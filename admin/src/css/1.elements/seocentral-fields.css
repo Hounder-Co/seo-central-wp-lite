@@ -214,7 +214,7 @@
 
 
 
-  /* Notification css */
+  /* Metabox Notification css */
   &-notification {
     @apply w-fit h-auto flex flex-row justify-start items-center;
 
@@ -228,8 +228,8 @@
 
       &:before {
         content: '';
-        height: 100%;
-        min-height: 48px;
+        height: 102%;
+        /* min-height: 48px; */
         width: 4px;
         display: block;
         position: absolute;
@@ -249,22 +249,70 @@
           @apply !hidden; 
         }
 
-        &:before {
-          min-height: 70px;
-          background-color: var(--central-ui-gold);
+        &.central-blue {
+
+          .seo-central-notification-icon {
+            background-color: var(--central-ui-blue);
+          }
+
+          &:before {
+            background-color: var(--central-ui-blue);
+          }
+        }
+
+        &.central-red {
+
+          .seo-central-notification-icon {
+            background-color: var(--central-ui-red);
+          }
+
+          &:before {
+            background-color: var(--central-ui-red);
+          }
+        }
+
+        &.central-yellow {
+
+          .seo-central-notification-icon {
+            background-color: var(--central-ui-gold);
+          }
+
+          &:before {
+            background-color: var(--central-ui-gold);
+          }
+        }
+
+        &.icon-alert {
+          .seo-central-notification-icon {
+            mask-image: url('../../icons/seo-central-alert-icon.svg');
+          }
+        }
+
+        &.icon-warning {
+          .seo-central-notification-icon {
+            mask-image: url('../../icons/seo-central-warning-icon.svg') !important;
+          }
+        }
+
+        &.icon-error {
+          .seo-central-notification-icon {
+            mask-image: url('../../icons/seo-central-error-icon.svg') !important;
+          }
         }
 
         .seo-central-notification-icon {
           @apply w-[24px] h-[24px];
-          background-color: var(--central-ui-gold);
-          mask-image: url('../../icons/seo-central-warning-icon.svg');
           mask-size: contain;
           mask-position: center; 
           background-image: none !important;
         }
 
-        .seo-central-notification-text {
-          @apply max-w-[80%];
+        .seo-central-notification {
+          @apply max-w-[80%] pr-12px lg:pr-0; 
+        }
+
+        .seo-central-button-upgrade.alternate-colors {
+          @apply !whitespace-nowrap;
         }
       }
     }

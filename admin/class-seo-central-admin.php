@@ -108,62 +108,37 @@ class Seo_Central_Admin {
 		 * class.
 		 */
 
-		//Enable Pro Admin JS if flag detected
-    if (defined('SEO_CENTRAL_PRO') && constant('SEO_CENTRAL_PRO') === true) {
+		//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
+		
+		wp_localize_script($this->plugin_name, 'my_script_vars', array(
+			'ajaxurl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('quickedit_nonce'),
+		));
 
-			//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
-			
-			wp_localize_script($this->plugin_name, 'my_script_vars', array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
-				'nonce' => wp_create_nonce('quickedit_nonce'),
-			));
-	
-	
-			wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
-	
-			
+
+		wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
+
+
+		//Conditionaly render the script with the parameters 
+		$isPostEditPage = 'post.php' == basename($_SERVER['PHP_SELF']); //all edit pages
+		$isSpecialAdminPage = 'admin.php' == basename($_SERVER['PHP_SELF']) && isset($_GET['page']); //admin.php
+		$specialPages = ['seo-central-dashboard', 'seo-central-redirects', 'seo-central-file-editor']; //seocentral pages
+		
+		if ($isPostEditPage || ($isSpecialAdminPage && in_array($_GET['page'], $specialPages))) {
 			//Pass data over to Admin script files so we can properly load functions with settings 
 			$myThemeParams = array(
-				'apiKey' => get_option( 'seo_central_setting_api_key'),  //api key is crucial and must be filled 
+				// 'apiKey' => get_option( 'seo_central_setting_api_key'),  //api key is crucial and must be filled 
 				'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
 				'siteUrl' => get_site_url(),														 //siteUrl used for checks
 				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
 				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
 				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST),
-				'pro_analysis' => true
+				'pro_analysis' => $this->seo_central_pro_plugin_check()
 			);
-	
+
 			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );
-
-    }
-    else if (!defined('SEO_CENTRAL_PRO')) {
-
-			//Enqueue the distribution script. Pass in jquery and wp-i18n for translations.
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/dist.seocentral-plugin-admin.js', array( 'jquery', 'wp-i18n' ), $this->version, false );
-			
-			wp_localize_script($this->plugin_name, 'my_script_vars', array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
-				'nonce' => wp_create_nonce('quickedit_nonce'),
-			));
-	
-	
-			wp_set_script_translations( $this->plugin_name, 'seo-central-lite', plugin_dir_path(__FILE__) . 'lang' );
-	
-			
-			//Pass data over to Admin script files so we can properly load functions with settings 
-			$myThemeParams = array(
-				'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
-				'siteUrl' => get_site_url(),														 //siteUrl used for checks
-				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page
-				'links' => $this->seo_central_link_content(),						 //Internal and External link arrays used for scoring
-				'site_domain' => wp_parse_url(get_site_url(), PHP_URL_HOST),
-				'pro_analysis' => false
-			);
-	
-			wp_add_inline_script($this->plugin_name, 'var myThemeParams = ' . wp_json_encode( $myThemeParams ), 'before' );	
-    }
-
+		}
 	}
 
 
@@ -186,19 +161,11 @@ class Seo_Central_Admin {
 
 		add_menu_page( __( 'SEO Central Dashboard', 'seo-central-lite' ), __( 'SEO Central', 'seo-central-lite' ), $capability, $parent_slug, 'seocentral-menu', $menu_icon );
 
-
-		// add_submenu_page( $parent_slug, __( 'SEO Central Dashboard', 'seo-central' ), __( 'Dashboard', 'seo-central' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'page_dashboard' ) );
-
 		add_submenu_page( $parent_slug, __( 'Dashboard', 'seo-central-lite' ), __( 'Dashboard', 'seo-central-lite' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'page_settings' ) );
 		
 		add_submenu_page( $parent_slug, __( 'File Editor', 'seo-central-lite' ), __( 'File Editor', 'seo-central-lite' ), $capability, $this->plugin_name . '-file-editor', array( $this, 'page_file_editor' ) );
 
 		add_submenu_page( $parent_slug, __( 'Redirects', 'seo-central-lite' ), __( 'Redirects', 'seo-central-lite' ), $capability, $this->plugin_name . '-redirects', array( $this, 'page_redirects' ) );
-
-		// add_submenu_page( $parent_slug, __( 'About SEO Central', 'seo-central' ), __( 'About SEO Central', 'seo-central' ), $capability, $this->plugin_name . '-about', array( $this, 'page_about' ) );
-
-		// add_submenu_page( $parent_slug, __( 'Reports', 'seo-central' ), __( 'Reports', 'seo-central' ), $capability, $this->plugin_name . '-report', array( $this, 'page_report' ) );
-
 
 		// Removes default first page, we replace it with dashboard
 		remove_submenu_page( $parent_slug, 'seocentral-menu' );
@@ -278,7 +245,7 @@ class Seo_Central_Admin {
 	} // page_report()
 
 	/**
-	 * Register the setting parameters
+	 * Register the setting fields
 	 *
 	 * @since  	1.0.0
 	 * @access 	public
@@ -670,15 +637,6 @@ class Seo_Central_Admin {
             array( $this, $this->option_name . "_{$post_type}_section_cb" ),
             $this->plugin_name
         );
-        // Add a settings field for the post type
-        // add_settings_field(
-        //     $this->option_name . "_{$post_type}_field",
-        //     __( ucfirst($post_type) . ' field', 'seo-central-lite' ),
-        //     array( $this, $this->option_name . "_{$post_type}_field_cb" ),
-        //     $this->plugin_name,
-        //     $this->option_name . "_{$post_type}_section",
-        //     array( 'label_for' => $this->option_name . "_{$post_type}_field" )
-        // );
         // Add Post Type Title Field
 				add_settings_field(
 					$this->option_name . "_{$post_type}_title_field",
@@ -771,7 +729,6 @@ class Seo_Central_Admin {
 				);
 
         // Set register settings for all fields to properly save
-        // register_setting($this->plugin_name, $this->option_name . "_{$post_type}_field", 'text');
 				//Register Post type Title
         register_setting($this->plugin_name, $this->option_name . "_{$post_type}_title_field", 'text');
 				//Register Post type Meta Description
@@ -790,7 +747,13 @@ class Seo_Central_Admin {
     }
 	}
 
-	//Callback function utilized to render custom inputs for each fieldtype
+	
+	/**
+	 * Callback function utilized to render custom inputs for each fieldtype
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
 	public function __call($method, $args) {
 		//Based on the method of the added field set the custom input. 
     if (preg_match('/_section_cb$/', $method)) {//Seperate each table by sections
@@ -982,7 +945,12 @@ class Seo_Central_Admin {
 
 	}
 
-	//Set the notification option to trigger notification bars on pages and on metabox
+	/**
+	 * Set the notification option to trigger notification bars on pages and on metabox
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
 	public function initialize_notifications() {
 		//Enable notification flags for seo central plugin
     if (get_option('seo_central_notification') === false) {
@@ -997,7 +965,27 @@ class Seo_Central_Admin {
 		}
 	}
 
-	//Function to curl request body content of the page using the permalink
+	/**
+	 * Check for the seo-central-wp-pro files and if not available return false
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
+	public function seo_central_pro_plugin_check() {
+		if (defined('SEO_CENTRAL_PRO') && constant('SEO_CENTRAL_PRO') === true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Function to curl request body content of the page using the permalink
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
 	public function seo_central_body_content() {
 		$page_permalink = get_permalink();
 
@@ -1211,7 +1199,12 @@ class Seo_Central_Admin {
 		}
 	}
 
-	//Access Body content and extract the internal and external links from the page
+	/**
+	 * Access Body content and extract the internal and external links from the page
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
 	public function seo_central_link_content() {
 		$page_permalink = get_permalink();
 		$base_url = site_url();
@@ -1416,7 +1409,12 @@ class Seo_Central_Admin {
 		}
 	}
 
-	//Flesch reading and accessablity 
+	/**
+	 * Flesch reading and accessablity 
+	 *
+	 * @since  	1.0.0
+	 * @access 	public
+	*/
 	public function getScores($text) {
 		$sampleLimit = 1000;
 		$sentenceRegex = '/[.?!]\s[^a-z]/g';

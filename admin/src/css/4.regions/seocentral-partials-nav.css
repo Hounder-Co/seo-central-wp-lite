@@ -86,13 +86,19 @@
       border-radius: 4px;
 
       &.enabled {
-        @apply flex justify-between;
+        @apply flex justify-between items-center;
+      }
+
+      &.notify-error {
+
+        &:before {
+          background-color: var(--central-ui-red);
+        }
       }
 
       &:before {
         content: '';
-        height: 100%;
-        min-height: 48px;
+        height: 102%;
         width: 4px;
         display: block;
         position: absolute;
@@ -103,32 +109,69 @@
         border-radius: 4px 0px 0px 4px;
       }
 
-      &.metabox-notification {
-        @apply flex flex-row justify-between items-center !max-w-[100%] !overflow-visible !my-12px;
-        border: 1px solid var(--gray-4, #C4CEC8);
-        border-left: none !important;
+      &.central-blue {
 
-        &.disabled {
-          @apply !hidden; 
+        .seo-central-partials-notification-icon {
+          background-color: var(--central-ui-blue);
         }
 
         &:before {
-          min-height: 70px;
+          background-color: var(--central-ui-blue);
+        }
+      }
+
+      &.central-red {
+
+        .seo-central-partials-notification-icon {
+          background-color: var(--central-ui-red);
+        }
+
+        &:before {
+          background-color: var(--central-ui-red);
+        }
+      }
+
+      &.central-yellow {
+
+        .seo-central-partials-notification-icon {
           background-color: var(--central-ui-gold);
         }
 
-        .seo-central-notification-icon {
-          @apply w-[24px] h-[24px];
+        &:before {
           background-color: var(--central-ui-gold);
-          mask-image: url('../../icons/seo-central-warning-icon.svg');
-          mask-size: contain;
-          mask-position: center; 
-          background-image: none !important;
         }
+      }
 
-        .seo-central-notification-text {
-          @apply max-w-[80%];
+      &.icon-alert {
+        .seo-central-partials-notification-icon {
+          mask-image: url('../../icons/seo-central-alert-icon.svg');
         }
+      }
+
+      &.icon-warning {
+        .seo-central-partials-notification-icon {
+          mask-image: url('../../icons/seo-central-warning-icon.svg') !important;
+        }
+      }
+
+      &.icon-error {
+        .seo-central-partials-notification-icon {
+          mask-image: url('../../icons/seo-central-error-icon.svg') !important;
+        }
+      }
+
+      .seo-central-partials-notification-icon {
+        mask-size: contain;
+        mask-position: center; 
+        background-image: none !important;
+      }
+
+      .seo-central-partials-notification {
+        @apply max-w-[80%] pr-12px lg:pr-0; 
+      }
+
+      .seo-central-button-upgrade.alternate-colors {
+        @apply !whitespace-nowrap;
       }
     }
 
@@ -143,9 +186,9 @@
 
     &-icon {
       @apply w-[24px] h-[24px];
-      background-image: url('../../icons/seo-central-alert-icon.svg');
-      background-size: contain;
-      background-position: center;
+      mask-size: contain;
+      mask-position: center; 
+      background-image: none !important;
     }
   }
 }

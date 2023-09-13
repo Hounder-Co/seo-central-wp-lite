@@ -6752,7 +6752,7 @@ img,
 .seo-central-label.generated-label{
   pointer-events: none;
 }
-/* Notification css */
+/* Metabox Notification css */
 .seo-central-notification{
   display: flex;
   height: auto;
@@ -6796,8 +6796,8 @@ img,
 }
 .seo-central-notification-wrapper:before {
         content: '';
-        height: 100%;
-        min-height: 48px;
+        height: 102%;
+        /* min-height: 48px; */
         width: 4px;
         display: block;
         position: absolute;
@@ -6822,24 +6822,56 @@ img,
 .seo-central-notification-wrapper.metabox-notification.disabled{
   display: none !important;
 }
-.seo-central-notification-wrapper.metabox-notification:before {
-          min-height: 70px;
-          background-color: var(--central-ui-gold);
-        }
+.seo-central-notification-wrapper.metabox-notification.central-blue .seo-central-notification-icon {
+            background-color: var(--central-ui-blue);
+          }
+.seo-central-notification-wrapper.metabox-notification.central-blue:before {
+            background-color: var(--central-ui-blue);
+          }
+.seo-central-notification-wrapper.metabox-notification.central-red .seo-central-notification-icon {
+            background-color: var(--central-ui-red);
+          }
+.seo-central-notification-wrapper.metabox-notification.central-red:before {
+            background-color: var(--central-ui-red);
+          }
+.seo-central-notification-wrapper.metabox-notification.central-yellow .seo-central-notification-icon {
+            background-color: var(--central-ui-gold);
+          }
+.seo-central-notification-wrapper.metabox-notification.central-yellow:before {
+            background-color: var(--central-ui-gold);
+          }
+.seo-central-notification-wrapper.metabox-notification.icon-alert .seo-central-notification-icon {
+            -webkit-mask-image: url(images/bdcb8dd0b979c3ddab00.svg);
+                    mask-image: url(images/bdcb8dd0b979c3ddab00.svg);
+          }
+.seo-central-notification-wrapper.metabox-notification.icon-warning .seo-central-notification-icon {
+            -webkit-mask-image: url(images/27181ce985cd19b401a8.svg) !important;
+                    mask-image: url(images/27181ce985cd19b401a8.svg) !important;
+          }
+.seo-central-notification-wrapper.metabox-notification.icon-error .seo-central-notification-icon {
+            -webkit-mask-image: url(images/501963805ad51a0ede27.svg) !important;
+                    mask-image: url(images/501963805ad51a0ede27.svg) !important;
+          }
 .seo-central-notification-wrapper.metabox-notification .seo-central-notification-icon{
   height: 24px;
   width: 24px;
-          background-color: var(--central-ui-gold);
-          -webkit-mask-image: url(images/27181ce985cd19b401a8.svg);
-                  mask-image: url(images/27181ce985cd19b401a8.svg);
           -webkit-mask-size: contain;
                   mask-size: contain;
           -webkit-mask-position: center;
                   mask-position: center; 
           background-image: none !important;
 }
-.seo-central-notification-wrapper.metabox-notification .seo-central-notification-text{
+.seo-central-notification-wrapper.metabox-notification .seo-central-notification{
   max-width: 80%;
+  padding-right: 12px;
+}
+@media (min-width: 1440px){
+  .seo-central-notification-wrapper.metabox-notification .seo-central-notification{
+    padding-right: 0px;
+  }
+}
+.seo-central-notification-wrapper.metabox-notification .seo-central-button-upgrade.alternate-colors{
+  white-space: nowrap !important;
 }
 .seo-central-notification-text{
   margin-left: 12px;
@@ -9345,12 +9377,15 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
     }
 .seo-central-partials-notification-wrapper.enabled{
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
+.seo-central-partials-notification-wrapper.notify-error:before {
+          background-color: var(--central-ui-red);
+        }
 .seo-central-partials-notification-wrapper:before {
         content: '';
-        height: 100%;
-        min-height: 48px;
+        height: 102%;
         width: 4px;
         display: block;
         position: absolute;
@@ -9360,39 +9395,54 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
         background-color: var(--central-ui-blue);
         border-radius: 4px 0px 0px 4px;
       }
-.seo-central-partials-notification-wrapper.metabox-notification{
-  margin-top: 12px !important;
-  margin-bottom: 12px !important;
-  display: flex;
-  max-width: 100% !important;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  overflow: visible !important;
-        border: 1px solid var(--gray-4, #C4CEC8);
-        border-left: none !important;
-}
-.seo-central-partials-notification-wrapper.metabox-notification.disabled{
-  display: none !important;
-}
-.seo-central-partials-notification-wrapper.metabox-notification:before {
-          min-height: 70px;
+.seo-central-partials-notification-wrapper.central-blue .seo-central-partials-notification-icon {
+          background-color: var(--central-ui-blue);
+        }
+.seo-central-partials-notification-wrapper.central-blue:before {
+          background-color: var(--central-ui-blue);
+        }
+.seo-central-partials-notification-wrapper.central-red .seo-central-partials-notification-icon {
+          background-color: var(--central-ui-red);
+        }
+.seo-central-partials-notification-wrapper.central-red:before {
+          background-color: var(--central-ui-red);
+        }
+.seo-central-partials-notification-wrapper.central-yellow .seo-central-partials-notification-icon {
           background-color: var(--central-ui-gold);
         }
-.seo-central-partials-notification-wrapper.metabox-notification .seo-central-notification-icon{
-  height: 24px;
-  width: 24px;
+.seo-central-partials-notification-wrapper.central-yellow:before {
           background-color: var(--central-ui-gold);
-          -webkit-mask-image: url(images/27181ce985cd19b401a8.svg);
-                  mask-image: url(images/27181ce985cd19b401a8.svg);
-          -webkit-mask-size: contain;
-                  mask-size: contain;
-          -webkit-mask-position: center;
-                  mask-position: center; 
-          background-image: none !important;
-}
-.seo-central-partials-notification-wrapper.metabox-notification .seo-central-notification-text{
+        }
+.seo-central-partials-notification-wrapper.icon-alert .seo-central-partials-notification-icon {
+          -webkit-mask-image: url(images/bdcb8dd0b979c3ddab00.svg);
+                  mask-image: url(images/bdcb8dd0b979c3ddab00.svg);
+        }
+.seo-central-partials-notification-wrapper.icon-warning .seo-central-partials-notification-icon {
+          -webkit-mask-image: url(images/27181ce985cd19b401a8.svg) !important;
+                  mask-image: url(images/27181ce985cd19b401a8.svg) !important;
+        }
+.seo-central-partials-notification-wrapper.icon-error .seo-central-partials-notification-icon {
+          -webkit-mask-image: url(images/501963805ad51a0ede27.svg) !important;
+                  mask-image: url(images/501963805ad51a0ede27.svg) !important;
+        }
+.seo-central-partials-notification-wrapper .seo-central-partials-notification-icon {
+        -webkit-mask-size: contain;
+                mask-size: contain;
+        -webkit-mask-position: center;
+                mask-position: center; 
+        background-image: none !important;
+      }
+.seo-central-partials-notification-wrapper .seo-central-partials-notification{
   max-width: 80%;
+  padding-right: 12px;
+}
+@media (min-width: 1440px){
+  .seo-central-partials-notification-wrapper .seo-central-partials-notification{
+    padding-right: 0px;
+  }
+}
+.seo-central-partials-notification-wrapper .seo-central-button-upgrade.alternate-colors{
+  white-space: nowrap !important;
 }
 .seo-central-partials-notification-text{
   margin-left: 12px;
@@ -9418,9 +9468,11 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
 .seo-central-partials-notification-icon{
   height: 24px;
   width: 24px;
-      background-image: url(images/bdcb8dd0b979c3ddab00.svg);
-      background-size: contain;
-      background-position: center;
+      -webkit-mask-size: contain;
+              mask-size: contain;
+      -webkit-mask-position: center;
+              mask-position: center; 
+      background-image: none !important;
 }
 /* Settings Page */
 .seo-central-settings-wrapper{
