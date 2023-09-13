@@ -59,99 +59,104 @@ import {metaboxLiteTips} from '../js/seocentral-lite-tips.js';
 			}, 500);
 		}
 
-		//On load update the meta title value if its empty
-		if($('#seo_central_meta_title').val() === "") {
-			$('#seo_central_meta_title').val($('#title').val());
-		}
-
-		// On load udpate the meta Description if value is empty and stringbody returns with content
-		if ($('#seo_central_meta_description').val() === "") {
-			var stringbody = myThemeParams.body['stringbody'];
-
-			if (stringbody.length > 1) {
-					var sentences = stringbody.match(/[^\.!\?©]+[\.!\?©]+/g);
-					var metaDescription = "";
-					console.log(sentences);
-
-					if(sentences != null) {
-						for(var i = 0; i < sentences.length; i++){
-								if (sentences[i].length <= 160) {
-										metaDescription = sentences[i];
-										break;
-								} else if (sentences[i].length > 160) {
-										metaDescription = sentences[i].substring(0, 160);
-										metaDescription = metaDescription.trim();
-										if (metaDescription[metaDescription.length - 1] !== '.') {
-												metaDescription += '.';
-										}
-										break;
-								}
+		//The myThemeParams are conditionaly rendered, if it is not available then this is not an edit or seo central page do NOT load up these functions
+		if (typeof myThemeParams !== 'undefined') {
+			//On load update the meta title value if its empty
+			if($('#seo_central_meta_title').val() === "") {
+				$('#seo_central_meta_title').val($('#title').val());
+			}
+	
+			// On load udpate the meta Description if value is empty and stringbody returns with content
+			if ($('#seo_central_meta_description').val() === "") {
+				var stringbody = myThemeParams.body['stringbody'];
+	
+				if (stringbody.length > 1) {
+						var sentences = stringbody.match(/[^\.!\?©]+[\.!\?©]+/g);
+						var metaDescription = "";
+						console.log(sentences);
+	
+						if(sentences != null) {
+							for(var i = 0; i < sentences.length; i++){
+									if (sentences[i].length <= 160) {
+											metaDescription = sentences[i];
+											break;
+									} else if (sentences[i].length > 160) {
+											metaDescription = sentences[i].substring(0, 160);
+											metaDescription = metaDescription.trim();
+											if (metaDescription[metaDescription.length - 1] !== '.') {
+													metaDescription += '.';
+											}
+											break;
+									}
+							}
+	
+							// Remove the copyright symbol from metaDescription
+							metaDescription = metaDescription.replace(/©/g, '');
+	
+							$('#seo_central_meta_description').val(metaDescription);
 						}
-
-						// Remove the copyright symbol from metaDescription
-						metaDescription = metaDescription.replace(/©/g, '');
-
-						$('#seo_central_meta_description').val(metaDescription);
+						else {
+							$('#seo_central_meta_description').val(stringbody);
+						}
+				}
+			}
+	
+			//Google Preview and Social Card Setup
+			googlePreviews( $ );
+			
+			//Page Analysis functionality and hidden fields (lite version does not check for secondary keywords a disabled field)
+			if(!myThemeParams['pro_analysis']) {
+				pageAnalysis( $ );
+			}
+			
+			//Settings page functionality
+			seocentralSettings( $ );
+			
+			//Content Hierarchy 
+			contentHierarchy( $ );
+			
+			//Update the seo score on completion of input fields
+			//Pro install will have its onw updating function
+			if(!myThemeParams['pro_analysis']) {
+				updateScoreOnInput( $ );
+			}
+			
+			// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
+			metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);
+			metaboxDropdown( $, $('.seo-central-analysis-scores-dropdown-header')[0], $('.seo-central-analysis-scores-dropdown-header-collapse-arrow')[0], $('.seo-central-analysis-scores-dropdown-body')[0]);
+	
+			// Set up the tips system for the lite metabox
+			metaboxLiteTips( $ );
+			
+			//On load move the notifications to the proper partial for out pages
+			moveNotifications( $ );
+			
+			//Cornerstone Checkbox value save (Store the value into the checkbox input based on toggle)
+			if($('#seo_central_meta_cornerstone')) {
+	
+				$('.seo-central-checkbox-toggle.regular-checkbox').click(function(){
+					// $('#seo_central_meta_cornerstone').val();
+					if($('#seo_central_meta_cornerstone').val() === 'cornerstone'){
+						$('#seo_central_meta_cornerstone').val('none');
+	
+						if($('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
+							$('.seo-central-checkbox-toggle.regular-checkbox').removeClass('cornerstone');
+						} 
 					}
-					else {
-						$('#seo_central_meta_description').val(stringbody);
+					else if($('#seo_central_meta_cornerstone').val() === 'none') {
+						$('#seo_central_meta_cornerstone').val('cornerstone');
+	
+						if(!$('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
+							$('.seo-central-checkbox-toggle.regular-checkbox').addClass('cornerstone');
+						} 
 					}
+	
+					return false;
+				});
 			}
 		}
 
-		//Google Preview and Social Card Setup
-		googlePreviews( $ );
-		
-		//Page Analysis functionality and hidden fields (lite version does not check for secondary keywords a disabled field)
-		if(!myThemeParams['pro_analysis']) {
-			pageAnalysis( $ );
-		}
-		
-		//Settings page functionality
-		seocentralSettings( $ );
-		
-		//Content Hierarchy 
-		contentHierarchy( $ );
-		
-		//Update the seo score on completion of input fields
-		//Pro install will have its onw updating function
-		if(!myThemeParams['pro_analysis']) {
-			updateScoreOnInput( $ );
-		}
-		
-		// Collapse and open function for all dropdowns within the metabox. Pass Table Header, Header Arrow, and Table Body. 
-		metaboxDropdown( $, $('.seo-central-boring-stuff-header')[0], $('.form-table-collapse-arrow')[0], $('.seo-central-boring-stuff-body')[0]);
-		metaboxDropdown( $, $('.seo-central-analysis-scores-dropdown-header')[0], $('.seo-central-analysis-scores-dropdown-header-collapse-arrow')[0], $('.seo-central-analysis-scores-dropdown-body')[0]);
 
-		// Set up the tips system for the lite metabox
-		metaboxLiteTips( $ );
-		
-		//On load move the notifications to the proper partial for out pages
-		moveNotifications( $ );
-		
-		//Cornerstone Checkbox value save (Store the value into the checkbox input based on toggle)
-		if($('#seo_central_meta_cornerstone')) {
-
-			$('.seo-central-checkbox-toggle.regular-checkbox').click(function(){
-				// $('#seo_central_meta_cornerstone').val();
-				if($('#seo_central_meta_cornerstone').val() === 'cornerstone'){
-					$('#seo_central_meta_cornerstone').val('none');
-
-					if($('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
-						$('.seo-central-checkbox-toggle.regular-checkbox').removeClass('cornerstone');
-					} 
-				}
-				else if($('#seo_central_meta_cornerstone').val() === 'none') {
-					$('#seo_central_meta_cornerstone').val('cornerstone');
-
-					if(!$('.seo-central-checkbox-toggle.regular-checkbox').hasClass('cornerstone')) {
-						$('.seo-central-checkbox-toggle.regular-checkbox').addClass('cornerstone');
-					} 
-				}
-
-				return false;
-			});
-		}
 	});
 	
 })( jQuery );

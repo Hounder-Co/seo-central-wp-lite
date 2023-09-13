@@ -252,11 +252,7 @@ class Seo_Central_Metabox {
 	// SEO Central metabox Lite Version
 	private function seo_central_fields_table_lite() {
 		?>
-		<div class="seo-central-notification-wrapper metabox-notification">
-			<span class="seo-central-notification-icon"></span>
-			<span class="seo-central-notification-text">Your trial has used all 3 free optimizations. Upgrade to Pro to get unlimited page optimizations and automatically generated Secondary Keywords for only $140 a year.</span>
-			<a href="" class='seo-central-button-upgrade alternate-colors'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
-		</div>
+		<?php $this->seo_central_metabox_notifications(); ?>
 		<div id="seo-central-metabox" class="seo-central-metabox-wrapper">
 
 			<div id="seo-central-metabox-ai" class="seo-central-metabox-top-content">
@@ -617,11 +613,7 @@ class Seo_Central_Metabox {
 	// SEO Central metabox Pro Version (All functionality enabled for meta generation and page analysis)
 	private function seo_central_fields_table_pro() {
 		?>
-		<div class="seo-central-notification-wrapper metabox-notification">
-			<span class="seo-central-notification-icon"></span>
-			<span class="seo-central-notification-text">Your trial has used all 3 free optimizations. Upgrade to Pro to get unlimited page optimizations and automatically generated Secondary Keywords for only $140 a year.</span>
-			<a href="" class='seo-central-button-upgrade alternate-colors'><?php //echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
-		</div>
+		<?php $this->seo_central_metabox_notifications(); ?>
 		<div id="seo-central-metabox" class="seo-central-metabox-wrapper">
 
 			<div id="seo-central-metabox-ai" class="seo-central-metabox-top-content">
@@ -1036,6 +1028,44 @@ class Seo_Central_Metabox {
                             M84,28 h248 a5,5 0 0 1 5,5 v58 a5,5 0 0 1 -5,5 h-248 a5,5 0 0 1 -5,-5 v-58 a5,5 0 0 1 5,-5 z" style="fill: white; opacity: 0.7; pointer-events: auto; cursor: auto;"></path></svg>
 		</div>
 		<?php
+	}
+
+	public function seo_central_metabox_notifications() {
+    $notification_type = get_option('seo_central_notification');
+		$notification_class ='central-blue icon-alert';
+    $notification_text = '';
+    $button_text = '';
+
+    if ($notification_type === 'free') {
+        $notification_text = __("How did you like [CentralCloud]? Now imagine that, but for each page of your site. Purchase an annual subscription within the next [X] and we'll give you the Early Bird special. Subscribe today!", 'seo-central-lite');
+        $button_text = __('Upgrade to Pro', 'seo-central-lite');
+    } elseif ($notification_type === 'invalid_domain') {
+        $notification_text = __("Invalid domain! Please check your input or try another domain.", 'seo-central-lite');
+				$notification_class ='central-red icon-error';
+    } elseif ($notification_type === 'invalid_key') {
+        $notification_text = __("This is not the API key we are looking for! Please go back to the dashboard and resubmit.", 'seo-central-lite');
+				$notification_class ='central-red icon-error';
+    } elseif ($notification_type === 'expired_key') {
+        $notification_text = __("Uh oh! Your Pro Subscription has expired. Resubscribe to keep SEOing.", 'seo-central-lite');
+        $button_text = __('Renew Pro', 'seo-central-lite');
+				$notification_class ='central-red icon-error';
+    } elseif ($notification_type === 'no_key') {
+        $notification_text = __("To Access all SEO Central page optimization features a valid API Key must be saved.", 'seo-central-lite');
+				$notification_class ='central-red icon-warning';
+    }
+
+    if (!empty($notification_text)) {
+        ?>
+        <div class='seo-central-notification-wrapper metabox-notification enabled <?php echo $notification_class; ?>'>
+            <p class='seo-central-notification'><span class='seo-central-notification-icon'></span>
+                <span class='seo-central-notification-text'><?php echo esc_html($notification_text); ?></span>
+            </p>
+						<?php if (!empty($button_text)): ?>
+            	<a href="" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
+						<?php endif; ?>
+        </div>
+        <?php
+    }
 	}
 
 	private function label( $field ) {
