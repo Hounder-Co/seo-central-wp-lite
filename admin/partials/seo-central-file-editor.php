@@ -25,8 +25,19 @@ $humans_file    = $home_path . 'humans.txt';
 //Get the robots txt content and write it to the text area and then update and save that content on submit
 $site_url = get_home_url();
 $file_editor = '/wp-admin/admin.php?page=seo-central-file-editor';
-$current_robot = file_get_contents($robots_file);
-$current_human = file_get_contents($humans_file);
+
+//Set variables for displaying the robots
+$current_robot = '';
+$current_human = '';
+
+//Confirm robots and humans file exist to display its content out
+if (file_exists($robots_file)) {
+  $current_robot = file_get_contents($robots_file);
+}
+
+if (file_exists($humans_file)) {
+  $current_human = file_get_contents($humans_file);
+}
 
 //Robots form submit
 if ( isset( $_POST['updateRobots'] ) ) {
@@ -50,7 +61,9 @@ if ( isset( $_POST['updateRobots'] ) ) {
     }
 	}
   //update contents to display
-  $current_robot = file_get_contents($robots_file); 
+  if (file_exists($robots_file)) {
+    $current_robot = file_get_contents($robots_file);
+  }
 }
 
 //Humans form submit
@@ -75,7 +88,9 @@ if ( isset( $_POST['updateHumans'] ) ) {
     }
 	}
   //update contents to display
-  $current_human = file_get_contents($humans_file);
+  if (file_exists($humans_file)) {
+    $current_human = file_get_contents($humans_file);
+  }
 }
 ?>
 

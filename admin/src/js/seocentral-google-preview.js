@@ -137,7 +137,7 @@ export function googlePreviews( $ ) {
 					//Social Image selection update
 					$('.seo-central-remove-image-close').click(function(){
 						$('#seo-central-tabs input[name=seo_central_social_image]').val('');
-						$('.social-card-asset').attr("src",'/wp-content/plugins/seo-central/admin/src/images/seo-placeholder-image.png');
+						$('.social-card-asset').attr("src",'/wp-content/plugins/seo-central-wp-lite/admin/src/images/seo-placeholder-image.png');
 
 						// Remove the value from the social image field
 						$('#seo_central_social_image').val('');
