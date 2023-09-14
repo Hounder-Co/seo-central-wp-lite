@@ -291,21 +291,12 @@ class Seo_Central {
     global $seo_central_sitemaps;
 
     // If there isn't a global instance, set the sitemaps system.
-    if ( empty( $seo_central_sitemaps ) ) {
-      $seo_central_sitemaps = new Seo_Central_Sitemaps();
-			$seo_central_sitemaps->init();
-  
-      /**
-       * Fires when initializing the Sitemaps object.
-       *
-       * Additional sitemaps should be registered on this hook.
-       *
-       * @since 5.5.0
-       *
-       * @param Seo_Central_Sitemaps $seo_central_sitemaps Sitemaps object.
-       */
-      do_action( 'after_setup_theme', $seo_central_sitemaps->init() );
-    }
+		if ( empty( $seo_central_sitemaps ) ) {
+			$seo_central_sitemaps = new Seo_Central_Sitemaps();
+	
+			// Hook into 'after_setup_theme'
+			add_action( 'after_setup_theme', array( $seo_central_sitemaps, 'init' ) );
+		}
   
     return $seo_central_sitemaps;
   }
@@ -330,7 +321,7 @@ class Seo_Central {
 
 		if ($column_key == 'seo-score') {
 			$scoreCount = get_post_meta($post_id, 'seo_central_page_score', 'true');
-			$starting_url = "/wp-content/plugins/seo-central/admin/icons";
+			$starting_url = "/wp-content/plugins/seo-central-wp-lite/admin/icons";
 
 			if($scoreCount) {
 				// Checks for the score and sets the image 

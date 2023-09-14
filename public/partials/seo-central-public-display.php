@@ -177,7 +177,9 @@
 ?>
 
 <!-- Check for theme support to drop the title tag -->
-<?php if (current_theme_supports( 'title-tag' )): ?>
+
+<!-- Pass the Site name and the meta title -->
+<?php if (function_exists('current_theme_supports') && current_theme_supports( 'title-tag' )): ?>
   <!-- The Theme is already generating a title tag -->
 <?php else: ?>
 

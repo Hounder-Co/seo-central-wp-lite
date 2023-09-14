@@ -53,8 +53,8 @@ function seo_central_do_settings_sections( $page ) {
 	}
 
 	foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
-		if ( '' !== $section['before_section'] ) {
-			if ( '' !== $section['section_class'] ) {
+		if ( isset($section['before_section']) && '' !== $section['before_section'] ) {
+			if ( isset($section['section_class']) && '' !== $section['section_class'] ) {
 				echo wp_kses_post( sprintf( $section['before_section'], esc_attr( $section['section_class'] ) ) );
 			} else {
 				echo wp_kses_post( $section['before_section'] );
@@ -107,7 +107,7 @@ function seo_central_do_settings_sections( $page ) {
     echo '</div>';
     echo '</dialog>';
 
-		if ( '' !== $section['after_section'] ) {
+		if ( isset($section['after_section']) && '' !== $section['after_section'] ) {
 			echo wp_kses_post( $section['after_section'] );
 		}
 	}
