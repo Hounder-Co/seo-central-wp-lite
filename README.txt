@@ -52,8 +52,8 @@ Starting point after SEO Central lite plugin has been installed and activated.
 1. Navigate to https://app.seocentral.ai/ 
 2. Click "Create an account" or "Login" to access the Central Cloud.
 3. Once you're signed in, navigate to "Account Manager" in the top navigation.
-4. Click Central Cloud then click Upgrade to Pro to purchase your pro account.
-5. Enter your site domain to generate an API Key for your WordPress site.
+4. Click Add Site then enter your site domain and purchase your pro account.
+5. Get your generated API Key and SEO Central Pro Plugin files for your WordPress site.
 6. On your WordPress admin dashboard, go to Plugins and click "Add New."
 7. Click "Upload Plugin" and upload the SEO Central Pro .zip files.
 8. Install and Activate the SEO Central Pro Plugin files to Wordpress. Not all features of the SEO Central Pro Plugin are enabled upon activation.
