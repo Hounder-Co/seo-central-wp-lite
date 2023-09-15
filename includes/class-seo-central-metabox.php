@@ -262,7 +262,7 @@ class Seo_Central_Metabox {
 					<div class="seo-central-metabox-lite-preview">
 						<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('Generate expert meta data with a single click', 'seo-central-lite'); ?></h2>
 						<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, you can generate meta titles, descriptions, and keywords instantly. Save yourself from the busywork.', 'seo-central-lite'); ?></p>
-						<a href="https://app.seocentral.ai/" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+						<a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
 						<a id="seo-central-preview-video" class="seo-central-metabox-lite-preview-video-link" href="https://seocentral.ai/">
 							<img class="seo-central-metabox-lite-preview-video-poster"  src="/wp-content/plugins/seo-central-wp-lite/admin/icons/seo-central-preview-video.svg" alt="<?php echo __('SEO Central Pro Preview Image', 'seo-central-lite'); ?>">
 						</a>
@@ -493,7 +493,7 @@ class Seo_Central_Metabox {
 							<div class="seo-central-metabox-lite-preview mx-auto seo-central-preview-toggle">
 								<h2 class="seo-central-metabox-lite-preview-title"><?php echo __('We show you how to get your score higher here.', 'seo-central-lite'); ?></h2>
 								<p class="seo-central-metabox-lite-preview-description"><?php echo __('With SEO Central Pro, we tell you what is wrong, and show you how to fix SEO problems to boost your ranking.', 'seo-central-lite'); ?></p>
-								<a href="https://app.seocentral.ai/" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+								<a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
 							</div>
 							<div class='seo-central-analysis-wrapper warnings-errors hidden'>
 
@@ -680,7 +680,7 @@ class Seo_Central_Metabox {
 
 											<div class="seo-central-metabox-lite-preview secondary-overlay hidden">
 												<p class="seo-central-metabox-lite-preview-description"><?php echo __('Upgrade to get the edge with Secondary Keywords', 'seo-central-lite'); ?></p>
-												<a href="https://app.seocentral.ai/" class='seo-central-button-upgrade alternate-colors'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+												<a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade alternate-colors'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
 											</div>
 
 											<label class="seo-central-label text-animate generated-label" for="generated_meta_second"><?php echo __('Generated Secondary Keywords', 'seo-central-lite'); ?></label>
@@ -1061,7 +1061,7 @@ class Seo_Central_Metabox {
                 <span class='seo-central-notification-text'><?php echo esc_html($notification_text); ?></span>
             </p>
 						<?php if (!empty($button_text)): ?>
-            	<a href="https://app.seocentral.ai/" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
+            	<a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
 						<?php endif; ?>
         </div>
         <?php
