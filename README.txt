@@ -34,7 +34,8 @@ automatically generates optimized meta titles, meta descriptions, and keywords t
 
 == Installation ==
 
-Install and start using SEO Central in 3 simple steps.
+Install and start using SEO Central in 3 simple steps. 
+(Note: you may need to rename the folder "seo-central-wp-lite-main" to "seo-central-wp-lite")
 
 1. Navigate to the plugins page in your Wordpress admin dashboard. 
 2. Click the Add New button and search for 'SEO Central' in the plugins search.
