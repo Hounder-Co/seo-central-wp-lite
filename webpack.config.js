@@ -1,12 +1,23 @@
 // Webpack uses this to work with directories
 const path = require("path");
 
+const webpack = require('webpack');
+
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   // https://webpack.js.org/concepts/#entry
   entry: "./admin/src/js/seocentral-plugin-admin.js",
+  devtool: false,
+  ignoreWarnings: [
+    /DevTools failed to load source map/,
+    /HTTP error: status code 404/,
+  ],
+  plugins: [new webpack.SourceMapDevToolPlugin({
+    filename: '[file].map[query]',
+    exclude: ['vendor.js'],
+  })],
 
   // https://webpack.js.org/concepts/output/
   output: {

@@ -128,7 +128,6 @@ class Seo_Central_Admin {
 		if ($isPostEditPage || ($isSpecialAdminPage && in_array($_GET['page'], $specialPages))) {
 			//Pass data over to Admin script files so we can properly load functions with settings 
 			$myThemeParams = array(
-				// 'apiKey' => get_option( 'seo_central_setting_api_key'),  //api key is crucial and must be filled 
 				'slug' => get_post_field( 'post_name', get_post() ),		 //Utilize slug for storing into field if empty
 				'siteUrl' => get_site_url(),														 //siteUrl used for checks
 				'body' => $this->seo_central_body_content(),						 //Body_check array passed with all the necessary contents from page

@@ -266,6 +266,10 @@
       @media(max-width: 1260px) {
         @apply px-0 pt-[44px] pb-16px;
       }
+
+      @media(min-width: 1700px) {
+        @apply !justify-center;
+      }
     }
 
     &-columns {
