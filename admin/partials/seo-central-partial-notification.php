@@ -56,7 +56,7 @@
                 <span class='seo-central-partials-notification-text'><?php echo esc_html($notification_text); ?></span>
             </p>
             <?php if (!empty($button_text)): ?>
-              <a href="https://app.seocentral.ai/" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
+              <a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
             <?php endif; ?>
         </div>
       <?php

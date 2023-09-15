@@ -69,7 +69,7 @@
       <div class="seo-central-metabox-lite-preview seo-central-lite-redirect-overlay-preview">
         <h2 class="seo-central-metabox-lite-preview-title"><?php echo __('SEO Central Pro Redirect Manager', 'seo-central-lite'); ?></h2>
         <p class="seo-central-metabox-lite-preview-description"><?php echo __('Create custom redirects with our pro plan. Sleep soundly at night knowing all your URL paths lead to the right place.', 'seo-central-lite'); ?></p>
-        <a href="https://app.seocentral.ai/" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
+        <a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade'><?php echo __('Upgrade to Pro', 'seo-central-lite'); ?></a>
         <a id="seo-central-preview-video" class="seo-central-metabox-lite-preview-video-link" href="https://seocentral.ai/">
           <img class="seo-central-metabox-lite-preview-video-poster"  src="/wp-content/plugins/seo-central-wp-lite/admin/icons/seo-central-preview-video.svg" alt="<?php echo __('SEO Central Pro Preview Image', 'seo-central-lite'); ?>">
         </a>
