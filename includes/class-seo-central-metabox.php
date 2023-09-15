@@ -1037,7 +1037,7 @@ class Seo_Central_Metabox {
     $button_text = '';
 
     if ($notification_type === 'free') {
-        $notification_text = __("How did you like [CentralCloud]? Now imagine that, but for each page of your site. Purchase an annual subscription within the next [X] and we'll give you the Early Bird special. Subscribe today!", 'seo-central-lite');
+        $notification_text = __("Enjoying Central Cloud? The Pro version offers page optimization across your entire site! Imagine SEO Central power times ten. Purchase the annual plan and you'll qualify for our discounted Early Bird rate. Subscribe today!", 'seo-central-lite');
         $button_text = __('Upgrade to Pro', 'seo-central-lite');
     } elseif ($notification_type === 'invalid_domain') {
         $notification_text = __("Invalid domain! Please check your input or try another domain.", 'seo-central-lite');

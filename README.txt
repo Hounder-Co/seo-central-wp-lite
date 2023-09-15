@@ -11,9 +11,8 @@ Stable tag: 1.0
 
 == Description ==
 
-Optimize your site's SEO! Utilizing the content of a page SEO Central plugin can 
-automatically generate optimized meta titles, meta descriptions, and keywords that rank based on 
-your content. Features include scoring and analysis of your seo with directions for improvement. 
+Start ranking higher in search engine results! After analyzing your page content, the SEO Central plugin 
+automatically generates optimized meta titles, meta descriptions, and keywords that will skyrocket your page up Google's ranks. Features include scoring and analysis of your current SEO health, with clear and concise directions for improvement. 
 
 ## SEO Central features
 
@@ -35,11 +34,11 @@ your content. Features include scoring and analysis of your seo with directions 
 
 == Installation ==
 
-Install and start SEO Central in 3 simple steps.
+Install and start using SEO Central in 3 simple steps.
 
-1. Within your Wordpress admin dashboard navigate to the plugins page.
-2. Click the Add New button and search for 'SEO Central' within the plugins search.
-3. Click Install then Activate to enable the SEO Central plugin to you site. 
+1. Navigate to the plugins page in your Wordpress admin dashboard. 
+2. Click the Add New button and search for 'SEO Central' in the plugins search.
+3. Click Install then Activate to enable the SEO Central plugin on your site. 
 
 == Post Activation ==
 
@@ -52,12 +51,12 @@ Starting point after SEO Central lite plugin has been installed and activated.
 1. Navigate to https://app.seocentral.ai/ 
 2. Click "Create an account" or "Login" to access the Central Cloud.
 3. Once you're signed in, navigate to "Account Manager" in the top navigation.
-4. Click Add Site then enter your site domain and purchase your pro account.
-5. Get your generated API Key and SEO Central Pro Plugin files for your WordPress site.
+4. Click "Add Site" then enter your site domain and purchase your pro account.
+5. Now you'll need to add your SEO Central Pro Plugin files and generated API Key to your WordPress site:
 6. On your WordPress admin dashboard, go to Plugins and click "Add New."
 7. Click "Upload Plugin" and upload the SEO Central Pro .zip files.
 8. Install and Activate the SEO Central Pro Plugin files to Wordpress. Not all features of the SEO Central Pro Plugin are enabled upon activation.
-9. Add your generated API Key from https://app.seocentral.ai/dashboard/central-cloud to the SEO Central Dashboard field: Seo Central Api Key. To use all features SEO Central has to offer.
+9. Add your generated API Key from https://app.seocentral.ai/dashboard/central-cloud to the SEO Central Dashboard field: SEO Central API Key. To use all features SEO Central has to offer.
 
 == Frequently Asked Questions ==
 
