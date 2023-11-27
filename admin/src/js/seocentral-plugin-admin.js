@@ -73,7 +73,6 @@ import {metaboxLiteTips} from '../js/seocentral-lite-tips.js';
 				if (stringbody.length > 1) {
 						var sentences = stringbody.match(/[^\.!\?©]+[\.!\?©]+/g);
 						var metaDescription = "";
-						console.log(sentences);
 	
 						if(sentences != null) {
 							for(var i = 0; i < sentences.length; i++){

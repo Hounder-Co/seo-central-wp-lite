@@ -121,8 +121,9 @@ class Seo_Central_Admin {
 
 
 		//Conditionaly render the script with the parameters 
-		$isPostEditPage = 'post.php' == basename($_SERVER['PHP_SELF']); //all edit pages
-		$isSpecialAdminPage = 'admin.php' == basename($_SERVER['PHP_SELF']) && isset($_GET['page']); //admin.php
+		$sanitizedPhpSelf = esc_url_raw($_SERVER['PHP_SELF']);
+		$isPostEditPage = 'post.php' == basename($sanitizedPhpSelf); //all edit pages
+		$isSpecialAdminPage = 'admin.php' == basename($sanitizedPhpSelf) && isset($_GET['page']); //admin.php
 		$specialPages = ['seo-central-dashboard', 'seo-central-redirects', 'seo-central-file-editor']; //seocentral pages
 		
 		if ($isPostEditPage || ($isSpecialAdminPage && in_array($_GET['page'], $specialPages))) {
@@ -395,7 +396,7 @@ class Seo_Central_Admin {
 	*/
 	public function seo_central_setting_api_key_cb() {
 		$val = get_option( $this->option_name . '_api_key' );
-		echo '<input class="seo-central-text-input" type="text" name="' . $this->option_name . '_api_key' . '" id="' . $this->option_name . '_api_key' . '" value="' . $val . '"> <span class="seo-central-api-copy"><span class="seo-central-api-copy-tooltip"></span></span>' . __( '', 'seo-central-lite' );
+		echo '<input class="seo-central-text-input" type="text" name="' . esc_attr($this->option_name . '_api_key') . '" id="' . esc_attr($this->option_name . '_api_key') . '" value="' . esc_attr($val) . '"> <span class="seo-central-api-copy"><span class="seo-central-api-copy-tooltip"></span></span>' . esc_html__( '', 'seo-central-lite' );
 	} 
 
 	/**
@@ -406,7 +407,7 @@ class Seo_Central_Admin {
 	*/
 	public function seo_central_setting_google_key_cb() {
 		$val = get_option( $this->option_name . '_google_key' );
-		echo '<input class="seo-central-text-input" type="text" name="' . $this->option_name . '_google_key' . '" id="' . $this->option_name . '_google_key' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+		echo '<input class="seo-central-text-input" type="text" name="' . esc_attr($this->option_name . '_google_key') . '" id="' . esc_attr($this->option_name . '_google_key') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
 	} 
 
 	/**
@@ -417,7 +418,7 @@ class Seo_Central_Admin {
 	*/
 	public function seo_central_setting_bing_key_cb() {
 		$val = get_option( $this->option_name . '_bing_key' );
-		echo '<input class="seo-central-text-input" type="text" name="' . $this->option_name . '_bing_key' . '" id="' . $this->option_name . '_bing_key' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+		echo '<input class="seo-central-text-input" type="text" name="' . esc_attr($this->option_name . '_bing_key') . '" id="' . esc_attr($this->option_name . '_bing_key') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
 	} 
 
   /**
@@ -428,7 +429,7 @@ class Seo_Central_Admin {
   */
   public function seo_central_setting_username_cb() {
     $val = get_option( $this->option_name . '_username' );
-    echo '<input class="seo-central-text-input" type="text" name="' . $this->option_name . '_username' . '" id="' . $this->option_name . '_username' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+    echo '<input class="seo-central-text-input" type="text" name="' . esc_attr($this->option_name . '_username') . '" id="' . esc_attr($this->option_name . '_username') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
   } 
 
   /**
@@ -439,7 +440,7 @@ class Seo_Central_Admin {
   */
   public function seo_central_setting_password_cb() {
     $val = get_option( $this->option_name . '_password' );
-    echo '<input class="seo-central-text-input" type="text" name="' . $this->option_name . '_password' . '" id="' . $this->option_name . '_password' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+    echo '<input class="seo-central-text-input" type="text" name="' . esc_attr($this->option_name . '_password') . '" id="' . esc_attr($this->option_name . '_password') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
   } 
 
   /**
@@ -450,7 +451,7 @@ class Seo_Central_Admin {
   */
   public function seo_central_setting_image_cb() {
     $val = get_option( $this->option_name . '_image' );
-    echo '<button id="select-seo-image-select" class="seo-central-settings-image-select seo-central-button-small seo-central-button-secondary" type="button">'.__("Choose File", "seo-central-lite").'</button> <button id="deselect-seo-image" class="seo-central-settings-image-deselect disabled" type="button"><span class="seo-central-remove-image-close"></span><span class="seo-central-remove-image-file"></span></button><input class="seo-central-settings-image-input" type="text" name="' . $this->option_name . '_image' . '" id="' . $this->option_name . '_image' . '" value="' . $val . '"> <p id="' . $this->option_name . '_image_instructions' . '" class="seo-central-settings-social-image-instruction">'.__("5 MB limit. Allowed types: jpg, jpeg, png", "seo-central-lite").'</p>' . __( '', 'seo-central-lite' );
+    echo '<button id="select-seo-image-select" class="seo-central-settings-image-select seo-central-button-small seo-central-button-secondary" type="button">'.esc_html__("Choose File", "seo-central-lite").'</button> <button id="deselect-seo-image" class="seo-central-settings-image-deselect disabled" type="button"><span class="seo-central-remove-image-close"></span><span class="seo-central-remove-image-file"></span></button><input class="seo-central-settings-image-input" type="text" name="' . esc_attr($this->option_name . '_image') . '" id="' . esc_attr($this->option_name . '_image') . '" value="' . esc_attr($val) . '"> <p id="' . esc_attr($this->option_name . '_image_instructions') . '" class="seo-central-settings-social-image-instruction">'.esc_html__("5 MB limit. Allowed types: jpg, jpeg, png", "seo-central-lite").'</p>' . esc_html__( '', 'seo-central-lite' );
   } 
 
   /**
@@ -468,7 +469,7 @@ class Seo_Central_Admin {
 		else if($val == 'true') {
 			$enabled = ' enabled ';
 		}
-    echo '<div id="seo_central_setting_breadcrumbs_toggle" class="seo-central-checkbox-toggle seo-central-settings-toggle' . $enabled .'" type="checkbox" name="breadcrumb_toggle" value="" ></div><input class="seo-central-settings-toggle-value" type="text" name="' . $this->option_name . '_breadcrumb' . '" id="' . $this->option_name . '_breadcrumb' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+    echo '<div id="seo_central_setting_breadcrumbs_toggle" class="seo-central-checkbox-toggle seo-central-settings-toggle' . $enabled .'" type="checkbox" name="breadcrumb_toggle" value="" ></div><input class="seo-central-settings-toggle-value" type="text" name="' . esc_attr($this->option_name . '_breadcrumb') . '" id="' . esc_attr($this->option_name . '_breadcrumb') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
   } 
 
   /**
@@ -494,17 +495,17 @@ class Seo_Central_Admin {
 						//Loop through the options array to display and set the selected item. 
 						foreach($opt_array as $index=>$value) {
 							if($val == $value) {
-								echo '<div data-value="' . $value . '" class="seo-central-settings-crumbs-selection-item selected">' . $value . '</div>';
+								echo '<div data-value="' . esc_attr($value) . '" class="seo-central-settings-crumbs-selection-item selected">' . esc_html($value) . '</div>';
 							}
 							else {
-								echo '<div data-value="' . $value . '" class="seo-central-settings-crumbs-selection-item">' . $value . '</div>';
+								echo '<div data-value="' . esc_attr($value) . '" class="seo-central-settings-crumbs-selection-item">' . esc_html($value) . '</div>';
 							}
 						}
 				?>
 			</div>
 			<?php 
 
-				echo '<input class="seo-central-text-input hidden" type="text" name="' . $this->option_name . '_crumbseparator' . '" id="' . $this->option_name . '_crumbseparator' . '" value="' . $val . '"> ' . __( '', 'seo-central-lite' );
+				echo '<input class="seo-central-text-input hidden" type="text" name="' . esc_attr($this->option_name . '_crumbseparator') . '" id="' . esc_attr($this->option_name . '_crumbseparator') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '', 'seo-central-lite' );
 			?>
 		</fieldset>
 		<?php
@@ -519,7 +520,7 @@ class Seo_Central_Admin {
 	 */
 	public function seo_central_setting_number_cb() {
 		$val = get_option( $this->option_name . '_number' );
-		echo '<input type="text" name="' . $this->option_name . '_number' . '" id="' . $this->option_name . '_number' . '" value="' . $val . '"> ' . __( '(unity of measure)', 'seo-central-lite' );
+		echo '<input type="text" name="' . esc_attr($this->option_name . '_number') . '" id="' . esc_attr($this->option_name . '_number') . '" value="' . esc_attr($val) . '"> ' . esc_html__( '(unity of measure)', 'seo-central-lite' );
 	} 
 
 	/**
@@ -533,13 +534,13 @@ class Seo_Central_Admin {
 		?>
 			<fieldset>
 				<label>
-					<input type="radio" name="<?php echo $this->option_name . '_bool' ?>" id="<?php echo $this->option_name . '_bool' ?>" value="true" <?php checked( $val, 'true' ); ?>>
-					<?php _e( 'True', 'seo-central-lite' ); ?>
+					<input type="radio" name="<?php echo esc_attr($this->option_name . '_bool') ?>" id="<?php echo esc_attr($this->option_name . '_bool') ?>" value="true" <?php checked( $val, 'true' ); ?>>
+					<?php esc_html_e( 'True', 'seo-central-lite' ); ?>
 				</label>
 				<br>
 				<label>
-					<input type="radio" name="<?php echo $this->option_name . '_bool' ?>" value="false" <?php checked( $val, 'false' ); ?>>
-					<?php _e( 'False', 'seo-central-lite' ); ?>
+					<input type="radio" name="<?php echo esc_attr($this->option_name . '_bool') ?>" value="false" <?php checked( $val, 'false' ); ?>>
+					<?php esc_html_e( 'False', 'seo-central-lite' ); ?>
 				</label>
 			</fieldset>
 		<?php
@@ -559,7 +560,7 @@ class Seo_Central_Admin {
 		?> 
 
 		<fieldset>
-			<select class="seo-central-dropdown-list seo-central-select" id="<?php echo $this->option_name . '_pageschema' ?>" name="<?php echo $this->option_name . '_pageschema' ?>" type="select" value="<?php echo $val; ?>">
+			<select class="seo-central-dropdown-list seo-central-select" id="<?php echo esc_attr($this->option_name . '_pageschema') ?>" name="<?php echo esc_attr($this->option_name . '_pageschema') ?>" type="select" value="<?php echo esc_attr($val); ?>">
 
 				<?php 
 					//Check if the field value is empty, if so set default
@@ -570,10 +571,10 @@ class Seo_Central_Admin {
 					//Loop through the options array to display and set the selected item. 
 					foreach($opt_array as $index=>$value) {
 						if($val == $value) {
-							echo '<option value="' . $value . '" selected="selected">' . $list_text[$index] . '</option>';
+							echo '<option value="' . esc_attr($value) . '" selected="selected">' . esc_html($list_text[$index]) . '</option>';
 						}
 						else {
-							echo '<option value="' . $value . '">' . $list_text[$index] . '</option>';
+							echo '<option value="' . esc_attr($value) . '">' . esc_html($list_text[$index]) . '</option>';
 						}
 					}
 				?>
@@ -598,7 +599,7 @@ class Seo_Central_Admin {
 		?> 
 
 		<fieldset>
-			<select class="seo-central-dropdown-list seo-central-select" id="<?php echo $this->option_name . '_postschema' ?>" name="<?php echo $this->option_name . '_postschema' ?>" type="select" value="<?php echo $val; ?>">
+			<select class="seo-central-dropdown-list seo-central-select" id="<?php echo esc_attr($this->option_name . '_postschema') ?>" name="<?php echo esc_attr($this->option_name . '_postschema') ?>" type="select" value="<?php echo esc_attr($val); ?>">
 
 				<?php 
 					if($val == '' || $val == null) {
@@ -607,10 +608,10 @@ class Seo_Central_Admin {
 
 					foreach($opt_array as $index=>$value) {
 						if($val == $value) {
-							echo '<option value="' . $value . '" selected="selected">' . $list_text[$index] . '</option>';
+							echo '<option value="' . esc_attr($value) . '" selected="selected">' . esc_html($list_text[$index]) . '</option>';
 						}
 						else {
-							echo '<option value="' . $value . '">' . $list_text[$index] . '</option>';
+							echo '<option value="' . esc_attr($value) . '">' . esc_html($list_text[$index]) . '</option>';
 						}
 					}
 				?>
@@ -772,7 +773,7 @@ class Seo_Central_Admin {
 					$item = trim($item); // Remove any white space at the beginning and the end of the string
 					// If item is not empty, add it to savedVariables
 					if($item != "") {
-							$savedVariables .= "<span class='seo-central-title-order-span-list-item' data-id='{$index}'>" . $item . "</span>";
+							$savedVariables .= "<span class='seo-central-title-order-span-list-item' data-id='{$index}'>" . esc_html($item) . "</span>";
 					}
 				}
 
@@ -780,18 +781,18 @@ class Seo_Central_Admin {
 
 				//Listing the items that can be set in any order for the page title.
 				$title_list_items = [
-					__('Site Title', 'seo-central-lite'),
-					__('Page Title', 'seo-central-lite'),
-					__('Separator', 'seo-central-lite'),
-					__('Primary Keyword', 'seo-central-lite')
+					esc_html__('Site Title', 'seo-central-lite'),
+					esc_html__('Page Title', 'seo-central-lite'),
+					esc_html__('Separator', 'seo-central-lite'),
+					esc_html__('Primary Keyword', 'seo-central-lite')
 				];
 
 				?> 
 					<fieldset>
-						<div data-type="<?php echo $post_type; ?>" class="seo-central-title-order-wrapper">
+						<div data-type="<?php echo esc_attr($post_type); ?>" class="seo-central-title-order-wrapper">
 							<div class="seo-central-title-order-applies"> 
-								<div class="seo-central-title-order-button js-variable-insert"><?php echo __('Variable', 'seo-central-lite'); ?></div>
-								<div data-type="<?php echo $post_type; ?>" class="seo-central-title-order-button js-emoji-insert"><?php echo __('Emoji', 'seo-central-lite'); ?></div>
+								<div class="seo-central-title-order-button js-variable-insert"><?php echo esc_html__('Variable', 'seo-central-lite'); ?></div>
+								<div data-type="<?php echo esc_attr($post_type); ?>" class="seo-central-title-order-button js-emoji-insert"><?php echo esc_html__('Emoji', 'seo-central-lite'); ?></div>
 							</div>
 							<div class="seo-central-title-order-span-list" contentEditable="true"><?php echo $savedVariables; ?></div>
 							<ul class="seo-central-title-order-list hidden">
@@ -807,7 +808,7 @@ class Seo_Central_Admin {
 					</fieldset>
 				<?php
         // Render the input field
-        echo '<input class="seo-central-text-input hidden" type="text" id="' . "{$post_type}_title_field" . '" name="' . "{$post_type}_title_field" . '" value="' . $val . '">';
+				echo '<input class="seo-central-text-input hidden" type="text" id="' . esc_attr($post_type . "_title_field") . '" name="' . esc_attr($post_type . "_title_field") . '" value="' . esc_attr($val) . '">';
 
 		} elseif (preg_match('/_description_field_cb$/', $method)) { //description field
         // Get the post type from the method name
@@ -818,8 +819,7 @@ class Seo_Central_Admin {
 				$val = $options;
 
         // Render the input field
-        //echo '<input class="seo-central-text-input seo-central-text-area" type="text" id="' . "{$post_type}_description_field" . '" name="' . "{$post_type}_description_field" . '" value="' . $val . '">';
-				echo '<textarea class="seo-central-text-area" id="' . "{$post_type}_description_field" . '" name="' . "{$post_type}_description_field" . '">' . $val . '</textarea>';
+				echo '<textarea class="seo-central-text-area" id="' . esc_attr($post_type . "_description_field") . '" name="' . esc_attr($post_type . "_description_field") . '">' . esc_textarea($val) . '</textarea>';
 
 		} elseif (preg_match('/_social_image_field_cb$/', $method)) { //social image field
         // Get the post type from the method name
@@ -831,8 +831,7 @@ class Seo_Central_Admin {
 				$val = $options;
 
         // Render the input field
-        // echo '<input type="text" id="' . "{$post_type}_description_field" . '" name="' . "{$post_type}_description_field" . '" value="' . $val . '">';
-				echo '<button data-type="'."{$post_type}".'" id="' . "{$post_type}_social_image_select" .'" class="seo-central-settings-social-image-select seo-central-button-small seo-central-button-secondary" type="button">'. __('Choose File', 'seo-central-lite').'</button> <button data-type="'."{$post_type}".'" id="' . "{$post_type}_social_image_deselect" .'" class="seo-central-settings-social-image-deselect disabled" type="button"><span class="seo-central-remove-image-close"></span><span class="seo-central-remove-image-file"></span></button><input class="seo-central-settings-image-input" type="text" name="' . "{$post_type}_social_image_field" . '" id="' . "{$post_type}_social_image_field" . '" value="' . $val . '"> <p id="' . "{$post_type}_social_image_instructions" .'" class="seo-central-settings-social-image-instruction">'. __('5 MB limit. Allowed types: jpg, jpeg, png', 'seo-central-lite').'</p>' . __( '', 'seo-central-lite' );
+				echo '<button data-type="' . esc_attr($post_type) . '" id="' . esc_attr($post_type . "_social_image_select") . '" class="seo-central-settings-social-image-select seo-central-button-small seo-central-button-secondary" type="button">' . esc_html__('Choose File', 'seo-central-lite') . '</button> <button data-type="' . esc_attr($post_type) . '" id="' . esc_attr($post_type . "_social_image_deselect") . '" class="seo-central-settings-social-image-deselect disabled" type="button"><span class="seo-central-remove-image-close"></span><span class="seo-central-remove-image-file"></span></button><input class="seo-central-settings-image-input" type="text" name="' . esc_attr($post_type . "_social_image_field") . '" id="' . esc_attr($post_type . "_social_image_field") . '" value="' . esc_attr($val) . '"> <p id="' . esc_attr($post_type . "_social_image_instructions") . '" class="seo-central-settings-social-image-instruction">' . esc_html__('5 MB limit. Allowed types: jpg, jpeg, png', 'seo-central-lite') . '</p>';
 				
 		} elseif (preg_match('/_social_title_field_cb$/', $method)) { //social title field
 			// Get the post type from the method name
@@ -844,7 +843,7 @@ class Seo_Central_Admin {
 			$val = $options;
 
 			// Render the input field
-			echo '<input class="seo-central-text-input" type="text" id="' . "{$post_type}_social_title_field" . '" name="' . "{$post_type}_social_title_field" . '" value="' . $val . '">';
+			echo '<input class="seo-central-text-input" type="text" id="' . esc_attr($post_type . "_social_title_field") . '" name="' . esc_attr($post_type . "_social_title_field") . '" value="' . esc_attr($val) . '">';
 			
 		} elseif (preg_match('/_social_description_field_cb$/', $method)) { //social description field
 			// Get the post type from the method name
@@ -856,7 +855,7 @@ class Seo_Central_Admin {
 			$val = $options;
 
 			// Render the input field
-			echo '<input class="seo-central-text-input" type="text" id="' . "{$post_type}_social_description_field" . '" name="' . "{$post_type}_social_description_field" . '" value="' . $val . '">';
+			echo '<input class="seo-central-text-input" type="text" id="' . esc_attr($post_type . "_social_description_field") . '" name="' . esc_attr($post_type . "_social_description_field") . '" value="' . esc_attr($val) . '">';
 			
 		} elseif (preg_match('/_page_schema_field_cb$/', $method)) { //page schema field
 			// Get the post type from the method name
@@ -870,7 +869,7 @@ class Seo_Central_Admin {
 
 			?> 
 				<fieldset>
-					<select class="seo-central-dropdown-list seo-central-select" id="<?php echo $post_type . '_page_schema_field' ?>" name="<?php echo $post_type . '_page_schema_field' ?>" type="select" value="<?php echo $val; ?>">
+					<select class="seo-central-dropdown-list seo-central-select" id="<?php echo esc_attr($post_type . '_page_schema_field'); ?>" name="<?php echo esc_attr($post_type . '_page_schema_field'); ?>" type="select" value="<?php echo esc_attr($val); ?>">
 		
 						<?php 
 							//Check if the field value is empty, if so set default
@@ -881,10 +880,10 @@ class Seo_Central_Admin {
 							//Loop through the options array to display and set the selected item. 
 							foreach($opt_array as $index=>$value) {
 								if($val == $value) {
-									echo '<option value="' . $value . '" selected="selected">' . $list_text[$index] . '</option>';
+									echo '<option value="' . esc_attr($value) . '" selected="selected">' . esc_html($list_text[$index]) . '</option>';
 								}
 								else {
-									echo '<option value="' . $value . '">' . $list_text[$index] . '</option>';
+									echo '<option value="' . esc_attr($value) . '">' . esc_html($list_text[$index]) . '</option>';
 								}
 							}
 						?>
@@ -905,7 +904,7 @@ class Seo_Central_Admin {
 
 			?> 
 				<fieldset>
-					<select class="seo-central-dropdown-list seo-central-select" id="<?php echo $post_type . '_post_schema_field' ?>" name="<?php echo $post_type . '_post_schema_field' ?>" type="select" value="<?php echo $val; ?>">
+					<select class="seo-central-dropdown-list seo-central-select" id="<?php echo esc_attr($post_type . '_post_schema_field') ?>" name="<?php echo esc_attr($post_type . '_post_schema_field') ?>" type="select" value="<?php echo esc_attr($val); ?>">
 		
 						<?php 
 							//Check if the field value is empty, if so set default
@@ -916,10 +915,10 @@ class Seo_Central_Admin {
 							//Loop through the options array to display and set the selected item. 
 							foreach($opt_array as $index=>$value) {
 								if($val == $value) {
-									echo '<option value="' . $value . '" selected="selected">' . $list_text[$index] . '</option>';
+									echo '<option value="' . esc_attr($value) . '" selected="selected">' . esc_html($list_text[$index]) . '</option>';
 								}
 								else {
-									echo '<option value="' . $value . '">' . $list_text[$index] . '</option>';
+									echo '<option value="' . esc_attr($value) . '">' . esc_html($list_text[$index]) . '</option>';
 								}
 							}
 						?>
@@ -938,7 +937,7 @@ class Seo_Central_Admin {
 			$val = $options;
 
 			// Render the input field
-			echo '<input class="seo-central-text-input" type="text" id="' . "{$post_type}_field" . '" name="' . "{$post_type}_field" . '" value="' . $val . '">';
+			echo '<input class="seo-central-text-input" type="text" id="' . esc_attr($post_type . "_field") . '" name="' . esc_attr($post_type . "_field") . '" value="' . esc_attr($val) . '">';
 
 		} 
 

@@ -23,40 +23,40 @@
     if($option_name == 'seo_central_notification') {
 
       if ($notification_type === 'free') {
-          $notification_text = __("Enjoying Central Cloud? The Pro version offers page optimization across your entire site! Imagine SEO Central power times ten. Purchase the annual plan and you'll qualify for our discounted Early Bird rate. Subscribe today!", 'seo-central-lite');
-          $button_text = __('Upgrade to Pro', 'seo-central-lite');
+          $notification_text = esc_html__("Enjoying Central Cloud? The Pro version offers page optimization across your entire site! Imagine SEO Central power times ten. Purchase the annual plan and you'll qualify for our discounted Early Bird rate. Subscribe today!", 'seo-central-lite');
+          $button_text = esc_html__('Upgrade to Pro', 'seo-central-lite');
       } elseif ($notification_type === 'invalid_domain') {
-          $notification_text = __("Invalid domain! Please check your input or try another domain.", 'seo-central-lite');
+          $notification_text = esc_html__("Invalid domain! Please check your input or try another domain.", 'seo-central-lite');
           $notification_class ='central-red icon-error';
       } elseif ($notification_type === 'invalid_key') {
-          $notification_text = __("This is not the API key we are looking for! Please go back to the dashboard and resubmit.", 'seo-central-lite');
+          $notification_text = esc_html__("This is not the API key we are looking for! Please go back to the dashboard and resubmit.", 'seo-central-lite');
           $notification_class ='central-red icon-error';
       } elseif ($notification_type === 'expired_key') {
-          $notification_text = __("Uh oh! Your Pro Subscription has expired. Resubscribe to keep SEOing.", 'seo-central-lite');
-          $button_text = __('Renew Pro', 'seo-central-lite');
+          $notification_text = esc_html__("Uh oh! Your Pro Subscription has expired. Resubscribe to keep SEOing.", 'seo-central-lite');
+          $button_text = esc_html__('Renew Pro', 'seo-central-lite');
           $notification_class ='central-red icon-error';
       } elseif ($notification_type === 'no_key') {
-          $notification_text = __("To Access all SEO Central page optimization features a valid API Key must be saved to the dashboard.", 'seo-central-lite');
+          $notification_text = esc_html__("To Access all SEO Central page optimization features a valid API Key must be saved to the dashboard.", 'seo-central-lite');
           $notification_class ='central-red icon-warning';
       }
 
     } elseif ($option_name == 'seo_central_conflicting_plugins') {
-        $notification_text = __("You currently have a conflicting SEO plugin installed. To use SEO Central, you will need to disable it.", 'seo-central-lite');
+        $notification_text = esc_html__("You currently have a conflicting SEO plugin installed. To use SEO Central, you will need to disable it.", 'seo-central-lite');
         $notification_class ='central-red icon-error';
     } elseif ($option_name == 'seo_central_pro_conflicting_plugins' ) {
-        $notification_text = __("You currently have a conflicting redirect plugin installed. To use SEO Central, you will need to disable it.", 'seo-central-lite');
+        $notification_text = esc_html__("You currently have a conflicting redirect plugin installed. To use SEO Central, you will need to disable it.", 'seo-central-lite');
         $notification_class ='central-red icon-error';
     }
 
 
     if (!empty($notification_text)) {
       ?>
-        <div class='seo-central-partials-notification-wrapper enabled <?php echo $notification_class; ?>'>
+        <div class='seo-central-partials-notification-wrapper enabled <?php echo esc_attr($notification_class); ?>'>
             <p class='seo-central-partials-notification'><span class='seo-central-partials-notification-icon'></span>
-                <span class='seo-central-partials-notification-text'><?php echo esc_html($notification_text); ?></span>
+                <span class='seo-central-partials-notification-text'><?php echo $notification_text; ?></span>
             </p>
             <?php if (!empty($button_text)): ?>
-              <a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade alternate-colors'><?php echo esc_html($button_text); ?></a>
+              <a href="https://app.seocentral.ai/?redirect=/dashboard/add-site" class='seo-central-button-upgrade alternate-colors'><?php echo $button_text; ?></a>
             <?php endif; ?>
         </div>
       <?php
