@@ -62,7 +62,7 @@ class Seo_Central_Admin {
 		$this->version = $version;	
 
 		//Initialize seo central notifications
-		add_action('admin_init', [$this, 'initialize_notifications']);
+		add_action('admin_init', [$this, 'seo_central_initialize_notifications']);
 
 	}
 
@@ -375,7 +375,7 @@ class Seo_Central_Admin {
 		$post_types = get_post_types( $args, $output, $operator ); 
 
     // Register post type specific settings
-    $this->register_post_type_settings_fields($post_types);
+    $this->seo_central_register_post_type_settings_fields($post_types);
 	} 
 
 	/**
@@ -623,7 +623,7 @@ class Seo_Central_Admin {
   } 
 
 	// Register the post type fields. Each Post type should contain fields for Title, Description, Social: (Image, Title, Description), Page/Post Schemas
-	public function register_post_type_settings_fields($post_types) {
+	public function seo_central_register_post_type_settings_fields($post_types) {
     foreach ($post_types as $post_type) {
 
 			//Remove Underscores for the display of the post types
@@ -949,7 +949,7 @@ class Seo_Central_Admin {
 	 * @since  	1.0.0
 	 * @access 	public
 	*/
-	public function initialize_notifications() {
+	public function seo_central_initialize_notifications() {
 		//Enable notification flags for seo central plugin
     if (get_option('seo_central_notification') === false) {
 			add_option('seo_central_notification', 'free');
@@ -1184,7 +1184,7 @@ class Seo_Central_Admin {
 
 				//pass the entire body to the array
 				$body_checks['stringbody'] = $stringbody;
-				$body_checks['flesch'] = $this->getScores($stringbody);
+				$body_checks['flesch'] = $this->seo_central_get_scores($stringbody);
 
 				return $body_checks; 
 
@@ -1413,7 +1413,7 @@ class Seo_Central_Admin {
 	 * @since  	1.0.0
 	 * @access 	public
 	*/
-	public function getScores($text) {
+	public function seo_central_get_scores($text) {
 		$sampleLimit = 1000;
 		$sentenceRegex = '/[.?!]\s[^a-z]/g';
 		$syllableRegex = '/[aiouy]+e*|e(?!d$|ly).|[td]ed|le$/g';
