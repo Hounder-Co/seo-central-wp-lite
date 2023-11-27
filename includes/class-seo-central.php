@@ -403,9 +403,9 @@ class Seo_Central {
 		if ($column_key == 'outgoing-internal-links') {
 			$internals = get_post_meta($post_id, 'seo_central_outgoing_internals', true);
 			if ($internals) {
-				echo '<span>'; esc_html__($internals, 'seo-central-lite'); echo '</span>';
+				echo '<span>' . esc_html($internals) . '</span>';
 			} else {
-				echo '<span>'; esc_html__(0, 'seo-central-lite'); echo '</span>';
+				echo '<span>' . esc_html('0') . '</span>';
 			}
 		}
 	}
