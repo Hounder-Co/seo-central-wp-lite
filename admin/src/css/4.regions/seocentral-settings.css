@@ -628,7 +628,7 @@
       }
 
       &-body {
-        @apply flex flex-row justify-between items-center gap-x-[24px];
+        @apply flex flex-row justify-center items-center gap-x-[24px] min-h-[230px] sm:min-h-[415px];
 
         &-image {
           @apply w-[50%] h-auto object-cover;

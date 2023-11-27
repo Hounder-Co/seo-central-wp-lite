@@ -10428,11 +10428,17 @@ font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
 }
 .seo-central-dialog-popup-body{
   display: flex;
+  min-height: 230px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   -moz-column-gap: 24px;
        column-gap: 24px;
+}
+@media (min-width: 768px){
+  .seo-central-dialog-popup-body{
+    min-height: 415px;
+  }
 }
 .seo-central-dialog-popup-body-image{
   height: auto;

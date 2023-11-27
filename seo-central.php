@@ -41,7 +41,7 @@ define( 'SEO_CENTRAL_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-seo-central-activator.php
  */
-function activate_seo_central() {
+function seo_central_activate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-seo-central-activator.php';
 	Seo_Central_Activator::activate();
 }
@@ -50,7 +50,7 @@ function activate_seo_central() {
  * The code that runs during plugin activation.
  * Detect other SEO related plugins to notify the user 
  */
-function detect_conflicting_seo_plugins() {
+function seo_central_detect_conflicting_plugins() {
 	$plugins_to_check = array(
 			'wordpress-seo/wp-seo.php', // Yoast SEO
 			'seo-by-rank-math/rank-math.php', // Rank Math SEO
@@ -84,11 +84,11 @@ function detect_conflicting_seo_plugins() {
  * The code that runs during plugin deactivation. (Also deactivates the pro plugin if installed and active)
  * This action is documented in includes/class-seo-central-deactivator.php
  */
-function deactivate_seo_central() {
+function seo_central_deactivate() {
 
 	// Check if the Pro version is active and deactivate when lite is deactivated
 	if (is_plugin_active('seo-central-wp-pro/seo-central-pro.php')) {
-		add_action('update_option_active_plugins', 'deactivate_seo_central_dependents');
+		add_action('update_option_active_plugins', 'seo_central_deactivate_dependents');
 	}
 
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-seo-central-deactivator.php';
@@ -99,20 +99,20 @@ function deactivate_seo_central() {
 /**
  * Run the deactivation of the pro plugin when enabled
  */
-function deactivate_seo_central_dependents() {
+function seo_central_deactivate_dependents() {
 	// Include WordPress plugin administration functions
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 	deactivate_plugins('seo-central-wp-pro/seo-central-pro.php');
 }
 
-register_activation_hook( __FILE__, 'activate_seo_central' );
-register_deactivation_hook( __FILE__, 'deactivate_seo_central' );
+register_activation_hook( __FILE__, 'seo_central_activate' );
+register_deactivation_hook( __FILE__, 'seo_central_deactivate' );
 
 /**
  * Detect for conflicting plugins
  */
-register_activation_hook( __FILE__, 'detect_conflicting_seo_plugins' );
+register_activation_hook( __FILE__, 'seo_central_detect_conflicting_plugins' );
 
 /**
  * The core plugin class that is used to define internationalization,

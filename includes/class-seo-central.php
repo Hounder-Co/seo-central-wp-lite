@@ -177,9 +177,9 @@ class Seo_Central {
 		add_action('init', [$this, 'define_post_type_hooks']);
 		
 		// Additional hooks that apply to all post types
-		add_action('save_post', [$this, 'update_internals_count'], 10, 3);
-		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_outgoing_internal']);
-		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_incoming_internal']);
+		add_action('save_post', [$this, 'seo_central_update_internals_count'], 10, 3);
+		add_action('pre_get_posts', [$this, 'wp_seo_central_pre_sort_outgoing_internal']);
+		add_action('pre_get_posts', [$this, 'wp_seo_central_pre_sort_incoming_internal']);
 	}
 
 	/**
@@ -207,8 +207,8 @@ class Seo_Central {
 		$this->loader->add_action( 'wp_head', $plugin_public, 'seo_central_add_header_meta', 1 );
 
 		//Shortcode for breadcrumbs
-		// add_shortcode('seo_central_breadcrumbs', [$this,'get_breadcrumb']);
-		add_shortcode( 'seo_central_breadcrumbs', array( $this, 'get_breadcrumb' ));
+		// add_shortcode('seo_central_breadcrumbs', [$this,'seo_central_get_breadcrumb']);
+		add_shortcode( 'seo_central_breadcrumbs', array( $this, 'seo_central_get_breadcrumb' ));
 
 	}
 
@@ -228,14 +228,14 @@ class Seo_Central {
 			if ( 'attachment' == $post_type ) continue; // Skip 'attachment' post type
 			
 			// Additional Columns for page listing (Seo Score, Internal, External links)
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_score_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_score_custom_column'], 10, 2);
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_outgoing_internal_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_outgoing_internal_custom_column'], 10, 2);
-			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_outgoing_internal_custom_sort']);
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_incoming_internal_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_incoming_internal_custom_column'], 10, 2);
-			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_incoming_internal_custom_sort']);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_score_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_score_custom_column'], 10, 2);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_outgoing_internal_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_outgoing_internal_custom_column'], 10, 2);
+			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_central_outgoing_internal_custom_sort']);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_incoming_internal_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_incoming_internal_custom_column'], 10, 2);
+			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_central_incoming_internal_custom_sort']);
 		}
 	}
 
@@ -312,12 +312,12 @@ class Seo_Central {
 	}
 
 	//Add custom columns to track for pages 
-	public function wp_seo_score_column($columns) {
+	public function wp_seo_central_score_column($columns) {
 		return array_merge($columns, ['seo-score' => __('Central Score', 'seo-central-lite')]);
 	}
 
 	//Create the custom column, utilize the hidden page analysis field to display the proper score
-	public function wp_seo_score_custom_column($column_key, $post_id) {
+	public function wp_seo_central_score_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'seo-score') {
 			$scoreCount = get_post_meta($post_id, 'seo_central_page_score', 'true');
@@ -372,12 +372,12 @@ class Seo_Central {
 	}
 
 	//Add custom columns to track for pages 
-	public function wp_read_score_column($columns) {
+	public function wp_read_central_score_column($columns) {
 		return array_merge($columns, ['readability-score' => __('Readability score', 'seo-central-lite')]);
 	}
 
 	//Create the custom column, utilize the hidden page analysis field to display the proper score
-	public function wp_read_score_custom_column($column_key, $post_id) {
+	public function wp_read_central_score_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'readability-score') {
 			$scoreflag = get_post_meta($post_id, 'seo_central_flesch_score', 'true');
@@ -390,7 +390,7 @@ class Seo_Central {
 	}
 
 	//Outgoing Internal URLs tracker
-	public function wp_seo_outgoing_internal_column($columns) {
+	public function wp_seo_central_outgoing_internal_column($columns) {
 		$tooltip_content = esc_html__("External link column: Shows the number of links in this page towards another page", "seo-central-lite");
 		$column_title = '<div class="seo-central-tooltip-column">' . esc_html__('Outgoing Internal Links', 'seo-central-lite') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
 		return array_merge($columns, ['outgoing-internal-links' => $column_title]);
@@ -398,7 +398,7 @@ class Seo_Central {
 
 
 	//Create the custom column, utilize the hidden page analysis field to display the outgoing internal links
-	public function wp_seo_outgoing_internal_custom_column($column_key, $post_id) {
+	public function wp_seo_central_outgoing_internal_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'outgoing-internal-links') {
 			$internals = get_post_meta($post_id, 'seo_central_outgoing_internals', true);
@@ -411,12 +411,12 @@ class Seo_Central {
 	}
 
 	//Sort Outgoing Internal Linking 
-	public function wp_seo_outgoing_internal_custom_sort($columns) {
+	public function wp_seo_central_outgoing_internal_custom_sort($columns) {
 		$columns['outgoing-internal-links'] = 'outgoing-internal-links';
 		return $columns;
 	}
 
-	public function wp_seo_pre_sort_outgoing_internal($query) {
+	public function wp_seo_central_pre_sort_outgoing_internal($query) {
     if (!is_admin()) {
 			return;
 		}
@@ -429,18 +429,18 @@ class Seo_Central {
 	}
 
 	//Incoming Internal URLs tracker (Premium Feature)
-	public function wp_seo_incoming_internal_column($columns) {
+	public function wp_seo_central_incoming_internal_column($columns) {
 		$tooltip_content = esc_html__("Internal link column: Shows the number of links pointing to this page", "seo-central-lite");
 		$column_title = '<div class="seo-central-tooltip-column">' . esc_html__('Incoming Internal Links', 'seo-central-lite') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
 		return array_merge($columns, ['incoming-internal-links' => $column_title]);
 	}
 
 	//Create the custom column, display the amount of incoming internal links to the page
-	public function wp_seo_incoming_internal_custom_column($column_key, $post_id) {
+	public function wp_seo_central_incoming_internal_custom_column($column_key, $post_id) {
 
 		
 		if ($column_key == 'incoming-internal-links') {
-			$incoming_internals = $this->all_incoming_internals($post_id);
+			$incoming_internals = $this->seo_central_all_incoming_internals($post_id);
 			// $internals = get_post_meta($post_id, 'seo_central_outgoing_internals', true);
 			// if ($internals) {
 			// 	echo '<span>'; _e($internals, 'textdomain'); echo '</span>';
@@ -453,12 +453,12 @@ class Seo_Central {
 	}
 
 	//Sort Incoming Internal Linking 
-	public function wp_seo_incoming_internal_custom_sort($columns) {
+	public function wp_seo_central_incoming_internal_custom_sort($columns) {
 		$columns['incoming-internal-links'] = 'incoming-internal-links';
 		return $columns;
 	}
 
-	public function wp_seo_pre_sort_incoming_internal($query) {
+	public function wp_seo_central_pre_sort_incoming_internal($query) {
     if (!is_admin()) {
 			return;
 		}
@@ -471,7 +471,7 @@ class Seo_Central {
 	}
 
 	//Set the breadcrumbs on page if toggled on. 
-	public function get_breadcrumb() {
+	public function seo_central_get_breadcrumb() {
        
     // Settings
 		$breadcrumbs_toggle = get_option('seo_central_setting_breadcrumb');
@@ -751,7 +751,7 @@ class Seo_Central {
 	 * @param int $page_id The ID of the target page.
 	 * @return array An array of internal link URLs.
 	*/
-	public function all_incoming_internals($page_id) {
+	public function seo_central_all_incoming_internals($page_id) {
 		global $wpdb;
 
 		$post_ID = $page_id;
@@ -839,13 +839,13 @@ class Seo_Central {
 		}
 	}
 
-	public function update_internals_count($post_ID, $post, $update) {
+	public function seo_central_update_internals_count($post_ID, $post, $update) {
     // Check if we're in the middle of a save process, or if this is an autosave or a revision.
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || wp_is_post_revision($post_ID) || wp_is_post_autosave($post_ID)) {
         return;
     }
 
     // Call your function to update the count
-    $this->all_incoming_internals($post_ID);
+    $this->seo_central_all_incoming_internals($post_ID);
 	}
 }

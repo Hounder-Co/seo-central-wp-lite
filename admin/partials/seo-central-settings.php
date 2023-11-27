@@ -102,7 +102,8 @@ function seo_central_do_settings_sections( $page ) {
     echo '<dialog class="seo-central-dialog">';
     echo '<div class="seo-central-dialog-popup">';
     echo '<div class="seo-central-dialog-popup-close-row"><button class="seo-central-dialog-popup-close-button"></button></div>';
-    echo '<div class="seo-central-dialog-popup-body"><img class="seo-central-dialog-popup-body-image" src="https://picsum.photos/600">';
+    echo '<div class="seo-central-dialog-popup-body">';
+    // echo '<img class="seo-central-dialog-popup-body-image" src="https://picsum.photos/600">';
     echo "<div class='seo-central-dialog-popup-body-content'><h3 class='seo-central-dialog-popup-body-title'>What are " . esc_html($modal_title) . "?</h3><p class='seo-central-dialog-popup-body-description'>" . esc_html__($modal_description, 'seo-central-lite') . "</p><button class='seo-central-button-small seo-central-button-secondary'>Learn more</button></div></div>";
     echo '</div>';
     echo '</dialog>';
