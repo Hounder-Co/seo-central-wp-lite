@@ -168,7 +168,7 @@ class Seo_Central {
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'seo_central_plugin_menu' );
 
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_seo_central_plugin_settings' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'seo_central_register_plugin_settings' );
 
 		//Disable the default wordpress robots
 		add_filter( 'wp_robots', [$this,'remove_default_wp_robots'] );

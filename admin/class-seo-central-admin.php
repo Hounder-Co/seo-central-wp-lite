@@ -161,11 +161,11 @@ class Seo_Central_Admin {
 
 		add_menu_page( esc_html__( 'SEO Central Dashboard', 'seo-central-lite' ), esc_html__( 'SEO Central', 'seo-central-lite' ), $capability, $parent_slug, 'seocentral-menu', $menu_icon );
 
-		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'seo-central-lite' ), esc_html__( 'Dashboard', 'seo-central-lite' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'page_settings' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'seo-central-lite' ), esc_html__( 'Dashboard', 'seo-central-lite' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'seo_central_page_settings' ) );
 		
-		add_submenu_page( $parent_slug, esc_html__( 'File Editor', 'seo-central-lite' ), esc_html__( 'File Editor', 'seo-central-lite' ), $capability, $this->plugin_name . '-file-editor', array( $this, 'page_file_editor' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'File Editor', 'seo-central-lite' ), esc_html__( 'File Editor', 'seo-central-lite' ), $capability, $this->plugin_name . '-file-editor', array( $this, 'seo_central_page_file_editor' ) );
 
-		add_submenu_page( $parent_slug, esc_html__( 'Redirects', 'seo-central-lite' ), esc_html__( 'Redirects', 'seo-central-lite' ), $capability, $this->plugin_name . '-redirects', array( $this, 'page_redirects' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'Redirects', 'seo-central-lite' ), esc_html__( 'Redirects', 'seo-central-lite' ), $capability, $this->plugin_name . '-redirects', array( $this, 'seo_central_page_redirects' ) );
 
 		// Removes default first page, we replace it with dashboard
 		remove_submenu_page( $parent_slug, 'seocentral-menu' );
@@ -177,11 +177,11 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_dashboard() {
+	public function seo_central_page_dashboard() {
 
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-dashboard.php' );
 
-	} // page_dashboard()
+	} // seo_central_page_dashboard()
 
 	/**
 	 * Creates the SEO Central Settings page
@@ -189,12 +189,12 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_settings() {
+	public function seo_central_page_settings() {
 
 		add_action( 'admin_init', 'seo_central_register_settings' );
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-settings.php' );
 
-	} // page_settings()
+	} // seo_central_page_settings()
 
 	/**
 	 * Creates the About SEO Central page
@@ -202,7 +202,7 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_file_editor() {
+	public function seo_central_page_file_editor() {
 
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-file-editor.php' );
 
@@ -214,11 +214,11 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_redirects() {
+	public function seo_central_page_redirects() {
 
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-redirects.php' );
 
-	} // page_redirects()
+	} // seo_central_page_redirects()
 
 	/**
 	 * Creates the About SEO Central page
@@ -226,11 +226,11 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_about() {
+	public function seo_central_page_about() {
 
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-about.php' );
 
-	} // page_about()
+	} // seo_central_page_about()
 
 	/**
 	 * Creates the Reporting SEO Central page
@@ -238,11 +238,11 @@ class Seo_Central_Admin {
 	 * @since 		1.0.0
 	 * @return 		void
 	 */
-	public function page_report() {
+	public function seo_central_page_report() {
 
 		include( plugin_dir_path( __FILE__ ) . 'partials/seo-central-report.php' );
 
-	} // page_report()
+	} // seo_central_page_report()
 
 	/**
 	 * Register the setting fields
@@ -250,7 +250,7 @@ class Seo_Central_Admin {
 	 * @since  	1.0.0
 	 * @access 	public
 	*/
-	public function register_seo_central_plugin_settings() {
+	public function seo_central_register_plugin_settings() {
     // Add a General section
 		add_settings_section(
 			$this->option_name. '_general',
