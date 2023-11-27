@@ -159,13 +159,13 @@ class Seo_Central_Admin {
 	
 		$menu_icon = "data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4OCA4OCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiMyODYwNGM7fS5jbHMtMntmaWxsOiMyM2FmN2M7fTwvc3R5bGU+PC9kZWZzPjxlbGxpcHNlIGNsYXNzPSJjbHMtMSIgY3g9IjUwLjAzMjQiIGN5PSI0My45OTk5MyIgcng9IjExLjc1NzEzIiByeT0iMTAuNDYyMzQiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik02Ny41NDYxNCw1My4xMTY3YTIwLjg1NDg5LDIwLjg1NDg5LDAsMCwxLTE3LjUxMzY3LDguOTU2Yy0xMS4yMTY2NywwLTIwLjMwOTU3LTguMDkxNTUtMjAuMzA5NTctMTguMDcyODdzOS4wOTI5LTE4LjA3Mjc1LDIwLjMwOTU3LTE4LjA3Mjc1YTIwLjg1NSwyMC44NTUsMCwwLDEsMTcuNTEzNjcsOC45NTYwNUw4NS4wNjgzNiwxNi44MzI1MkM3Ni43OTg4Myw5Ljk3NTEsNjQuNjgwNjYsNi4zMzkxMSw0OS45ODIxOCw2LjMzOTExLDIxLjcxMDcsNi4zMzkxMSwyLjkzMTQsMTkuODY4OSwyLjkzMTQsNDQuMDAwNzNjMCwyNC4xMzA4NiwxOC43NzkzLDM3LjY2MDE2LDQ3LjA1MDc4LDM3LjY2MDE2LDE0LjY5ODczLDAsMjYuODE2ODktMy42MzYsMzUuMDg2NDItMTAuNDkzNDFaIi8+PGVsbGlwc2UgY2xhc3M9ImNscy0yIiBjeD0iNTAuMDMyNCIgY3k9IjQzLjk5OTkzIiByeD0iMTEuNzU3MTMiIHJ5PSIxMC40NjIzNCIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTY3LjU0NjE0LDUzLjExNjdhMjAuODU0ODksMjAuODU0ODksMCwwLDEtMTcuNTEzNjcsOC45NTZjLTExLjIxNjY3LDAtMjAuMzA5NTctOC4wOTE1NS0yMC4zMDk1Ny0xOC4wNzI4N3M5LjA5MjktMTguMDcyNzUsMjAuMzA5NTctMTguMDcyNzVhMjAuODU1LDIwLjg1NSwwLDAsMSwxNy41MTM2Nyw4Ljk1NjA1TDg1LjA2ODM2LDE2LjgzMjUyQzc2Ljc5ODgzLDkuOTc1MSw2NC42ODA2Niw2LjMzOTExLDQ5Ljk4MjE4LDYuMzM5MTEsMjEuNzEwNyw2LjMzOTExLDIuOTMxNCwxOS44Njg5LDIuOTMxNCw0NC4wMDA3M2MwLDI0LjEzMDg2LDE4Ljc3OTMsMzcuNjYwMTYsNDcuMDUwNzgsMzcuNjYwMTYsMTQuNjk4NzMsMCwyNi44MTY4OS0zLjYzNiwzNS4wODY0Mi0xMC40OTM0MVoiLz48L3N2Zz4=";
 
-		add_menu_page( __( 'SEO Central Dashboard', 'seo-central-lite' ), __( 'SEO Central', 'seo-central-lite' ), $capability, $parent_slug, 'seocentral-menu', $menu_icon );
+		add_menu_page( esc_html__( 'SEO Central Dashboard', 'seo-central-lite' ), esc_html__( 'SEO Central', 'seo-central-lite' ), $capability, $parent_slug, 'seocentral-menu', $menu_icon );
 
-		add_submenu_page( $parent_slug, __( 'Dashboard', 'seo-central-lite' ), __( 'Dashboard', 'seo-central-lite' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'page_settings' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'seo-central-lite' ), esc_html__( 'Dashboard', 'seo-central-lite' ), $capability, $this->plugin_name . '-dashboard', array( $this, 'page_settings' ) );
 		
-		add_submenu_page( $parent_slug, __( 'File Editor', 'seo-central-lite' ), __( 'File Editor', 'seo-central-lite' ), $capability, $this->plugin_name . '-file-editor', array( $this, 'page_file_editor' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'File Editor', 'seo-central-lite' ), esc_html__( 'File Editor', 'seo-central-lite' ), $capability, $this->plugin_name . '-file-editor', array( $this, 'page_file_editor' ) );
 
-		add_submenu_page( $parent_slug, __( 'Redirects', 'seo-central-lite' ), __( 'Redirects', 'seo-central-lite' ), $capability, $this->plugin_name . '-redirects', array( $this, 'page_redirects' ) );
+		add_submenu_page( $parent_slug, esc_html__( 'Redirects', 'seo-central-lite' ), esc_html__( 'Redirects', 'seo-central-lite' ), $capability, $this->plugin_name . '-redirects', array( $this, 'page_redirects' ) );
 
 		// Removes default first page, we replace it with dashboard
 		remove_submenu_page( $parent_slug, 'seocentral-menu' );
@@ -254,7 +254,7 @@ class Seo_Central_Admin {
     // Add a General section
 		add_settings_section(
 			$this->option_name. '_general',
-			__( '', 'seo-central-lite' ),
+			esc_html__( '', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_general_cb' ),
 			$this->plugin_name
 		);
@@ -265,82 +265,82 @@ class Seo_Central_Admin {
 			// Add a text field for api key
 			add_settings_field(
 				$this->option_name . '_api_key',
-				__( 'Seo Central Api Key', 'seo-central-lite' ),
+				esc_html__( 'Seo Central Api Key', 'seo-central-lite' ),
 				array( $this, $this->option_name . '_api_key_cb' ),
 				$this->plugin_name,
 				$this->option_name . '_general',
-				array( 'label_for' => $this->option_name . '_api_key', 'description' => __( 'VERY IMPORTANT: The that allows you access to the meta-data generation tool.', 'seo-central-lite' ) )
+				array( 'label_for' => $this->option_name . '_api_key', 'description' => esc_html__( 'VERY IMPORTANT: The that allows you access to the meta-data generation tool.', 'seo-central-lite' ) )
 			);
 		}
 
 		// Add a text field for google verification
 		add_settings_field(
 			$this->option_name . '_google_key',
-			__( 'Google Verification', 'seo-central-lite' ),
+			esc_html__( 'Google Verification', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_google_key_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_google_key', 'description' => __( 'Used for Google Search Console verification, follow the official steps here.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_google_key', 'description' => esc_html__( 'Used for Google Search Console verification, follow the official steps here.', 'seo-central-lite' ) )
 		);
 
 		// Add a text field for bing verification
 		add_settings_field(
 			$this->option_name . '_bing_key',
-			__( 'Bing Verification', 'seo-central-lite' ),
+			esc_html__( 'Bing Verification', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_bing_key_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_bing_key', 'description' => __( 'Used for Bing Webmaster Tools verification, sign up for an account here.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_bing_key', 'description' => esc_html__( 'Used for Bing Webmaster Tools verification, sign up for an account here.', 'seo-central-lite' ) )
 		);
 
 		// Add image field
 		add_settings_field(
 			$this->option_name . '_image',
-			__( 'Site Image', 'seo-central-lite' ),
+			esc_html__( 'Site Image', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_image_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_image', 'description' => __( 'A default image used for all pages on your site that don\'t have one set.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_image', 'description' => esc_html__( 'A default image used for all pages on your site that don\'t have one set.', 'seo-central-lite' ) )
 		);
 
 		// Add Breadcrumb Toggle field
 		add_settings_field(
 			$this->option_name . '_breadcrumb',
-			__( 'Site Breadcrumbs', 'seo-central-lite' ),
+			esc_html__( 'Site Breadcrumbs', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_breadcrumb_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_breadcrumb', 'description' => __( 'Navigation aids showing users their path from the home page.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_breadcrumb', 'description' => esc_html__( 'Navigation aids showing users their path from the home page.', 'seo-central-lite' ) )
 		);
 
 		// Add Breadcrumb Separator field
 		add_settings_field(
 			$this->option_name . '_crumbseparator',
-			__( 'Title Separator', 'seo-central-lite' ),
+			esc_html__( 'Title Separator', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_crumb_separator_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_crumbseparator', 'description' => __( 'Symbol used to divide levels in breadcrumb navigation.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_crumbseparator', 'description' => esc_html__( 'Symbol used to divide levels in breadcrumb navigation.', 'seo-central-lite' ) )
 		);
 
 		// Add username field
 		add_settings_field(
 			$this->option_name . '_username',
-			__( 'Site Username', 'seo-central-lite' ),
+			esc_html__( 'Site Username', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_username_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_username', 'description' => __( 'The username for your account login.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_username', 'description' => esc_html__( 'The username for your account login.', 'seo-central-lite' ) )
 		);
 
 		// Add password field
 		add_settings_field(
 			$this->option_name . '_password',
-			__( 'Site Password', 'seo-central-lite' ),
+			esc_html__( 'Site Password', 'seo-central-lite' ),
 			array( $this, $this->option_name . '_password_cb' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_password', 'description' => __( 'The password for your account login.', 'seo-central-lite' ) )
+			array( 'label_for' => $this->option_name . '_password', 'description' => esc_html__( 'The password for your account login.', 'seo-central-lite' ) )
 		);
 
 		// Api key field is only available when the pro plugin is enabled

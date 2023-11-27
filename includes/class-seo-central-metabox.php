@@ -1298,7 +1298,7 @@ class Seo_Central_Metabox {
 			printf(
 				'<textarea class="seo-central-text-area seo-text-area %s" id="%s" name="%s" %s type="%s" rows="4" cols="50">%s</textarea>',
 				esc_attr( isset($field['class']) ? $field['class'] : '' ),
-				esc_attr( $field['id'] ), $esc_attr( $field['id'] ),
+				esc_attr( $field['id'] ), esc_attr( $field['id'] ),
 				isset($field['pattern']) ? "pattern='" . esc_attr($field['pattern']) . "'" : '',
 				esc_attr( $field['type'] ),
 				esc_textarea( $value )
