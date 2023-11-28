@@ -89,7 +89,7 @@ class Seo_Central_Metabox {
 
 	public function seo_central_setup_config() {
     // Prep the Primary Config with the all post types so it properly appears for each
-    $this->types_string = $this->postTypeResults();
+    $this->types_string = $this->seo_central_post_type_results();
     $this->config = str_replace('"__POST_TYPES__"', $this->types_string, $this->config);
     // Set up the configs for the metabox
     $this->config = json_decode($this->config, true);
@@ -417,7 +417,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo $img_url; ?>' alt='Meta Image' class='social-card-asset' width='530' height='310'/>
 											<h3 class="social-card-title"><?php echo $social_title; ?></h3>
 											<p class="social-card-description"><?php echo $social_desc; ?></p>
-											<p class="social-card-origin"><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->google_breadcrumbs(); ?></p>
+											<p class="social-card-origin"><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 
 											</div>
 									</div>
@@ -428,7 +428,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo esc_url(get_site_icon_url()); ?>' alt='<?php esc_attr_e('favicon-asset', 'seo-central-lite'); ?>' class='google-preview-image'>
 											<div class='google-preview-header-content'>
 												<p class='google-preview-header-content-site'> <?php echo esc_html(get_bloginfo('name')); ?></p>
-												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->google_breadcrumbs(); ?></p>
+												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 											</div>
 										</div>
 
@@ -444,7 +444,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo esc_url(get_site_icon_url()); ?>' alt='<?php esc_attr_e('favicon-asset', 'seo-central-lite'); ?>' class='google-preview-image'>
 											<div class='google-preview-header-content'>
 												<p class='google-preview-header-content-site'> <?php echo esc_html(get_bloginfo('name')); ?></p>
-												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span> <?php echo $this->google_breadcrumbs(); ?></p>
+												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span> <?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 											</div>
 										</div>
 
@@ -827,7 +827,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo $img_url; ?>' alt='Meta Image' class='social-card-asset' width='530' height='310'/>
 											<h3 class="social-card-title"><?php echo $social_title; ?></h3>
 											<p class="social-card-description"><?php echo $social_desc; ?></p>
-											<p class="social-card-origin"><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->google_breadcrumbs(); ?></p>
+											<p class="social-card-origin"><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 
 											</div>
 									</div>
@@ -838,7 +838,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo esc_url(get_site_icon_url()); ?>' alt='favicon-asset' class='google-preview-image'>
 											<div class='google-preview-header-content'>
 												<p class='google-preview-header-content-site'> <?php echo esc_html(get_bloginfo('name')); ?></p>
-												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->google_breadcrumbs(); ?></p>
+												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span><?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 											</div>
 										</div>
 
@@ -854,7 +854,7 @@ class Seo_Central_Metabox {
 											<img src='<?php echo esc_url(get_site_icon_url()); ?>' alt='favicon-asset' class='google-preview-image'>
 											<div class='google-preview-header-content'>
 												<p class='google-preview-header-content-site'> <?php echo esc_html(get_bloginfo('name')); ?></p>
-												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span> <?php echo $this->google_breadcrumbs(); ?></p>
+												<p class='google-preview-header-content-crumbs'><span><?php echo esc_url(get_bloginfo('url')); ?></span> <?php echo $this->seo_central_google_breadcrumbs(); ?></p>
 											</div>
 										</div>
 
@@ -1139,7 +1139,7 @@ class Seo_Central_Metabox {
 	*/
 	private function selector( $field ) {
 		$options = '';
-		$post_type = $this->getCurrentPostType(); //Retrieve the post type of the current page to get the post type settings field
+		$post_type = $this->seo_central_get_current_post_type(); //Retrieve the post type of the current page to get the post type settings field
 
 		$default_page_schema = get_option("seo_central_setting_{$post_type}_page_schema_field");
 		$default_post_schema = get_option("seo_central_setting_{$post_type}_post_schema_field");
@@ -1257,7 +1257,7 @@ class Seo_Central_Metabox {
 	private function textArea( $field ) {
 
 		if($field['id'] == 'seo_central_meta_title') {
-			$post_type = $this->getCurrentPostType(); //Retrieve the post type of the current page to get the post type settings field
+			$post_type = $this->seo_central_get_current_post_type(); //Retrieve the post type of the current page to get the post type settings field
 			$default_title = get_option("seo_central_setting_{$post_type}_title_field");
 			$dashboard_variables = preg_split ("/\,/", $default_title);
 			$variable_results = '';
@@ -1306,7 +1306,7 @@ class Seo_Central_Metabox {
 		}
 		else if ($field['id'] == 'seo_central_meta_description' || $field['id'] == 'seo_central_social_description') {
 			//Check for both the meta description and social description fields (Apply default text from dashboard if populated)
-			$post_type = $this->getCurrentPostType(); //Retrieve the post type of the current page to get the post type settings field
+			$post_type = $this->seo_central_get_current_post_type(); //Retrieve the post type of the current page to get the post type settings field
 			$suffix = ($field['id'] == 'seo_central_meta_description') ? 'description_field' : 'social_description_field';
 			$default_social_description = get_option("seo_central_setting_{$post_type}_{$suffix}");
 	
@@ -1436,7 +1436,7 @@ class Seo_Central_Metabox {
 		else {
 
 			if($field['id'] == 'seo_central_social_title') {
-				$post_type = $this->getCurrentPostType(); //Retrieve the post type of the current page to get the post type settings field
+				$post_type = $this->seo_central_get_current_post_type(); //Retrieve the post type of the current page to get the post type settings field
 				$default_social_title = get_option("seo_central_setting_{$post_type}_social_title_field");
 				$dashboard_variables = preg_split ("/\,/", $default_social_title);
 				$variable_results = '';
@@ -1523,7 +1523,7 @@ class Seo_Central_Metabox {
 	}
 
 	//Google Preview Breadcrumbs 
-	public function google_breadcrumbs() {
+	public function seo_central_google_breadcrumbs() {
 		//Get the canonical url and strip apart the tags and return
 		$page_url = wp_get_canonical_url();
 
@@ -1558,7 +1558,7 @@ class Seo_Central_Metabox {
 
 	}
 
-	public function postTypeResults() {
+	public function seo_central_post_type_results() {
 		$args = array(
 			'public'   => true
 		);
@@ -1582,7 +1582,7 @@ class Seo_Central_Metabox {
 		return $post_items;
 	}
 
-	public function getCurrentPostType() {
+	public function seo_central_get_current_post_type() {
     global $post;
 
     if (isset($post)) {

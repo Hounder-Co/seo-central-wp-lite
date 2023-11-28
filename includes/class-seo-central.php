@@ -171,7 +171,7 @@ class Seo_Central {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'seo_central_register_plugin_settings' );
 
 		//Disable the default wordpress robots
-		add_filter( 'wp_robots', [$this,'remove_default_wp_robots'] );
+		add_filter( 'wp_robots', [$this,'seo_central_remove_default_wp_robots'] );
 		
 		//Trigger all the filters and column setup for ALL post types
 		add_action('init', [$this, 'seo_central_define_post_type_hooks']);
@@ -307,7 +307,7 @@ class Seo_Central {
    * @since    1.0.0
    * @access   private
    */
-	public function remove_default_wp_robots( $robots ) {
+	public function seo_central_remove_default_wp_robots( $robots ) {
     return array();
 	}
 
