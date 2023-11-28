@@ -161,7 +161,7 @@ class Seo_Central {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Seo_Central_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Seo_Central_Admin( $this->seo_central_get_plugin_name(), $this->seo_central_get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'seo_central_enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'seo_central_enqueue_scripts' );
@@ -174,7 +174,7 @@ class Seo_Central {
 		add_filter( 'wp_robots', [$this,'remove_default_wp_robots'] );
 		
 		//Trigger all the filters and column setup for ALL post types
-		add_action('init', [$this, 'define_post_type_hooks']);
+		add_action('init', [$this, 'seo_central_define_post_type_hooks']);
 		
 		// Additional hooks that apply to all post types
 		add_action('save_post', [$this, 'seo_central_update_internals_count'], 10, 3);
@@ -191,11 +191,11 @@ class Seo_Central {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Seo_Central_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Seo_Central_Public( $this->seo_central_get_plugin_name(), $this->seo_central_get_version() );
 
 		// Add custom CSS and JS to the header
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'seo_central_enqueue_styles' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'seo_central_enqueue_scripts' );
 
 		// Set a custom cookie for the user
 		// https://developer.wordpress.org/reference/hooks/init/
@@ -219,7 +219,7 @@ class Seo_Central {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	public function define_post_type_hooks() {
+	public function seo_central_define_post_type_hooks() {
 		// Utilize all public post types and set filters and columns to each page/post_type available from Wordpress site
 		$post_types = get_post_types( array('public' => true), 'names' );
 		
@@ -255,7 +255,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function seo_central_get_plugin_name() {
 		return $this->plugin_name;
 	}
 
@@ -265,7 +265,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    Seo_Central_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function seo_central_get_loader() {
 		return $this->loader;
 	}
 
@@ -275,7 +275,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function seo_central_get_version() {
 		return $this->version;
 	}
 

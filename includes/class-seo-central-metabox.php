@@ -81,13 +81,13 @@ class Seo_Central_Metabox {
 	public function __construct() {
     // Hook into the 'init' action with a priority of 100
     // This will ensure that all post types have been registered before the function runs
-    add_action('init', [$this, 'setupConfig'], 100);
-    add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
-    add_action('save_post', [$this, 'slug_save_callback']);
-    add_action('save_post', [$this, 'save_post']);
+    add_action('init', [$this, 'seo_central_setup_config'], 100);
+    add_action('add_meta_boxes', [$this, 'seo_central_add_meta_boxes']);
+    add_action('save_post', [$this, 'seo_central_slug_save_callback']);
+    add_action('save_post', [$this, 'seo_central_save_post']);
 	}
 
-	public function setupConfig() {
+	public function seo_central_setup_config() {
     // Prep the Primary Config with the all post types so it properly appears for each
     $this->types_string = $this->postTypeResults();
     $this->config = str_replace('"__POST_TYPES__"', $this->types_string, $this->config);
@@ -99,14 +99,14 @@ class Seo_Central_Metabox {
     $this->config5 = json_decode($this->config5, true);
 	}
 
-	public function add_meta_boxes() {
+	public function seo_central_add_meta_boxes() {
 
 
 		foreach ( $this->config['post-type'] as $screen ) {
 			add_meta_box(
 				sanitize_title( $this->config['title'] ),
 				$this->config['title'],
-				[ $this, 'add_meta_box_callback' ],
+				[ $this, 'seo_central_add_meta_box_callback' ],
 				$screen,
 				$this->config['context'],
 				$this->config['priority']
@@ -114,7 +114,7 @@ class Seo_Central_Metabox {
 		}
 	}
 
-	public function save_post( $post_id ) {
+	public function seo_central_save_post( $post_id ) {
     foreach ( $this->config['fields'] as $field ) {
 			switch ( $field['type'] ) {
 				case 'editor':
@@ -206,13 +206,13 @@ class Seo_Central_Metabox {
 		}
 	}
 
-	public function slug_save_callback( $post_id ) {
+	public function seo_central_slug_save_callback( $post_id ) {
 
     // verify post is not a revision
     if ( ! wp_is_post_revision( $post_id ) ) {
 
         // unhook this function to prevent infinite looping
-        remove_action( 'save_post', [ $this, 'slug_save_callback'] );
+        remove_action( 'save_post', [ $this, 'seo_central_slug_save_callback'] );
 
 				foreach ( $this->config['fields'] as $field ) {
 
@@ -226,12 +226,12 @@ class Seo_Central_Metabox {
 				}
 
         // re-hook this function
-        add_action( 'save_post', [ $this, 'slug_save_callback'] );
+        add_action( 'save_post', [ $this, 'seo_central_slug_save_callback'] );
 
     }
 	}
 
-	public function add_meta_box_callback() {
+	public function seo_central_add_meta_box_callback() {
 
 		//Display Lite or Pro version of the metabox form depending on if SEO Central Pro File plugin has been installed and activated
 		if (!defined('SEO_CENTRAL_PRO') || !SEO_CENTRAL_PRO) {
