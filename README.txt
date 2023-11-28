@@ -99,12 +99,12 @@ If you have not found the question and answer you are looking for here visit our
 
 == Screenshots ==
 
-1.  [http://example.com/images/screenshot.png  SEO Central App signup]
-2.  [http://example.com/images/screenshot.png  Account Manager provide domain]
-3.  [http://example.com/images/screenshot.png  Account Manager files & api-key result]
-4.  [http://example.com/images/screenshot.png  Pro Plugin installation]
-5.  [http://example.com/images/screenshot.png  Pro plugin Activation]
-6.  [http://example.com/images/screenshot.png  API key setup on Dashboard]
+1.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_1.png  SEO Central App signup]
+2.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_2.png  Account Manager provide domain]
+3.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_3.png  Account Manager files & api-key result]
+4.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_4.png  Pro Plugin installation]
+5.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_5.png  Pro plugin Activation]
+6.  [https://seo-central-cdn.sfo3.digitaloceanspaces.com/screenshots/Seo_Central_Pro_Setup_Step_6.png  API key setup on Dashboard]
 
 == Changelog ==
 
