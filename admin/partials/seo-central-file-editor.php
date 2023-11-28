@@ -15,7 +15,11 @@
 // Retrieve home path and verifiy that is a working path
 $home_path = get_home_path();
 if ( ! is_writable( $home_path ) && ! empty( $_SERVER['DOCUMENT_ROOT'] ) ) {
-	$home_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
+  $doc_root_path = realpath($_SERVER['DOCUMENT_ROOT']);
+
+  if ($documentRootPath !== false) {
+    $home_path = trailingslashit($doc_root_path) . DIRECTORY_SEPARATOR;
+  }
 }
 
 //Get the file paths for the humans and robots.txt after setting the home path.
@@ -98,7 +102,7 @@ if ( isset( $_POST['updateHumans'] ) ) {
 <?php include( plugin_dir_path( __FILE__ ) . '/seo-central-partial-nav.php' ); ?>
 <div class='seo-central-partials-headline-wrapper'>
 
-  <h2 class='seo-central-partials-headline-title'><?php echo __('File Editor', 'seo-central-lite'); ?></h2>
+  <h2 class='seo-central-partials-headline-title'><?php esc_html_e('File Editor', 'seo-central-lite'); ?></h2>
 
 </div>
 
@@ -110,15 +114,15 @@ if ( isset( $_POST['updateHumans'] ) ) {
 <article class="seo-central-file-editors-wrapper">
 
 
-  <form method="post" action="<?php echo $file_editor; ?>" id='seo-central-robot-form' class='seo-central-file-editors'>
-    <label class='seo-central-file-label' for='seo-central-robots-editor' value='Robots.txt'><?php echo __('Robots.txt', 'seo-central-lite'); ?></label>
-    <textarea id="seo-central-robots-editor" name="seo-central-robots-editor" rows="12" cols="80"><?php echo $current_robot; ?></textarea>
+  <form method="post" action="<?php echo esc_url($file_editor); ?>" id='seo-central-robot-form' class='seo-central-file-editors'>
+    <label class='seo-central-file-label' for='seo-central-robots-editor' value='Robots.txt'><?php esc_html_e('Robots.txt', 'seo-central-lite'); ?></label>
+    <textarea id="seo-central-robots-editor" name="seo-central-robots-editor" rows="12" cols="80"><?php echo esc_textarea($current_robot); ?></textarea>
     <input class='seo-central-file-button seo-central-button-small seo-central-button-secondary' type='submit' name='updateRobots' value='Update File'>
   </form>
 
-  <form method="post" action="<?php echo $file_editor; ?>" id='seo-central-human-form' class='seo-central-file-editors'>
-  <label class='seo-central-file-label' for='seo-central-humans-editor' value='Humans.txt'><?php echo __('Humans.txt', 'seo-central-lite'); ?></label>
-    <textarea id="seo-central-humans-editor" name="seo-central-humans-editor" rows="12" cols="80"><?php echo $current_human; ?></textarea>
+  <form method="post" action="<?php echo esc_url($file_editor); ?>" id='seo-central-human-form' class='seo-central-file-editors'>
+  <label class='seo-central-file-label' for='seo-central-humans-editor' value='Humans.txt'><?php esc_html_e('Humans.txt', 'seo-central-lite'); ?></label>
+    <textarea id="seo-central-humans-editor" name="seo-central-humans-editor" rows="12" cols="80"><?php echo esc_textarea($current_human); ?></textarea>
     <input class='seo-central-file-button seo-central-button-small seo-central-button-secondary' type='submit' name='updateHumans' value='Update File'>
   </form>
 </article>

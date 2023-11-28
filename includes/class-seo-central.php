@@ -161,25 +161,25 @@ class Seo_Central {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Seo_Central_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Seo_Central_Admin( $this->seo_central_get_plugin_name(), $this->seo_central_get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'seo_central_enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'seo_central_enqueue_scripts' );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'seo_central_plugin_menu' );
 
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_seo_central_plugin_settings' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'seo_central_register_plugin_settings' );
 
 		//Disable the default wordpress robots
-		add_filter( 'wp_robots', [$this,'remove_default_wp_robots'] );
+		add_filter( 'wp_robots', [$this,'seo_central_remove_default_wp_robots'] );
 		
 		//Trigger all the filters and column setup for ALL post types
-		add_action('init', [$this, 'define_post_type_hooks']);
+		add_action('init', [$this, 'seo_central_define_post_type_hooks']);
 		
 		// Additional hooks that apply to all post types
-		add_action('save_post', [$this, 'update_internals_count'], 10, 3);
-		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_outgoing_internal']);
-		add_action('pre_get_posts', [$this, 'wp_seo_pre_sort_incoming_internal']);
+		add_action('save_post', [$this, 'seo_central_update_internals_count'], 10, 3);
+		add_action('pre_get_posts', [$this, 'wp_seo_central_pre_sort_outgoing_internal']);
+		add_action('pre_get_posts', [$this, 'wp_seo_central_pre_sort_incoming_internal']);
 	}
 
 	/**
@@ -191,11 +191,11 @@ class Seo_Central {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Seo_Central_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Seo_Central_Public( $this->seo_central_get_plugin_name(), $this->seo_central_get_version() );
 
 		// Add custom CSS and JS to the header
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'seo_central_enqueue_styles' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'seo_central_enqueue_scripts' );
 
 		// Set a custom cookie for the user
 		// https://developer.wordpress.org/reference/hooks/init/
@@ -207,8 +207,8 @@ class Seo_Central {
 		$this->loader->add_action( 'wp_head', $plugin_public, 'seo_central_add_header_meta', 1 );
 
 		//Shortcode for breadcrumbs
-		// add_shortcode('seo_central_breadcrumbs', [$this,'get_breadcrumb']);
-		add_shortcode( 'seo_central_breadcrumbs', array( $this, 'get_breadcrumb' ));
+		// add_shortcode('seo_central_breadcrumbs', [$this,'seo_central_get_breadcrumb']);
+		add_shortcode( 'seo_central_breadcrumbs', array( $this, 'seo_central_get_breadcrumb' ));
 
 	}
 
@@ -219,7 +219,7 @@ class Seo_Central {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	public function define_post_type_hooks() {
+	public function seo_central_define_post_type_hooks() {
 		// Utilize all public post types and set filters and columns to each page/post_type available from Wordpress site
 		$post_types = get_post_types( array('public' => true), 'names' );
 		
@@ -228,14 +228,14 @@ class Seo_Central {
 			if ( 'attachment' == $post_type ) continue; // Skip 'attachment' post type
 			
 			// Additional Columns for page listing (Seo Score, Internal, External links)
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_score_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_score_custom_column'], 10, 2);
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_outgoing_internal_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_outgoing_internal_custom_column'], 10, 2);
-			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_outgoing_internal_custom_sort']);
-			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_incoming_internal_column']);
-			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_incoming_internal_custom_column'], 10, 2);
-			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_incoming_internal_custom_sort']);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_score_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_score_custom_column'], 10, 2);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_outgoing_internal_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_outgoing_internal_custom_column'], 10, 2);
+			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_central_outgoing_internal_custom_sort']);
+			add_filter("manage_{$post_type}_posts_columns", [$this,'wp_seo_central_incoming_internal_column']);
+			add_action("manage_{$post_type}_posts_custom_column", [$this,'wp_seo_central_incoming_internal_custom_column'], 10, 2);
+			add_filter("manage_edit-{$post_type}_sortable_columns", [$this,'wp_seo_central_incoming_internal_custom_sort']);
 		}
 	}
 
@@ -255,7 +255,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function seo_central_get_plugin_name() {
 		return $this->plugin_name;
 	}
 
@@ -265,7 +265,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    Seo_Central_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function seo_central_get_loader() {
 		return $this->loader;
 	}
 
@@ -275,7 +275,7 @@ class Seo_Central {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function seo_central_get_version() {
 		return $this->version;
 	}
 
@@ -307,17 +307,17 @@ class Seo_Central {
    * @since    1.0.0
    * @access   private
    */
-	public function remove_default_wp_robots( $robots ) {
+	public function seo_central_remove_default_wp_robots( $robots ) {
     return array();
 	}
 
 	//Add custom columns to track for pages 
-	public function wp_seo_score_column($columns) {
-		return array_merge($columns, ['seo-score' => __('Central Score', 'textdomain')]);
+	public function wp_seo_central_score_column($columns) {
+		return array_merge($columns, ['seo-score' => __('Central Score', 'seo-central-lite')]);
 	}
 
 	//Create the custom column, utilize the hidden page analysis field to display the proper score
-	public function wp_seo_score_custom_column($column_key, $post_id) {
+	public function wp_seo_central_score_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'seo-score') {
 			$scoreCount = get_post_meta($post_id, 'seo_central_page_score', 'true');
@@ -372,51 +372,51 @@ class Seo_Central {
 	}
 
 	//Add custom columns to track for pages 
-	public function wp_read_score_column($columns) {
-		return array_merge($columns, ['readability-score' => __('Readability score', 'textdomain')]);
+	public function wp_read_central_score_column($columns) {
+		return array_merge($columns, ['readability-score' => __('Readability score', 'seo-central-lite')]);
 	}
 
 	//Create the custom column, utilize the hidden page analysis field to display the proper score
-	public function wp_read_score_custom_column($column_key, $post_id) {
+	public function wp_read_central_score_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'readability-score') {
 			$scoreflag = get_post_meta($post_id, 'seo_central_flesch_score', 'true');
 			if ($scoreflag) {
-				echo '<span style="color:green;">'; _e('Yes', 'textdomain'); echo '</span>';
+				echo '<span style="color:green;">'; esc_html_e('Yes', 'seo-central-lite'); echo '</span>';
 			} else {
-				echo '<span style="color:red;">'; _e('No', 'textdomain'); echo '</span>';
+				echo '<span style="color:red;">'; esc_html_e('No', 'seo-central-lite'); echo '</span>';
 			}
 		}
 	}
 
 	//Outgoing Internal URLs tracker
-	public function wp_seo_outgoing_internal_column($columns) {
-		$tooltip_content = __("External link column: Shows the number of links in this page towards another page", "textdomain");
-		$column_title = '<div class="seo-central-tooltip-column">' . __('Outgoing Internal Links', 'textdomain') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
+	public function wp_seo_central_outgoing_internal_column($columns) {
+		$tooltip_content = esc_html__("External link column: Shows the number of links in this page towards another page", "seo-central-lite");
+		$column_title = '<div class="seo-central-tooltip-column">' . esc_html__('Outgoing Internal Links', 'seo-central-lite') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
 		return array_merge($columns, ['outgoing-internal-links' => $column_title]);
 	}
 
 
 	//Create the custom column, utilize the hidden page analysis field to display the outgoing internal links
-	public function wp_seo_outgoing_internal_custom_column($column_key, $post_id) {
+	public function wp_seo_central_outgoing_internal_custom_column($column_key, $post_id) {
 
 		if ($column_key == 'outgoing-internal-links') {
 			$internals = get_post_meta($post_id, 'seo_central_outgoing_internals', true);
 			if ($internals) {
-				echo '<span>'; _e($internals, 'textdomain'); echo '</span>';
+				echo '<span>' . esc_html($internals) . '</span>';
 			} else {
-				echo '<span>'; _e(0, 'textdomain'); echo '</span>';
+				echo '<span>' . esc_html('0') . '</span>';
 			}
 		}
 	}
 
 	//Sort Outgoing Internal Linking 
-	public function wp_seo_outgoing_internal_custom_sort($columns) {
+	public function wp_seo_central_outgoing_internal_custom_sort($columns) {
 		$columns['outgoing-internal-links'] = 'outgoing-internal-links';
 		return $columns;
 	}
 
-	public function wp_seo_pre_sort_outgoing_internal($query) {
+	public function wp_seo_central_pre_sort_outgoing_internal($query) {
     if (!is_admin()) {
 			return;
 		}
@@ -429,18 +429,18 @@ class Seo_Central {
 	}
 
 	//Incoming Internal URLs tracker (Premium Feature)
-	public function wp_seo_incoming_internal_column($columns) {
-		$tooltip_content = __("Internal link column: Shows the number of links pointing to this page", "textdomain");
-		$column_title = '<div class="seo-central-tooltip-column">' . __('Incoming Internal Links', 'textdomain') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
+	public function wp_seo_central_incoming_internal_column($columns) {
+		$tooltip_content = esc_html__("Internal link column: Shows the number of links pointing to this page", "seo-central-lite");
+		$column_title = '<div class="seo-central-tooltip-column">' . esc_html__('Incoming Internal Links', 'seo-central-lite') . '<div class="seo-central-tooltip-text tooltip-left"><p>' . $tooltip_content . '</p></div></div>';
 		return array_merge($columns, ['incoming-internal-links' => $column_title]);
 	}
 
 	//Create the custom column, display the amount of incoming internal links to the page
-	public function wp_seo_incoming_internal_custom_column($column_key, $post_id) {
+	public function wp_seo_central_incoming_internal_custom_column($column_key, $post_id) {
 
 		
 		if ($column_key == 'incoming-internal-links') {
-			$incoming_internals = $this->all_incoming_internals($post_id);
+			$incoming_internals = $this->seo_central_all_incoming_internals($post_id);
 			// $internals = get_post_meta($post_id, 'seo_central_outgoing_internals', true);
 			// if ($internals) {
 			// 	echo '<span>'; _e($internals, 'textdomain'); echo '</span>';
@@ -453,12 +453,12 @@ class Seo_Central {
 	}
 
 	//Sort Incoming Internal Linking 
-	public function wp_seo_incoming_internal_custom_sort($columns) {
+	public function wp_seo_central_incoming_internal_custom_sort($columns) {
 		$columns['incoming-internal-links'] = 'incoming-internal-links';
 		return $columns;
 	}
 
-	public function wp_seo_pre_sort_incoming_internal($query) {
+	public function wp_seo_central_pre_sort_incoming_internal($query) {
     if (!is_admin()) {
 			return;
 		}
@@ -471,7 +471,7 @@ class Seo_Central {
 	}
 
 	//Set the breadcrumbs on page if toggled on. 
-	public function get_breadcrumb() {
+	public function seo_central_get_breadcrumb() {
        
     // Settings
 		$breadcrumbs_toggle = get_option('seo_central_setting_breadcrumb');
@@ -484,10 +484,10 @@ class Seo_Central {
 
 		if($breadcrumbs_toggle == 'true') {
 
-			$separator          = $crumbs_separator;
+			$separator          = esc_html($crumbs_separator);
 			$breadcrumbs_id      = 'seo-central-breadcrumbs';
 			$breadcrumbs_class   = 'seo-central-breadcrumbs';
-			$home_title         = 'Home';
+			$home_title         = esc_html__('Home', 'seo-central-lite');
 				
 			// If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
 			$custom_taxonomy    = '';
@@ -530,11 +530,11 @@ class Seo_Central {
 				}
 				</style>';
 					// Build the breadcrumbs
-					echo '<ul id="' . $breadcrumbs_id . '" class="' . $breadcrumbs_class . '">';
+					echo '<ul id="' . esc_attr($breadcrumbs_id) . '" class="' . esc_attr($breadcrumbs_class) . '">';
 						 
 					// Home page
-					echo '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $home_title . '">' . $home_title . '</a></li>';
-					echo '<li class="separator separator-home"> ' . $separator . ' </li>';
+					echo '<li class="item-home"><a class="bread-link bread-home" href="' . esc_url(get_home_url()) . '" title="' . esc_attr($home_title) . '">' . $home_title . '</a></li>';
+					echo '<li class="separator separator-home"> ' . esc_html($separator) . ' </li>';
 						 
 					if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
 								
@@ -551,13 +551,13 @@ class Seo_Central {
 									$post_type_object = get_post_type_object($post_type);
 									$post_type_archive = get_post_type_archive_link($post_type);
 								
-									echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
-									echo '<li class="separator"> ' . $separator . ' </li>';
+									echo '<li class="item-cat item-custom-post-type-' . esc_attr($post_type) . '"><a class="bread-cat bread-custom-post-type-' . esc_attr($post_type) . '" href="' . esc_url($post_type_archive) . '" title="' . esc_html($post_type_object->labels->name) . '">' . esc_html($post_type_object->labels->name) . '</a></li>';
+									echo '<li class="separator"> ' . esc_html($separator) . ' </li>';
 								
 							}
 								
 							$custom_tax_name = get_queried_object()->name;
-							echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . $custom_tax_name . '</strong></li>';
+							echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . esc_html($custom_tax_name) . '</strong></li>';
 								
 					} else if ( is_single() ) {
 								
@@ -570,8 +570,8 @@ class Seo_Central {
 									$post_type_object = get_post_type_object($post_type);
 									$post_type_archive = get_post_type_archive_link($post_type);
 								
-									echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
-									echo '<li class="separator"> ' . $separator . ' </li>';
+									echo '<li class="item-cat item-custom-post-type-' . esc_attr($post_type) . '"><a class="bread-cat bread-custom-post-type-' . esc_attr($post_type) . '" href="' . esc_url($post_type_archive) . '" title="' . esc_html($post_type_object->labels->name) . '">' . esc_html($post_type_object->labels->name) . '</a></li>';
+									echo '<li class="separator"> ' . esc_html($separator) . ' </li>';
 								
 							}
 								
@@ -590,8 +590,8 @@ class Seo_Central {
 									// Loop through parent categories and store in variable $cat_display
 									$cat_display = '';
 									foreach($cat_parents as $parents) {
-											$cat_display .= '<li class="item-cat">'.$parents.'</li>';
-											$cat_display .= '<li class="separator"> ' . $separator . ' </li>';
+											$cat_display .= '<li class="item-cat">'.esc_html($parents).'</li>';
+											$cat_display .= '<li class="separator"> ' . esc_html($separator) . ' </li>';
 									}
 							 
 							}
@@ -611,25 +611,25 @@ class Seo_Central {
 							// Check if the post is in a category
 							if(!empty($last_category)) {
 									echo $cat_display;
-									echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+									echo '<li class="item-current item-' . esc_attr($post->ID) . '"><strong class="bread-current bread-' . esc_attr($post->ID) . '" title="' . esc_html(get_the_title()) . '">' . esc_html(get_the_title()) . '</strong></li>';
 										
 							// Else if post is in a custom taxonomy
 							} else if(!empty($cat_id)) {
 										
-									echo '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" title="' . $cat_name . '">' . $cat_name . '</a></li>';
-									echo '<li class="separator"> ' . $separator . ' </li>';
-									echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+									echo '<li class="item-cat item-cat-' . esc_attr($cat_id) . ' item-cat-' . esc_attr($cat_nicename) . '"><a class="bread-cat bread-cat-' . esc_attr($cat_id) . ' bread-cat-' . esc_attr($cat_nicename) . '" href="' . esc_url($cat_link) . '" title="' . esc_html($cat_name) . '">' . esc_html($cat_name) . '</a></li>';
+									echo '<li class="separator"> ' . esc_html($separator) . ' </li>';
+									echo '<li class="item-current item-' . esc_attr($post->ID) . '"><strong class="bread-current bread-' . esc_attr($post->ID) . '" title="' . esc_html(get_the_title()) . '">' . esc_html(get_the_title()) . '</strong></li>';
 								
 							} else {
 										
-									echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+									echo '<li class="item-current item-' . esc_attr($post->ID) . '"><strong class="bread-current bread-' . esc_attr($post->ID) . '" title="' . esc_html(get_the_title()) . '">' . esc_html(get_the_title()) . '</strong></li>';
 										
 							}
 								
 					} else if ( is_category() ) {
 								 
 							// Category page
-							echo '<li class="item-current item-cat"><strong class="bread-current bread-cat">' . single_cat_title('', false) . '</strong></li>';
+							echo '<li class="item-current item-cat"><strong class="bread-current bread-cat">' . esc_html(single_cat_title('', false)) . '</strong></li>';
 								 
 					} else if ( is_page() ) {
 								 
@@ -645,20 +645,20 @@ class Seo_Central {
 									// Parent page loop
 									if ( !isset( $parents ) ) $parents = null;
 									foreach ( $anc as $ancestor ) {
-											$parents .= '<li class="item-parent item-parent-' . $ancestor . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '">' . get_the_title($ancestor) . '</a></li>';
-											$parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
+											$parents .= '<li class="item-parent item-parent-' . esc_attr($ancestor) . '"><a class="bread-parent bread-parent-' . esc_attr($ancestor) . '" href="' . esc_url(get_permalink($ancestor)) . '" title="' . esc_html(get_the_title($ancestor)) . '">' . esc_html(get_the_title($ancestor)) . '</a></li>';
+											$parents .= '<li class="separator separator-' . esc_attr($ancestor) . '"> ' . esc_html($separator) . ' </li>';
 									}
 										 
 									// Display parent pages
 									echo $parents;
 										 
 									// Current page
-									echo '<li class="item-current item-' . $post->ID . '"><strong title="' . get_the_title() . '"> ' . get_the_title() . '</strong></li>';
+									echo '<li class="item-current item-' . esc_attr($post->ID) . '"><strong title="' . esc_html(get_the_title()) . '"> ' . esc_html(get_the_title()) . '</strong></li>';
 										 
 							} else {
 										 
 									// Just display current page if not parents
-									echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '"> ' . get_the_title() . '</strong></li>';
+									echo '<li class="item-current item-' . esc_attr($post->ID) . '"><strong class="bread-current bread-' . esc_attr($post->ID) . '"> ' . esc_html(get_the_title()) . '</strong></li>';
 										 
 							}
 								 
@@ -676,38 +676,38 @@ class Seo_Central {
 							$get_term_name  = $terms[0]->name;
 								 
 							// Display the tag name
-							echo '<li class="item-current item-tag-' . $get_term_id . ' item-tag-' . $get_term_slug . '"><strong class="bread-current bread-tag-' . $get_term_id . ' bread-tag-' . $get_term_slug . '">' . $get_term_name . '</strong></li>';
+							echo '<li class="item-current item-tag-' . esc_attr($get_term_id) . ' item-tag-' . esc_attr($get_term_slug) . '"><strong class="bread-current bread-tag-' . esc_attr($get_term_id) . ' bread-tag-' . esc_attr($get_term_slug) . '">' . esc_html($get_term_name) . '</strong></li>';
 						 
 					} elseif ( is_day() ) {
 								 
 							// Day archive
 								 
 							// Year link
-							echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
-							echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $separator . ' </li>';
+							echo '<li class="item-year item-year-' . esc_attr(get_the_time('Y')) . '"><a class="bread-year bread-year-' . esc_attr(get_the_time('Y')) . '" href="' . esc_url(get_year_link(get_the_time('Y'))) . '" title="' . esc_attr(get_the_time('Y')) . '">' . esc_html(get_the_time('Y')) . ' Archives</a></li>';
+							echo '<li class="separator separator-' . esc_attr(get_the_time('Y')) . '"> ' . esc_html($separator) . ' </li>';
 								 
 							// Month link
-							echo '<li class="item-month item-month-' . get_the_time('m') . '"><a class="bread-month bread-month-' . get_the_time('m') . '" href="' . get_month_link( get_the_time('Y'), get_the_time('m') ) . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</a></li>';
-							echo '<li class="separator separator-' . get_the_time('m') . '"> ' . $separator . ' </li>';
+							echo '<li class="item-month item-month-' . esc_attr(get_the_time('m')) . '"><a class="bread-month bread-month-' . esc_attr(get_the_time('m')) . '" href="' . esc_url(get_month_link(get_the_time('Y'), get_the_time('m'))) . '" title="' . esc_attr(get_the_time('M')) . '">' . esc_html(get_the_time('M')) . ' Archives</a></li>';
+							echo '<li class="separator separator-' . esc_attr(get_the_time('m')) . '"> ' . esc_html($separator) . ' </li>';
 								 
 							// Day display
-							echo '<li class="item-current item-' . get_the_time('j') . '"><strong class="bread-current bread-' . get_the_time('j') . '"> ' . get_the_time('jS') . ' ' . get_the_time('M') . ' Archives</strong></li>';
+							echo '<li class="item-current item-' . esc_attr(get_the_time('j')) . '"><strong class="bread-current bread-' . esc_attr(get_the_time('j')) . '"> ' . esc_html(get_the_time('jS')) . ' ' . esc_html(get_the_time('M')) . ' Archives</strong></li>';
 								 
 					} else if ( is_month() ) {
 								 
 							// Month Archive
 								 
 							// Year link
-							echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
-							echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $separator . ' </li>';
+							echo '<li class="item-year item-year-' . esc_attr(get_the_time('Y')) . '"><a class="bread-year bread-year-' . esc_attr(get_the_time('Y')) . '" href="' . esc_url(get_year_link(get_the_time('Y'))) . '" title="' . esc_attr(get_the_time('Y')) . '">' . esc_html(get_the_time('Y')) . ' Archives</a></li>';
+							echo '<li class="separator separator-' . esc_attr(get_the_time('Y')) . '"> ' . esc_html($separator) . ' </li>';
 								 
 							// Month display
-							echo '<li class="item-month item-month-' . get_the_time('m') . '"><strong class="bread-month bread-month-' . get_the_time('m') . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</strong></li>';
+							echo '<li class="item-month item-month-' . esc_attr(get_the_time('m')) . '"><strong class="bread-month bread-month-' . esc_attr(get_the_time('m')) . '" title="' . esc_html(get_the_time('M')) . '">' . esc_html(get_the_time('M')) . ' Archives</strong></li>';
 								 
 					} else if ( is_year() ) {
 								 
 							// Display year archive
-							echo '<li class="item-current item-current-' . get_the_time('Y') . '"><strong class="bread-current bread-current-' . get_the_time('Y') . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</strong></li>';
+							echo '<li class="item-current item-current-' . esc_attr(get_the_time('Y')) . '"><strong class="bread-current bread-current-' . esc_attr(get_the_time('Y')) . '" title="' . esc_html(get_the_time('Y')) . '">' . esc_html(get_the_time('Y')) . ' Archives</strong></li>';
 								 
 					} else if ( is_author() ) {
 								 
@@ -718,22 +718,22 @@ class Seo_Central {
 							$userdata = get_userdata( $author );
 								 
 							// Display author name
-							echo '<li class="item-current item-current-' . $userdata->user_nicename . '"><strong class="bread-current bread-current-' . $userdata->user_nicename . '" title="' . $userdata->display_name . '">' . 'Author: ' . $userdata->display_name . '</strong></li>';
+							echo '<li class="item-current item-current-' . esc_attr($userdata->user_nicename) . '"><strong class="bread-current bread-current-' . esc_attr($userdata->user_nicename) . '" title="' . esc_html($userdata->display_name) . '">' . esc_html('Author: ' . $userdata->display_name) . '</strong></li>';
 						 
 					} else if ( get_query_var('paged') ) {
 								 
 							// Paginated archives
-							echo '<li class="item-current item-current-' . get_query_var('paged') . '"><strong class="bread-current bread-current-' . get_query_var('paged') . '" title="Page ' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</strong></li>';
+							echo '<li class="item-current item-current-' . esc_attr(get_query_var('paged')) . '"><strong class="bread-current bread-current-' . esc_attr(get_query_var('paged')) . '" title="' . __('Page') . ' ' . esc_html(get_query_var('paged')) . '">' . __('Page') . ' ' . esc_html(get_query_var('paged')) . '</strong></li>';
 								 
 					} else if ( is_search() ) {
 						 
 							// Search results page
-							echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Search results for: ' . get_search_query() . '">Search results for: ' . get_search_query() . '</strong></li>';
+							echo '<li class="item-current item-current-search"><strong class="bread-current bread-current-search" title="' . esc_attr__('Search results for: ', 'your-theme-textdomain') . esc_html(get_search_query()) . '">' . esc_html__('Search results for: ', 'your-theme-textdomain') . esc_html(get_search_query()) . '</strong></li>';
 						 
 					} elseif ( is_404() ) {
 								 
 							// 404 page
-							echo '<li>' . 'Error 404' . '</li>';
+							echo '<li>' . esc_html('Error 404') . '</li>';
 					}
 				 
 					echo '</ul>';
@@ -751,7 +751,7 @@ class Seo_Central {
 	 * @param int $page_id The ID of the target page.
 	 * @return array An array of internal link URLs.
 	*/
-	public function all_incoming_internals($page_id) {
+	public function seo_central_all_incoming_internals($page_id) {
 		global $wpdb;
 
 		$post_ID = $page_id;
@@ -839,13 +839,13 @@ class Seo_Central {
 		}
 	}
 
-	public function update_internals_count($post_ID, $post, $update) {
+	public function seo_central_update_internals_count($post_ID, $post, $update) {
     // Check if we're in the middle of a save process, or if this is an autosave or a revision.
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || wp_is_post_revision($post_ID) || wp_is_post_autosave($post_ID)) {
         return;
     }
 
     // Call your function to update the count
-    $this->all_incoming_internals($post_ID);
+    $this->seo_central_all_incoming_internals($post_ID);
 	}
 }

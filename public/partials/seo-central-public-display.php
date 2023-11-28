@@ -185,34 +185,36 @@
 
   <!-- Pass the Site name and the meta title -->
   <?php if (isset($post_meta['seo_central_meta_title'][0]) && !empty($post_meta['seo_central_meta_title'][0])): ?>
-    <title><?php echo $post_meta['seo_central_meta_title'][0]; ?> <?php echo get_option('seo_central_setting_crumbseparator'); ?> <?php echo get_bloginfo( 'name' ); ?></title>
-    <meta name='og:title' content="<?php echo $post_meta['seo_central_meta_title'][0]; ?>">
+    <title>
+      <?php echo esc_html($post_meta['seo_central_meta_title'][0]); ?> <?php echo esc_html(get_option('seo_central_setting_crumbseparator')); ?> <?php echo esc_html(get_bloginfo( 'name' )); ?>
+    </title>
+    <meta name='og:title' content="<?php echo esc_html($post_meta['seo_central_meta_title'][0]); ?>">
   <?php elseif (isset($post_meta['seo_central_meta_title'][0]) && empty($post_meta['seo_central_meta_title'][0])): ?>
-    <title><?php echo get_bloginfo( 'name' ); ?></title>
+    <title><?php echo esc_html(get_bloginfo( 'name' )); ?></title>
   <?php endif; ?>
 
 <?php endif; ?>
 
 <!-- Meta Description -->
 <?php if (isset($post_meta['seo_central_meta_description'][0]) && !empty($post_meta['seo_central_meta_description'][0])): ?>
-  <meta name='description' content="<?php echo $post_meta['seo_central_meta_description'][0]; ?>">
-  <meta name='og:description' content="<?php echo $post_meta['seo_central_meta_description'][0]; ?>">
+  <meta name='description' content="<?php echo esc_attr($post_meta['seo_central_meta_description'][0]); ?>">
+  <meta name='og:description' content="<?php echo esc_attr($post_meta['seo_central_meta_description'][0]); ?>">
 <?php endif; ?>
 
 <!-- Language -->
-<meta name='og:local' content="<?php echo get_bloginfo( 'language' ); ?>">
+<meta name='og:local' content="<?php echo esc_attr(get_bloginfo( 'language' )); ?>">
 
 <!-- Canonical URL -->
-<meta name='og:url' content="<?php echo wp_get_canonical_url(); ?>">
+<meta name='og:url' content="<?php echo esc_url(wp_get_canonical_url()); ?>">
 
 <!-- Site Name -->
-<meta name='og:site_name' content="<?php echo get_bloginfo( 'name' ); ?>">
+<meta name='og:site_name' content="<?php echo esc_attr(get_bloginfo( 'name' )); ?>">
 
 <!-- Social Image (Defaults to settings site image if empty) -->
 <?php if (isset($post_meta['seo_central_social_image'][0]) && !empty($post_meta['seo_central_social_image'][0])): ?>
-  <meta property="og:image" content="<?php echo $post_meta['seo_central_social_image'][0]; ?>">
+  <meta property="og:image" content="<?php echo esc_url($post_meta['seo_central_social_image'][0]); ?>">
 <?php elseif (get_option('seo_central_setting_image')): ?>
-  <meta property="og:image" content="<?php echo get_option('seo_central_setting_image'); ?>">
+  <meta property="og:image" content="<?php echo esc_url(get_option('seo_central_setting_image')); ?>">
 <?php endif; ?>
 
 <!-- Social Title -->
@@ -223,24 +225,24 @@
 <!-- Robots Radio Checks -->
 <?php if (isset($post_meta['seo_central_robot_index'][0]) && isset($post_meta['seo_central_robot_follow'][0])): ?>
   <?php if ($post_meta['seo_central_robot_index'][0] == 'yes' && $post_meta['seo_central_robot_follow'][0] == 'yes'): ?>
-    <meta name='robots' content='<?php echo 'index, follow'; ?>'>
+    <meta name='robots' content='<?php echo esc_attr('index, follow'); ?>'>
   <?php elseif ($post_meta['seo_central_robot_index'][0] == 'yes' && $post_meta['seo_central_robot_follow'][0] == 'no'): ?>
-    <meta name='robots' content='<?php echo 'index'; ?>'>
+    <meta name='robots' content='<?php echo esc_attr('index'); ?>'>
   <?php elseif ($post_meta['seo_central_robot_index'][0] == 'no' && $post_meta['seo_central_robot_follow'][0] == 'yes'): ?>
-    <meta name='robots' content='<?php echo 'follow'; ?>'>
+    <meta name='robots' content='<?php echo esc_attr('follow'); ?>'>
   <?php elseif ($post_meta['seo_central_robot_index'][0] == 'no' && $post_meta['seo_central_robot_follow'][0] == 'no'): ?>
-    <meta name='robots' content='<?php echo 'none'; ?>'>
+    <meta name='robots' content='<?php echo esc_attr('none'); ?>'>
   <?php endif; ?>
 <?php endif; ?>
 
 <!-- Google Verification -->
 <?php if ($google): ?>
-  <meta name="google-site-verification" content='<?php echo $google; ?>' />
+  <meta name="google-site-verification" content='<?php echo esc_attr($google); ?>' />
 <?php endif; ?>
 
 <!-- Bing Verfication -->
 <?php if ($bing): ?>
-  <meta name="bing-site-verification" content='<?php echo $bing; ?>' />
+  <meta name="bing-site-verification" content='<?php echo esc_attr($bing); ?>' />
 <?php endif; ?>
 
 

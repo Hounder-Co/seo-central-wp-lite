@@ -114,7 +114,4 @@ If you have not found the question and answer you are looking for here visit our
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
 ### Other

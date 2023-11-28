@@ -273,7 +273,7 @@ class Seo_Central_Sitemaps {
       return;
     }
 
-    $path = \sanitize_text_field( \wp_unslash( $_SERVER['REQUEST_URI'] ) );
+    $path = esc_url_raw(wp_unslash( $_SERVER['REQUEST_URI'] ));
 		
 		if ( '/wp-sitemap.xml' === $path ) {
 			return str_replace( '/wp-sitemap.xml', '/central-sitemap.xml', $url );
@@ -293,7 +293,7 @@ class Seo_Central_Sitemaps {
       return;
     }
 
-    $path = \sanitize_text_field( \wp_unslash( $_SERVER['REQUEST_URI'] ) );
+    $path = esc_url_raw(wp_unslash( $_SERVER['REQUEST_URI'] ));
 
     if(\substr( $path, 0, 11 ) !== '/wp-sitemap') {
       return;

@@ -16,34 +16,6 @@
 //Load up this function to access media library in settings file
 wp_enqueue_media();
 
-//Retrieve all the post types to edit on the settings pages
-function menuPostTypes() {
-  $args = array(
-    'public'   => true,
-    // '_builtin' => false, //false (grabs only custom types) true (grabs only default types)
-  );
-  
-  $output = 'names'; // names or objects, note names is the default
-  $operator = 'and'; // 'and' or 'or'
-  
-  $post_types = get_post_types( $args, $output, $operator ); 
-  $posts_string = '<li class="seo-central-settings-nav-dropdown-item active-item">' . 'Site Basics' . '</li>';
-  
-  foreach ( $post_types  as $post_type ) {
-  
-    if($post_type != 'attachment') {
-
-      if(str_contains($post_type, '_')) {
-        $post_type = str_replace('_', ' ', $post_type);
-      }
-      $posts_string .= '<li class="seo-central-settings-nav-dropdown-item">' . ucwords($post_type) . '</li>';
-    }
-  } 
-
-  return $posts_string;
-}
-
-
 // Create a custom do_settings function with the Settings page format for seo central
 function seo_central_do_settings_sections( $page ) {
 	global $wp_settings_sections, $wp_settings_fields;
@@ -82,16 +54,16 @@ function seo_central_do_settings_sections( $page ) {
       $modal_post = $modal_post . 's';
     }
 
-    $modal_description = $section['title'] ? 'Make sure your '. $modal_post .' don\'t show up empty! Here\'s where you can set their default inputs.' : 'The basics - this section will affect your site as a whole.';
+    $modal_description = $section['title'] ? 'Make sure your '. esc_html($modal_post) .' don\'t show up empty! Here\'s where you can set their default inputs.' : 'The basics - this section will affect your site as a whole.';
 
-		echo "<table class='form-table {$table_class}' role='presentation'>";
+		echo "<table class='form-table " . esc_attr($table_class) . "' role='presentation'>";
     echo '<thead class="form-table-top-head">';
 
     if ( $section['title'] ) {
-      echo "<tr><th><h2 class='form-table-top-head-title'>{$section['title']}</h2></th> <th class='form-table-top-head-end'><span class='form-table-pop-up-block'>Info</span><div class='form-table-collapse-arrow'></div></th></tr>";
+      echo "<tr><th><h2 class='form-table-top-head-title'>" . esc_html($section['title']) . "</h2></th> <th class='form-table-top-head-end'><span class='form-table-pop-up-block'>Info</span><div class='form-table-collapse-arrow'></div></th></tr>";
     }
     else {
-      echo "<tr><th><h2 class='form-table-top-head-title'>". __('Site Basics', 'seo-central-lite') ."</h2></th> <th class='form-table-top-head-end'><span class='form-table-pop-up-block'>Info</span><div class='form-table-collapse-arrow'></div></th></tr>";
+      echo "<tr><th><h2 class='form-table-top-head-title'>". esc_html__('Site Basics', 'seo-central-lite') ."</h2></th> <th class='form-table-top-head-end'><span class='form-table-pop-up-block'>Info</span><div class='form-table-collapse-arrow'></div></th></tr>";
     }
     echo '</thead>';
 		seo_central_do_settings_fields( $page, $section['id'] );
@@ -102,8 +74,9 @@ function seo_central_do_settings_sections( $page ) {
     echo '<dialog class="seo-central-dialog">';
     echo '<div class="seo-central-dialog-popup">';
     echo '<div class="seo-central-dialog-popup-close-row"><button class="seo-central-dialog-popup-close-button"></button></div>';
-    echo '<div class="seo-central-dialog-popup-body"><img class="seo-central-dialog-popup-body-image" src="https://picsum.photos/600">';
-    echo "<div class='seo-central-dialog-popup-body-content'><h3 class='seo-central-dialog-popup-body-title'>What are {$modal_title}?</h3><p class='seo-central-dialog-popup-body-description'>" . __( $modal_description, 'seo-central-lite' ) . "</p><button class='seo-central-button-small seo-central-button-secondary'>Learn more</button></div></div>";
+    echo '<div class="seo-central-dialog-popup-body">';
+    // echo '<img class="seo-central-dialog-popup-body-image" src="https://picsum.photos/600">';
+    echo "<div class='seo-central-dialog-popup-body-content'><h3 class='seo-central-dialog-popup-body-title'>What are " . esc_html($modal_title) . "?</h3><p class='seo-central-dialog-popup-body-description'>" . esc_html__($modal_description, 'seo-central-lite') . "</p><button class='seo-central-button-small seo-central-button-secondary'>Learn more</button></div></div>";
     echo '</div>';
     echo '</dialog>';
 
@@ -130,18 +103,18 @@ function seo_central_do_settings_fields( $page, $section ) {
 		}
 
     if($field['id'] == 'seo_central_setting_breadcrumb'){
-      $class = ' class="' . 'seo-central-breadcrumb-layout' . '"';
+      $class = ' class="' . esc_attr('seo-central-breadcrumb-layout') . '"';
     }
     else if($field['id'] == 'seo_central_setting_crumbseparator'){
-      $class = ' class="' . 'seo-central-seperator-layout' . '"';
+      $class = ' class="' . esc_attr('seo-central-seperator-layout') . '"';
     }
 
 		echo "<tr{$class}>";
 
 		if ( ! empty( $field['args']['label_for'] ) ) {
-			echo '<th scope="row"><label class="seo-central-label" for="' . esc_attr( $field['args']['label_for'] ) . '">' . $field['title'] . '<span class="seo-central-tooltip"><span class="seo-central-tooltip-text tooltip-right">' . esc_attr( $field['args']['description'] ) . '</span></span></label></th>';
+			echo '<th scope="row"><label class="seo-central-label" for="' . esc_attr( $field['args']['label_for'] ) . '">' . esc_html($field['title']) . '<span class="seo-central-tooltip"><span class="seo-central-tooltip-text tooltip-right">' . esc_html( $field['args']['description'] ) . '</span></span></label></th>';
 		} else {
-			echo '<th scope="row">' . $field['title'] . '</th>';
+			echo '<th scope="row">' . esc_html($field['title']) . '</th>';
 		}
 
 		echo '<td>';
@@ -163,9 +136,9 @@ function seo_central_do_settings_fields( $page, $section ) {
 
       <div class='seo-central-settings-form-submit-wrapper'>
 
-        <h2 class='seo-central-settings-form-submit-title'><?php echo __('Dashboard', 'seo-central-lite'); ?></h2>
+        <h2 class='seo-central-settings-form-submit-title'><?php echo esc_html__('Dashboard', 'seo-central-lite'); ?></h2>
         <div class='seo-central-settings-form-top-save-wrapper'>
-          <p class='seo-central-settings-update-alert'><span class='seo-central-warning-icon icon-red'></span><?php echo __('You have unsaved changes', 'seo-central-lite'); ?> </p>
+          <p class='seo-central-settings-update-alert'><span class='seo-central-warning-icon icon-red'></span><?php echo esc_html__('You have unsaved changes', 'seo-central-lite'); ?> </p>
           <?php submit_button(); ?>
         </div>
         
@@ -183,7 +156,7 @@ function seo_central_do_settings_fields( $page, $section ) {
         ?>
 
       <div class='seo-central-settings-form-bottom-save-wrapper'>
-        <p class='seo-central-settings-update-alert'><span class='seo-central-warning-icon icon-red'></span> <?php echo __('You have unsaved changes', 'seo-central-lite'); ?></p>
+        <p class='seo-central-settings-update-alert'><span class='seo-central-warning-icon icon-red'></span> <?php echo esc_html__('You have unsaved changes', 'seo-central-lite'); ?></p>
         <?php submit_button(); ?>
       </div>
 
