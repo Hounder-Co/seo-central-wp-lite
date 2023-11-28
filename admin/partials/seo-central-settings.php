@@ -16,34 +16,6 @@
 //Load up this function to access media library in settings file
 wp_enqueue_media();
 
-//Retrieve all the post types to edit on the settings pages
-// function menuPostTypes() {
-//   $args = array(
-//     'public'   => true,
-//     // '_builtin' => false, //false (grabs only custom types) true (grabs only default types)
-//   );
-  
-//   $output = 'names'; // names or objects, note names is the default
-//   $operator = 'and'; // 'and' or 'or'
-  
-//   $post_types = get_post_types( $args, $output, $operator ); 
-//   $posts_string = '<li class="seo-central-settings-nav-dropdown-item active-item">' . 'Site Basics' . '</li>';
-  
-//   foreach ( $post_types  as $post_type ) {
-  
-//     if($post_type != 'attachment') {
-
-//       if(str_contains($post_type, '_')) {
-//         $post_type = str_replace('_', ' ', $post_type);
-//       }
-//       $posts_string .= '<li class="seo-central-settings-nav-dropdown-item">' . ucwords($post_type) . '</li>';
-//     }
-//   } 
-
-//   return $posts_string;
-// }
-
-
 // Create a custom do_settings function with the Settings page format for seo central
 function seo_central_do_settings_sections( $page ) {
 	global $wp_settings_sections, $wp_settings_fields;
